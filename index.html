@@ -3660,7 +3660,6 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-todo="esim"><span>購買日本 eSIM</span></label></li>
           <li><label><input type="checkbox" data-todo="ic"><span>iPhone 錢包加 Suica／ICOCA 並儲值</span></label></li>
           <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（約 17:00）</span></label></li>
-          <li><label><input type="checkbox" data-todo="luggage"><span>決定 D2 大件行李怎麼處理（宅急便或東京站置物櫃）</span></label></li>
           <li><label><input type="checkbox" data-todo="tour"><span>嵐山一日遊集合資訊截圖（D5 07:45 八條口）</span></label></li>
           <li><label><input type="checkbox" data-todo="haruka"><span>買 HARUKA／ICOCA &amp; HARUKA（D7）</span></label></li>
           <li><label><input type="checkbox" data-todo="cash"><span>換日圓現金（御守、御朱印、小店）</span></label></li>
@@ -3858,7 +3857,7 @@ const itineraryData = [
         time: "07:15",
         place: "早餐：新橋飯店附近",
         description: "",
-        note: "07:50 前出發，今天一路往東、傍晚接新幹線。",
+        note: "07:50 前出發，今天一路往東、晚上接新幹線。",
         foods: []
       },
       {
@@ -3936,30 +3935,40 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=Kanda+Ogawamachi+sports+shops",
         hours: "多數店 11:00–20:00（各店不同）",
         description: "",
-        note: "靖國通上二十多家滑雪、登山用品店；16:30 前離開去東京站",
+        note: "靖國通上二十多家滑雪、登山用品店；17:45 前離開",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "18:15",
+        place: "晚餐：待定",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "19:15",
+        place: "回新橋飯店拿行李",
+        level: "minor",
+        mapLink: "https://maps.google.com/?q=Daiwa+Roynet+Hotel+Shimbashi",
+        description: "",
+        note: "Daiwa Roynet 新橋",
         foods: []
       },
       {
         type: "transit",
-        time: "17:00",
+        time: "19:45",
         from: "東京",
         to: "京都",
         flightNo: "東海道新幹線",
-        timeRange: "17:00 – 19:15",
+        timeRange: "19:45 – 22:00",
         dualTime: true,
-        note: "時間是估的，還沒買票；淡路町到東京站約 10 分。のぞみ約 2 小時 15 分。"
+        note: "時間是估的，還沒買票；新橋到東京站 JR 一站。のぞみ約 2 小時 15 分。"
       },
       {
         type: "fixed",
-        time: "車上",
-        place: "晚餐：新幹線上吃鐵路便當",
-        description: "",
-        note: "東京站「駅弁屋 祭」選擇最多，上車前買。",
-        foods: []
-      },
-      {
-        type: "fixed",
-        time: "19:45",
+        time: "22:30",
         place: "飯店 Check in · OMO5 京都三条",
         level: "minor",
         transit: [{ mode: "car", text: "計程車 15 分" }, { mode: "mrt", text: "地鐵 20 分" }],
@@ -3991,9 +4000,8 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "大件行李：今天要在東京跑一整天再搭新幹線，建議早上請新橋飯店幫忙寄宅急便到 OMO5 京都三条（通常隔天送到，要確認），或寄放東京站的大型置物櫃。",
       "D2 的東京五站維持原本的順序：豪德寺 → 小網神社 → 今戶神社 → 東大 → 小川町。",
-      "新幹線還沒買票：可以用 smart EX 先訂，或當天在東京站買；週日傍晚往西的班次人多，建議先訂指定席。"
+      "新幹線還沒買票：可以用 smart EX 先訂，或當天在東京站買；週日晚上往西的班次人多，建議先訂指定席。"
     ]
   },
   {
