@@ -3480,6 +3480,16 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
 .day-view .ixc__body p a { color: var(--dtext); text-decoration: none; border-bottom: 1px dotted currentColor; }
 .day-view .ixc__actions { margin-top: 14px; }
 @media (prefers-reduced-motion: reduce) { .day-view .ixc__chev { transition: none; } }
+/* 城市頁 Days 小卡：亮一階的代表色 */
+.city-view .city-day-chip[data-phase="arrive"] { --chip: #4f8fd0; }
+.city-view .city-day-chip[data-phase="tokyo"] { --chip: #c8961c; }
+.city-view .city-day-chip[data-phase="free"] { --chip: #7d5cc0; }
+.city-view .city-day-chip[data-phase="fushimi"] { --chip: #d8402c; }
+.city-view .city-day-chip[data-phase="arashi"] { --chip: #2f9478; }
+.city-view .city-day-chip[data-phase="kiyomizu"] { --chip: #c8346a; }
+.city-view .city-day-chip[data-phase="depart"] { --chip: #4f8fd0; }
+.city-view .city-day-chip[data-phase] .city-day-chip__d, .city-view .city-day-chip[data-phase] .city-day-chip__loc { color: var(--chip); }
+.city-view .city-day-chip[data-phase] { background: linear-gradient(180deg, color-mix(in srgb, var(--chip) 13%, #fffdf8), #fffdf8 70%); }
 
 /* 出發清單 */
 .quick-nav__check { margin-top: 14px; }
@@ -3790,7 +3800,7 @@ const itineraryData = [
     phase: "arrive",
     title: "台北 → 東京",
     subtitle: "JX804 傍晚抵達 · 入住新橋",
-    routeCode: "TPE → TYO",
+    routeCode: "TPE → NRT",
     coverImage: "images/kyoto/day1-shimbashi.jpg",
     coverAlt: "新橋站前的夜晚",
     hotel: { name: "Daiwa Roynet Hotel 新橋", mapLink: "https://maps.google.com/?q=Daiwa+Roynet+Hotel+Shimbashi" },
@@ -3807,7 +3817,7 @@ const itineraryData = [
         type: "transit",
         time: "15:00",
         from: "TPE",
-        to: "TYO",
+        to: "NRT",
         flightNo: "JX804",
         timeRange: "15:00 – 19:25",
         dualTime: true,
@@ -4036,6 +4046,15 @@ const itineraryData = [
       },
       {
         type: "fixed",
+        time: "待定",
+        place: "🎨 水彩速寫：金閣寺・清水寺",
+        level: "main",
+        description: "",
+        note: "看照片畫（不在現場）；時間、地點等老師通知",
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "12:30",
         place: "中餐：待定",
         description: "",
@@ -4048,7 +4067,7 @@ const itineraryData = [
         place: "晚餐：跟大家吃飯",
         level: "main",
         description: "",
-        note: "地點待定；某處集合，一起畫金閣寺、聊清水寺",
+        note: "地點待定",
         tip: { icon: "💡", title: "小提醒", steps: ["清水寺秋季夜間特別拜觀 11/21–11/30，今晚是最後一天（最後入場 21:00）", "D6 和服日只會在白天去清水寺，想看夜楓今晚是唯一機會"] },
         foods: []
       }
@@ -4129,6 +4148,16 @@ const itineraryData = [
         note: "千本鳥居入口人最多，往上爬到四ツ辻約 30–45 分，人會少很多、還看得到京都市景",
         photoSpots: [{ name: "千本鳥居", info: "兩條並排的鳥居隧道；往裡面多走幾步，等前面人走過再拍，就有一整排朱紅鳥居沒有人", mapLink: "https://maps.google.com/?q=Senbon+Torii+Fushimi+Inari" }],
         tip: { icon: "💡", title: "小提醒", steps: ["繞完整座稻荷山約 2–3 小時，下午沒排行程可以爬到四ツ辻再折返", "鳥居背面寫著奉納者的名字和日期"] },
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "待定",
+        place: "🎨 水彩速寫：伏見稻荷",
+        level: "main",
+        description: "",
+        mapLink: "https://maps.google.com/?q=Fushimi+Inari+Taisha",
+        note: "時間等老師通知",
         foods: []
       },
       {
@@ -4246,6 +4275,17 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=Hozugawa+River+Boat+Ride",
         description: "",
         note: "從龜岡順流而下到嵐山，約 2 小時；河上風大，多穿一件",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "待定",
+        place: "🎨 水彩速寫：嵐山渡月橋",
+        area: "嵐山一日遊（跟團）",
+        level: "main",
+        description: "",
+        mapLink: "https://maps.google.com/?q=Togetsukyo+Bridge+Arashiyama",
+        note: "時間等老師通知",
         foods: []
       },
       {
