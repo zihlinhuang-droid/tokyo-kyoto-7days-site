@@ -2687,6 +2687,15 @@ body {
 }
 .tl-area__sub { font-family: var(--font-sans); font-size: 11.5px; color: color-mix(in srgb, var(--accent) 70%, #3a2a18); }
 .tl-area:not(.tl-area--timed) .trip-card__time { visibility: hidden; }
+/* 收折群組（例如離團後不參加的跟團行程） */
+.tl-fold { position: relative; z-index: 2; margin: 8px 0 6px 54px; }
+.tl-fold__sum { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 12.5px; color: color-mix(in srgb, var(--accent) 60%, #6b5a48); background: rgba(255,255,255,.7); border: 1px dashed color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 10px; padding: 7px 12px; }
+.tl-fold__sum::-webkit-details-marker { display: none; }
+.tl-fold__sum::before { content: "▸"; font-size: 11px; transition: transform .2s; }
+.tl-fold[open] > .tl-fold__sum::before { transform: rotate(90deg); }
+.tl-fold__label { font-weight: 700; letter-spacing: .04em; }
+.tl-fold__count { margin-left: auto; font-size: 11px; opacity: .75; }
+.tl-fold__body { margin-left: -54px; padding-top: 4px; opacity: .72; }
 /* 時段小標：上午／中午／下午／晚上 */
 .tl-sec {                       /* 時段小標：小膠囊壓在時間線上，右側拉一條淡分隔線 */
   position: relative;
@@ -3592,6 +3601,14 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
         </span>
         <span class="quick-nav__arrow">›</span>
       </button>
+      <button class="quick-nav__pretrip quick-nav__check quick-nav__ov" type="button" id="btnOverview">
+        <span class="quick-nav__thumb"><svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="64" height="48" fill="#f3ecfa"/><rect x="12" y="8" width="40" height="32" rx="2" fill="#fffdf8" stroke="#c9a24a" stroke-width="1"/><rect x="12" y="8" width="8" height="32" fill="#f4e9d2"/><rect x="20" y="8" width="8" height="6" fill="#4f8fd0"/><rect x="28" y="8" width="8" height="6" fill="#c8961c"/><rect x="36" y="8" width="8" height="6" fill="#7d5cc0"/><rect x="44" y="8" width="8" height="6" fill="#d8402c"/><path d="M12 14 H52 M12 22.5 H52 M12 31 H52 M20 8 V40 M28 8 V40 M36 8 V40 M44 8 V40" stroke="#e3cf9e" stroke-width=".7"/><rect x="22" y="16" width="5" height="1.6" rx=".8" fill="#b8a888"/><rect x="30" y="24.5" width="5" height="1.6" rx=".8" fill="#b8a888"/><rect x="38" y="16" width="5" height="1.6" rx=".8" fill="#b8a888"/><rect x="46" y="33" width="5" height="1.6" rx=".8" fill="#b8a888"/><rect x="29.5" y="32.5" width="6" height="5" rx="1" fill="none" stroke="#a29483" stroke-width=".7" stroke-dasharray="1.2 1"/></svg></span>
+        <span class="quick-nav__label">
+          <span class="quick-nav__label-en">Overview</span>
+          <span class="quick-nav__label-zh">行程總覽</span>
+        </span>
+        <span class="quick-nav__arrow">›</span>
+      </button>
     </section>
 
     <!-- City list (TOC style, replaces former 3-button quick nav) -->
@@ -4033,7 +4050,13 @@ const itineraryData = [
         place: "早餐：三条附近",
         description: "",
         note: "待定。",
-        foods: []
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "Smart Coffee（スマート珈琲店）", info: "★4.3 · 週一 08:00–19:00 · 離 OMO5 走路約 4 分 · 寺町通的老喫茶，評論最常提法式吐司、焦糖布丁、蛋三明治；評論提過早上要早點去排", mapLink: "https://maps.google.com/?cid=4515862979063215810" },
+          { name: "百春", info: "★4.5 · 週一 11:00–17:00（週二、四休）· 離 OMO5 走路約 10 分 · 二樓安靜小店，厚蛋三明治和法式吐司最多人推；評論提過蛋三明治下午就賣完。⚠ 11:00 才開，跟 12:30 的豬一很近", mapLink: "https://maps.google.com/?cid=4873027050328558852" },
+          { name: "Lignum", info: "★4.2 · ⚠ 週一公休（週二–四 08:00–17:00）· 寺町通丸太町附近 · 麵包店兼早餐，評論常提水果百匯、可頌、法式吐司", mapLink: "https://maps.google.com/?cid=4102843074451712362" },
+          { name: "IOLITE COFFEE ROASTERS", info: "★4.8 · 週一 07:30–16:00（週二、三、日休）· 離 OMO5 走路約 22 分 · 夫妻經營的自家烘焙咖啡，評論常提 flat white 和咖啡豆；評論提過也有吐司輕食", mapLink: "https://maps.google.com/?cid=17757326170199873026" }
+        ]
       },
       {
         type: "fixed",
@@ -4047,15 +4070,48 @@ const itineraryData = [
       {
         type: "fixed",
         time: "12:30",
-        place: "中餐：待定",
+        place: "中餐：麵屋 豬一",
+        mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80&query_place_id=ChIJufyODr4IAWARNVu7xBbRG2w",
+        hours: "午餐 11:00–14:30",
         description: "",
-        note: "",
+        note: "自家製麵的和風拉麵；常要排隊，早點到",
+        foodsLabel: "兩間分店",
+        foods: [
+          { name: "麵屋 豬一（主店，優先）", info: "★4.4 · 週一 11:00–14:30、17:30–21:00 · 四条河原町往南一點 · 自家製麵，常排隊", mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80&query_place_id=ChIJufyODr4IAWARNVu7xBbRG2w" },
+          { name: "麵屋 豬一 離れ（備案）", info: "★4.4 · 週一 11:00–14:30、17:30–21:00 · 四条烏丸往南、高辻通上 · 評論常提和牛、燒賣；評論提過先登記拿號碼牌，會告訴你幾點回來排", mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80+%E9%9B%A2%E3%82%8C&query_place_id=ChIJYRZ82JcIAWARAx-4yz9KLoE" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "13:30",
+        place: "豆水樓 木屋町本店（optional）",
+        level: "main",
+        transit: [{ mode: "walk", text: "19 分" }],
+        mapLink: "https://maps.google.com/?cid=4530198093356422376",
+        hours: "午餐 11:30–14:00",
+        description: "",
+        note: "湯豆腐和豆腐懷石；⚠ 午餐 14:00 結束，豬一排太久就來不及，可以先訂位",
+        tip: { icon: "💡", title: "小提醒", steps: ["評論常提湯豆腐、豆皮、套餐", "評論提過豆腐可以免費續", "晚餐 17:00–20:30，也可以改成晚上來"] },
         foods: []
       },
       {
         type: "fixed",
+        time: "14:30",
+        place: "咖啡時間",
+        level: "minor",
+        description: "",
+        note: "店待定，看考慮名單",
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "Kurasu Ebisugawa", info: "★4.8 · 週一 10:00–18:00 · 離 OMO5 走路約 18 分、離豆水樓約 19 分 · 白色木質調的咖啡店，評論常提咖啡豆、焙茶飲品、愛樂壓和沖煮器具；評論提過以淺焙、中淺焙為主", mapLink: "https://maps.google.com/?cid=5819004775851597511" },
+          { name: "Astarte Coffee", info: "★4.7 · 週一 07:30–17:00 · 烏丸三条，離豆水樓走路約 19 分 · 咖啡和甜點店，評論最常提鬆餅，也常提可頌；評論提過上餐快、店內很好拍", mapLink: "https://maps.google.com/?cid=16559315543065061410" },
+          { name: "BLEND KYOTO 御所南本店", info: "★4.4 · 週一 10:00–18:00 · 京都御苑南邊，離豆水樓走路約 16 分、離 OMO5 約 15 分 · 精品咖啡外帶店，可以先聞豆子香氣再選；評論提過每天有 5–6 款豆子、藝妓手沖一杯約 ¥3,300–4,400，也提過不收現金", mapLink: "https://maps.google.com/?cid=13779412418395896942" }
+        ]
+      },
+      {
+        type: "fixed",
         time: "傍晚",
-        place: "🎨 水彩速寫：金閣寺・清水寺",
+        place: "🎨 速寫：金閣寺・清水寺",
         level: "main",
         description: "",
         note: "看照片畫（不在現場）；地點等老師通知",
@@ -4149,7 +4205,7 @@ const itineraryData = [
       {
         type: "fixed",
         time: "待定",
-        place: "🎨 水彩速寫：伏見稻荷",
+        place: "🎨 速寫：伏見稻荷",
         level: "main",
         description: "",
         mapLink: "https://maps.google.com/?q=Fushimi+Inari+Taisha",
@@ -4167,11 +4223,16 @@ const itineraryData = [
       {
         type: "fixed",
         time: "14:30",
-        place: "下午：尚未安排（optional）",
+        place: "咖啡時間",
         level: "minor",
         description: "",
-        note: "可以回祇園 check in，逛花見小路、八坂神社",
-        foods: []
+        note: "店待定，看考慮名單",
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "BLEND KYOTO 御所南本店", info: "★4.4 · 週二 10:00–18:00 · 京都御苑南邊，從伏見稻荷搭京阪約 30 分 · 精品咖啡外帶店，可以先聞豆子香氣再選；評論提過每天有 5–6 款豆子、藝妓手沖一杯約 ¥3,300–4,400，也提過不收現金", mapLink: "https://maps.google.com/?cid=13779412418395896942" },
+          { name: "Astarte Coffee", info: "★4.7 · 週二 07:30–17:00 · 烏丸三条，從伏見稻荷搭車約 30 分 · 咖啡和甜點店，評論最常提鬆餅，也常提可頌；評論提過上餐快、店內很好拍", mapLink: "https://maps.google.com/?cid=16559315543065061410" },
+          { name: "Kurasu Ebisugawa", info: "★4.8 · 週二 10:00–18:00 · 夷川通、京都御苑南邊，從伏見稻荷搭車約 30 分 · 白色木質調的咖啡店，評論常提咖啡豆、焙茶飲品、愛樂壓和沖煮器具；評論提過以淺焙、中淺焙為主", mapLink: "https://maps.google.com/?cid=5819004775851597511" }
+        ]
       },
       {
         type: "fixed",
@@ -4189,7 +4250,14 @@ const itineraryData = [
         place: "晚餐：祇園一帶",
         description: "",
         note: "待定。",
-        foods: []
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "蛸長", info: "★4.0 · ⚠ 週二公休（只開週五–一 17:30–20:20）· 宮川町 · 關東煮老店（評論提過開了 140 年），評論常提章魚、湯葉、大根，也常提到現金；評論提過沒有價目表、結帳比預期貴", mapLink: "https://maps.google.com/?cid=1710188905337198360" },
+          { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週二晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
+          { name: "しし蔵 Shishikura", info: "★4.7 · 週二 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
+          { name: "豆水樓 木屋町本店", info: "★4.3 · 週二 11:30–14:00、17:00–20:30 · 木屋町通、三条附近，離 OMO5 祇園走路約 19 分 · 湯豆腐和豆腐懷石，評論常提湯豆腐、豆皮、套餐；評論提過豆腐可以免費續；可以預約", mapLink: "https://maps.google.com/?cid=4530198093356422376" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週二 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" }
+        ]
       }
     ],
     introCards: [
@@ -4219,7 +4287,7 @@ const itineraryData = [
     dowZh: "三",
     phase: "arashi",
     title: "嵐山一日遊",
-    subtitle: "嵯峨野小火車 · 保津川遊船 · 竹林小徑",
+    subtitle: "嵯峨野小火車 · 保津川遊船 · 渡月橋速寫 · 午後離團",
     routeCode: "京都 ⇄ 嵐山",
     coverImage: "images/kyoto/day5-sagano.jpg",
     coverAlt: "紅葉中的嵯峨野小火車",
@@ -4274,7 +4342,7 @@ const itineraryData = [
       {
         type: "fixed",
         time: "待定",
-        place: "🎨 水彩速寫：嵐山渡月橋",
+        place: "🎨 速寫：嵐山渡月橋",
         area: "嵐山一日遊（跟團）",
         level: "main",
         description: "",
@@ -4288,13 +4356,28 @@ const itineraryData = [
         place: "中餐：嵐山餐廳自助餐",
         area: "嵐山一日遊（跟團）",
         description: "",
-        note: "停留 1 小時。",
+        note: "停留 1 小時。想吃拉麵的話，可以不吃自助餐、12:00 直接離團（看考慮名單）",
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "中華そば 麦の夜明け", info: "★4.2 · 週三 11:00–15:00 · 西大路七条附近，從渡月橋搭車約 40 分（計程車約 22 分）· 招牌是扇貝山椒拉麵，評論最常提山椒、扇貝，也常提米其林；評論提過山椒會在面前現撒", mapLink: "https://maps.google.com/?cid=8802936154293960321" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週三 11:30–14:50 · 烏丸御池附近的高倉通，從渡月橋搭車約 47 分（計程車約 35 分）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "13:00",
+        place: "下午離團（待定）",
+        level: "minor",
+        area: "嵐山一日遊（跟團）",
+        description: "",
+        note: "吃完中餐離團，下午行程待定",
         foods: []
       },
       {
         type: "fixed",
         time: "13:00",
         place: "天龍寺",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "main",
         mapLink: "https://maps.google.com/?q=Tenryuji+Temple+Kyoto",
@@ -4307,6 +4390,7 @@ const itineraryData = [
         type: "fixed",
         time: "13:50",
         place: "竹林小徑",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "main",
         transit: [{ mode: "walk", text: "從天龍寺北門 1 分" }],
@@ -4320,6 +4404,7 @@ const itineraryData = [
         type: "fixed",
         time: "14:10",
         place: "野宮神社",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "minor",
         transit: [{ mode: "walk", text: "2 分" }],
@@ -4332,6 +4417,7 @@ const itineraryData = [
         type: "fixed",
         time: "14:30",
         place: "御髮神社",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "minor",
         transit: [{ mode: "walk", text: "10 分" }],
@@ -4344,6 +4430,7 @@ const itineraryData = [
         type: "fixed",
         time: "14:50",
         place: "和服之森",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "minor",
         transit: [{ mode: "walk", text: "17 分" }],
@@ -4356,6 +4443,7 @@ const itineraryData = [
         type: "fixed",
         time: "15:10",
         place: "嵐山猴子公園",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "main",
         transit: [{ mode: "walk", text: "過渡月橋 7 分" }],
@@ -4370,6 +4458,7 @@ const itineraryData = [
         type: "fixed",
         time: "17:30",
         place: "回到京都八條口",
+        fold: "原本跟團的下午行程（離團不參加）",
         area: "嵐山一日遊（跟團）",
         level: "minor",
         mapLink: "https://maps.google.com/?q=Kyoto+Station+Hachijo+Exit+bus+terminal",
@@ -4383,7 +4472,14 @@ const itineraryData = [
         place: "晚餐：京都站一帶",
         description: "",
         note: "待定；京都站樓上的拉麵小路、地下街選擇很多。",
-        foods: []
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週三晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
+          { name: "しし蔵 Shishikura", info: "★4.7 · 週三 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
+          { name: "豆水樓 木屋町本店", info: "★4.3 · 週三 11:30–14:00、17:00–20:30 · 木屋町通、三条附近，離 OMO5 祇園走路約 19 分 · 湯豆腐和豆腐懷石，評論常提湯豆腐、豆皮、套餐；評論提過豆腐可以免費續；可以預約", mapLink: "https://maps.google.com/?cid=4530198093356422376" },
+          { name: "中華そば 麦の夜明け", info: "★4.2 · 週三 11:00–15:00、18:00–20:00（週一休）· 西大路七条附近，從嵐山搭車約 40 分、從祇園約 35–40 分 · 招牌是扇貝山椒拉麵，評論最常提山椒、扇貝，也常提米其林；評論提過山椒會在面前現撒，入口右邊是售票機；晚上 20:00 就關", mapLink: "https://maps.google.com/?cid=8802936154293960321" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週三 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" }
+        ]
       }
     ],
     introCards: [
@@ -4401,8 +4497,7 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "嵐山下午的幾站我依地理位置調整了順序（天龍寺 → 竹林 → 野宮 → 御髮 → 和服之森 → 猴子公園），原本表上是：天龍寺、竹林、和服之森、野宮、御髮、猴子公園。實際以導遊安排為準。",
-      "猴子公園 16:00 關門，如果前面拖到時間，可以先去猴子公園再回頭逛和服之森。"
+      "跟團主要是為了參加老師的速寫；吃完中餐就離團，下午行程待定。原本跟團的下午行程收在「原本跟團的下午行程」裡，點開可以看。"
     ]
   },
   {
@@ -4412,7 +4507,7 @@ const itineraryData = [
     dowZh: "四",
     phase: "kiyomizu",
     title: "和服日 · 清水寺",
-    subtitle: "穿和服逛清水寺 · 三年坂二年坂 · 水彩速寫八坂神社 · 傍晚逛花見小路",
+    subtitle: "穿和服逛清水寺 · 三年坂二年坂 · 速寫八坂神社 · 傍晚逛花見小路",
     routeCode: "清水寺 → 八坂",
     coverImage: "images/kyoto/day6-kiyomizu.jpg",
     coverAlt: "清水寺本堂與紅葉",
@@ -4499,17 +4594,33 @@ const itineraryData = [
         place: "中餐：二年坂・八坂一帶",
         description: "",
         note: "待定；穿和服挑有座位、不用排太久的店。",
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週四午餐 11:00–15:30（最後點餐 14:30）（無休）· 建仁寺南邊的大和大路，離八坂之塔走路約 5 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位。⚠ 評論提過一餐約 2 小時，接 13:45 鍵善良房會太趕", mapLink: "https://maps.google.com/?cid=3756701658277784162" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "13:45",
+        place: "鍵善良房 高台寺店",
+        level: "main",
+        description: "",
+        mapLink: "https://maps.google.com/?cid=17213507591365266552",
+        hours: "10:00–18:00",
+        note: "老字號和菓子店的高台寺分店，招牌是黑蜜葛切；14:15 前往八坂神社",
+        tip: { icon: "💡", title: "小提醒", steps: ["評論最常提葛切和黑糖蜜", "評論提過環境清幽、客人不多，也有菊壽糖和裝在竹筒裡的水羊羹", "在八坂之塔旁邊（走路約 2 分），離八坂神社走路約 6 分"] },
         foods: []
       },
       {
         type: "fixed",
         time: "14:15",
-        place: "🎨 水彩速寫：八坂神社",
+        place: "🎨 速寫：八坂神社",
         level: "main",
+        transit: [{ mode: "walk", text: "6 分" }],
         description: "",
         mapLink: "https://maps.google.com/?q=Yasaka+Shrine+Kyoto",
         hours: "24 小時開放",
-        note: "從八坂之塔走過來約 8 分；畫朱紅的西樓門或舞殿的燈籠",
+        note: "畫朱紅的西樓門或舞殿的燈籠",
         tip: { icon: "💡", title: "小提醒", steps: ["西樓門正對四条通，站在對面的人行道畫整座樓門最完整", "本殿前的舞殿掛滿提燈，適合畫細節", "穿和服坐下畫畫，帶一張小坐墊或摺疊椅比較方便"] },
         foods: []
       },
@@ -4541,7 +4652,13 @@ const itineraryData = [
         place: "晚餐：祇園一帶",
         description: "",
         note: "待定。",
-        foods: []
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週四晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
+          { name: "しし蔵 Shishikura", info: "★4.7 · 週四 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
+          { name: "豆水樓 木屋町本店", info: "★4.3 · 週四 11:30–14:00、17:00–20:30 · 木屋町通、三条附近，離 OMO5 祇園走路約 19 分 · 湯豆腐和豆腐懷石，評論常提湯豆腐、豆皮、套餐；評論提過豆腐可以免費續；可以預約", mapLink: "https://maps.google.com/?cid=4530198093356422376" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週四 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" }
+        ]
       }
     ],
     introCards: [
@@ -5260,21 +5377,29 @@ function timeBucket(it) {
   return "晚上";
 }
 function renderScheduleWithSections(list) {
-  let cur = null, curArea = null;
-  const out = list.map(it => {
+  let cur = null, curArea = null, curFold = null;
+  const out = list.map((it, idx) => {
     let head = "";
+    /* 收折群組：連續帶相同 fold 的站點收進一個可展開的 <details>（例如離團後不參加的跟團行程） */
+    const closeFold = () => { if (curFold) { head += `</div></details>`; curFold = null; } };
+    if (it.fold !== curFold || it.area !== curArea) closeFold();
     /* 區域分組：同一個 area 的連續站點包成一個淡色區塊，上方一個區域看板；區塊內不顯示時間與時段小標 */
     if (it.area !== curArea) {
       if (curArea) head += `</div>`;  /* 區塊結束後不重複區塊內已經開始的時段，只顯示下一個新時段 */
       if (it.area) head += `<div class="tl-area${it.areaTimes ? " tl-area--timed" : ""}"><div class="tl-area__head"><span class="tl-area__pill">📍 ${escapeHTML(it.area)}</span>${it.areaSub ? `<span class="tl-area__sub">${escapeHTML(it.areaSub)}</span>` : ""}</div>`;
       curArea = it.area || null;
     }
+    if (it.fold && it.fold !== curFold) {
+      let n = 0; for (let j = idx; j < list.length && list[j].fold === it.fold; j++) n++;
+      head += `<details class="tl-fold"><summary class="tl-fold__sum"><span class="tl-fold__label">${escapeHTML(it.fold)}</span><span class="tl-fold__count">${n} 站</span></summary><div class="tl-fold__body">`;
+      curFold = it.fold;
+    }
     const b = timeBucket(it);
     if (it.area) { cur = b || cur; }
     else if (b && b !== cur) { cur = b; head += `<div class="tl-sec" data-t="${b}"><span>${b}</span></div>`; }
     return head + renderTransit(it) + renderTripCard(it);
   }).join("");
-  return `<div class="timeline">${out}${curArea ? "</div>" : ""}</div>`;
+  return `<div class="timeline">${out}${curFold ? "</div></details>" : ""}${curArea ? "</div>" : ""}</div>`;
 }
 
 /* ---------- Trip card render ---------- */
@@ -5709,7 +5834,7 @@ function escapeHTML(s) {
    INIT
    ============================================================ */
 /* ===EXTRAS START=== */
-const PACK_LIST = [{"name": "證件與金融", "color": "#d9a514", "items": ["護照", "機票", "簽證", "雙證件", "國際駕照", "信用卡", "可提款金融卡", "住宿影本"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'><rect width='12' height='6' fill='%23faf2de'/><circle cx='0' cy='3' r='6' fill='%23faf2de'/><circle cx='0' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='0' cy='3' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='0' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='0' cy='3' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='6' fill='%23faf2de'/><circle cx='12' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='6' fill='%23faf2de'/><circle cx='6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='6' fill='%23faf2de'/><circle cx='-6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='6' fill='%23faf2de'/><circle cx='18' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/></svg>\") 0 0 / 12px 6px"}, {"name": "相機與底片", "color": "#8b6ad0", "items": ["A7C3", "GR4", "Pocket 3", "底片機 ×1", "底片 135 ×3", "記憶卡", "傳輸線"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='13.86' viewBox='0 0 8 13.86'><rect width='8' height='13.86' fill='%23efeaf8'/><g stroke='%237d5cb0' stroke-width='.22' fill='none'><path d='M0 0 L8 13.86 M8 0 L0 13.86 M4 0 V13.86 M0 6.93 H8 M0 0 L4 2.31 L8 0 M0 13.86 L4 11.55 L8 13.86 M0 6.93 L4 4.62 L8 6.93 M0 6.93 L4 9.24 L8 6.93'/></g><g fill='%23c9a24a'><circle cx='4' cy='6.93' r='.38'/><circle cx='0' cy='0' r='.38'/><circle cx='8' cy='0' r='.38'/><circle cx='0' cy='13.86' r='.38'/><circle cx='8' cy='13.86' r='.38'/></g></svg>\") 0 0 / 8px 13.86px"}, {"name": "充電與 3C", "color": "#5b9bd5", "items": ["萬國轉接頭", "甜甜圈轉接頭", "Type-C 充電線（C 對 C）", "Type-C 充電線（USB 對 C）", "隨行充", "相機電池", "GR4 電池", "Pocket 3 電池"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><rect width='8' height='8' fill='%23e8f1f9'/><g fill='%23a5c8e8' opacity='.55'><path d='M4 0 A4 4 0 0 1 8 4 A4 4 0 0 1 4 0Z M4 0 A4 4 0 0 0 0 4 A4 4 0 0 0 4 0Z M4 8 A4 4 0 0 0 8 4 A4 4 0 0 0 4 8Z M4 8 A4 4 0 0 1 0 4 A4 4 0 0 1 4 8Z'/></g><g fill='none' stroke='%235584b4' stroke-width='.22'><circle cx='4' cy='0' r='4'/><circle cx='4' cy='8' r='4'/><circle cx='0' cy='4' r='4'/><circle cx='8' cy='4' r='4'/></g><circle cx='4.70' cy='4.00' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='4.67' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='4.41' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='3.59' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='3.33' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4' cy='4' r='.3' fill='%23c9a24a'/></svg>\") 0 0 / 8px 8px"}, {"name": "盥洗", "color": "#3fae8f", "items": ["洗髮乳", "護髮", "洗面乳", "牙刷", "牙線", "枕頭巾", "洗臉巾", "卸妝", "卸妝棉", "止汗劑", "吹風機"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='6.93' viewBox='0 0 8 6.93'><rect width='8' height='6.93' fill='%23e4f4ef'/><path d='M2 0 H6 L8 3.46 L6 6.93 H2 L0 3.46Z' fill='none' stroke='%233e947b' stroke-width='.24'/><path d='M2.7 1.2 H5.3 L6.6 3.46 L5.3 5.73 H2.7 L1.4 3.46Z' fill='none' stroke='%23d9bc72' stroke-width='.18'/><g fill='%233fae8f' opacity='.7'><ellipse cx='4' cy='2.75' rx='.32' ry='.55'/><ellipse cx='4' cy='4.17' rx='.32' ry='.55'/><ellipse cx='3.3' cy='3.46' rx='.55' ry='.32'/><ellipse cx='4.7' cy='3.46' rx='.55' ry='.32'/></g></svg>\") 0 0 / 8px 6.93px"}, {"name": "衣物", "color": "#e2533a", "items": ["換洗衣服", "夾腳拖", "鞋子", "毛帽", "手套", "墨鏡", "睡衣褲"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='12' viewBox='0 0 8 12'><rect width='8' height='12' fill='%23fbe7e3'/><g fill='none' stroke-width='.24'><path d='M2 0 C0 3 0 9 2 12 M6 0 C8 3 8 9 6 12' stroke='%23c44935'/><path d='M2 0 C4 3 4 9 2 12 M6 0 C4 3 4 9 6 12' stroke='%23c44935'/><path d='M2.6 0 C1 3 1 9 2.6 12 M5.4 0 C7 3 7 9 5.4 12' stroke='%23d9bc72' stroke-width='.16'/></g><circle cx='4.50' cy='6.00' r='.36' fill='%23efa093'/><circle cx='4.15' cy='6.48' r='.36' fill='%23efa093'/><circle cx='3.60' cy='6.29' r='.36' fill='%23efa093'/><circle cx='3.60' cy='5.71' r='.36' fill='%23efa093'/><circle cx='4.15' cy='5.52' r='.36' fill='%23efa093'/><circle cx='4' cy='6' r='.22' fill='%23c9a24a'/></svg>\") 0 0 / 8px 12px"}, {"name": "藥品", "color": "#d6457a", "items": ["抗生素", "腸胃藥", "敏炎寧", "嘴破藥", "常備藥", "痠痛貼布"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='9' viewBox='0 0 6 9'><rect width='6' height='9' fill='%23f9e5ec'/><path d='M0 0 L3 2 V6.5 L0 4.5Z' fill='%23e899b6'/><path d='M6 0 L3 2 V6.5 L6 4.5Z' fill='%23efb8cc'/><path d='M0 4.5 L3 6.5 L6 4.5 M3 6.5 V9' stroke='%23d9bc72' stroke-width='.18' fill='none'/></svg>\") 0 0 / 6px 9px"}, {"name": "化妝與保養", "color": "#ee7aa6", "items": ["化妝品", "棉花棒", "夾子", "刷具", "隱形眼鏡", "隱形眼鏡藥水", "保養品", "臉部按摩器", "敷臉面膜", "小香水", "指緣油", "護手霜"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'><rect width='12' height='6' fill='%23fdecf3'/><circle cx='0' cy='3' r='6' fill='%23fdecf3'/><circle cx='0' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='0' cy='3' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='0' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='0' cy='3' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='6' fill='%23fdecf3'/><circle cx='12' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='6' fill='%23fdecf3'/><circle cx='6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='6' fill='%23fdecf3'/><circle cx='-6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='6' fill='%23fdecf3'/><circle cx='18' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/></svg>\") 0 0 / 12px 6px"}, {"name": "髮飾與配件", "color": "#e0954a", "items": ["梳子", "小髮圈", "飾品", "髮帶", "鏡子", "口罩"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='13.86' viewBox='0 0 8 13.86'><rect width='8' height='13.86' fill='%23fbf0e6'/><g stroke='%23c28042' stroke-width='.22' fill='none'><path d='M0 0 L8 13.86 M8 0 L0 13.86 M4 0 V13.86 M0 6.93 H8 M0 0 L4 2.31 L8 0 M0 13.86 L4 11.55 L8 13.86 M0 6.93 L4 4.62 L8 6.93 M0 6.93 L4 9.24 L8 6.93'/></g><g fill='%23c9a24a'><circle cx='4' cy='6.93' r='.38'/><circle cx='0' cy='0' r='.38'/><circle cx='8' cy='0' r='.38'/><circle cx='0' cy='13.86' r='.38'/><circle cx='8' cy='13.86' r='.38'/></g></svg>\") 0 0 / 8px 13.86px"}, {"name": "生活小物", "color": "#a58be0", "items": ["指甲剪", "食物袋", "挖耳棒", "衛生紙 ×2", "痘痘貼", "暖暖包（手握）", "暖暖包（貼式）", "暖暖包（腳）", "泡澡包", "筆", "按摩／拉筋用具"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='6.93' viewBox='0 0 8 6.93'><rect width='8' height='6.93' fill='%23f2effb'/><path d='M2 0 H6 L8 3.46 L6 6.93 H2 L0 3.46Z' fill='none' stroke='%239277bd' stroke-width='.24'/><path d='M2.7 1.2 H5.3 L6.6 3.46 L5.3 5.73 H2.7 L1.4 3.46Z' fill='none' stroke='%23d9bc72' stroke-width='.18'/><g fill='%23a58be0' opacity='.7'><ellipse cx='4' cy='2.75' rx='.32' ry='.55'/><ellipse cx='4' cy='4.17' rx='.32' ry='.55'/><ellipse cx='3.3' cy='3.46' rx='.55' ry='.32'/><ellipse cx='4.7' cy='3.46' rx='.55' ry='.32'/></g></svg>\") 0 0 / 8px 6.93px"}, {"name": "行李用品", "color": "#d9a514", "items": ["行李秤", "行李袋", "行李掛袋", "掛環", "帆布袋"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='12' viewBox='0 0 8 12'><rect width='8' height='12' fill='%23faf2de'/><g fill='none' stroke-width='.24'><path d='M2 0 C0 3 0 9 2 12 M6 0 C8 3 8 9 6 12' stroke='%23bd8d16'/><path d='M2 0 C4 3 4 9 2 12 M6 0 C4 3 4 9 6 12' stroke='%23bd8d16'/><path d='M2.6 0 C1 3 1 9 2.6 12 M5.4 0 C7 3 7 9 5.4 12' stroke='%23d9bc72' stroke-width='.16'/></g><circle cx='4.50' cy='6.00' r='.36' fill='%23eace7e'/><circle cx='4.15' cy='6.48' r='.36' fill='%23eace7e'/><circle cx='3.60' cy='6.29' r='.36' fill='%23eace7e'/><circle cx='3.60' cy='5.71' r='.36' fill='%23eace7e'/><circle cx='4.15' cy='5.52' r='.36' fill='%23eace7e'/><circle cx='4' cy='6' r='.22' fill='%23c9a24a'/></svg>\") 0 0 / 8px 12px"}, {"name": "特別裝備", "color": "#f06a4a", "items": ["畫本", "衛生紙", "水筆", "水彩", "黑筆"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><rect width='8' height='8' fill='%23fdeae6'/><g fill='%23f7ad9b' opacity='.55'><path d='M4 0 A4 4 0 0 1 8 4 A4 4 0 0 1 4 0Z M4 0 A4 4 0 0 0 0 4 A4 4 0 0 0 4 0Z M4 8 A4 4 0 0 0 8 4 A4 4 0 0 0 4 8Z M4 8 A4 4 0 0 1 0 4 A4 4 0 0 1 4 8Z'/></g><g fill='none' stroke='%23d05c42' stroke-width='.22'><circle cx='4' cy='0' r='4'/><circle cx='4' cy='8' r='4'/><circle cx='0' cy='4' r='4'/><circle cx='8' cy='4' r='4'/></g><circle cx='4.70' cy='4.00' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='4.67' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='4.41' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='3.59' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='3.33' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4' cy='4' r='.3' fill='%23c9a24a'/></svg>\") 0 0 / 8px 8px"}];
+const PACK_LIST = [{"name": "證件與金融", "color": "#d9a514", "items": ["護照", "機票", "簽證", "雙證件", "國際駕照", "信用卡", "可提款金融卡", "住宿影本"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'><rect width='12' height='6' fill='%23faf2de'/><circle cx='0' cy='3' r='6' fill='%23faf2de'/><circle cx='0' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='0' cy='3' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='0' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='0' cy='3' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='6' fill='%23faf2de'/><circle cx='12' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='12' cy='3' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='6' fill='%23faf2de'/><circle cx='6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='6' cy='6' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='6' fill='%23faf2de'/><circle cx='-6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='-6' cy='6' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='6' fill='%23faf2de'/><circle cx='18' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='4.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='3.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='1.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/><circle cx='18' cy='6' r='0.6' fill='none' stroke='%23bd8d16' stroke-width='0.26'/></svg>\") 0 0 / 12px 6px"}, {"name": "相機與底片", "color": "#8b6ad0", "items": ["A7C3", "GR4", "Pocket 3", "底片機 ×1", "底片 135 ×3", "記憶卡", "傳輸線"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='13.86' viewBox='0 0 8 13.86'><rect width='8' height='13.86' fill='%23efeaf8'/><g stroke='%237d5cb0' stroke-width='.22' fill='none'><path d='M0 0 L8 13.86 M8 0 L0 13.86 M4 0 V13.86 M0 6.93 H8 M0 0 L4 2.31 L8 0 M0 13.86 L4 11.55 L8 13.86 M0 6.93 L4 4.62 L8 6.93 M0 6.93 L4 9.24 L8 6.93'/></g><g fill='%23c9a24a'><circle cx='4' cy='6.93' r='.38'/><circle cx='0' cy='0' r='.38'/><circle cx='8' cy='0' r='.38'/><circle cx='0' cy='13.86' r='.38'/><circle cx='8' cy='13.86' r='.38'/></g></svg>\") 0 0 / 8px 13.86px"}, {"name": "充電與 3C", "color": "#5b9bd5", "items": ["萬國轉接頭", "甜甜圈轉接頭", "Type-C 充電線（C 對 C）", "Type-C 充電線（USB 對 C）", "隨行充", "相機電池", "GR4 電池", "Pocket 3 電池"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><rect width='8' height='8' fill='%23e8f1f9'/><g fill='%23a5c8e8' opacity='.55'><path d='M4 0 A4 4 0 0 1 8 4 A4 4 0 0 1 4 0Z M4 0 A4 4 0 0 0 0 4 A4 4 0 0 0 4 0Z M4 8 A4 4 0 0 0 8 4 A4 4 0 0 0 4 8Z M4 8 A4 4 0 0 1 0 4 A4 4 0 0 1 4 8Z'/></g><g fill='none' stroke='%235584b4' stroke-width='.22'><circle cx='4' cy='0' r='4'/><circle cx='4' cy='8' r='4'/><circle cx='0' cy='4' r='4'/><circle cx='8' cy='4' r='4'/></g><circle cx='4.70' cy='4.00' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='4.67' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='4.41' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='3.59' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='3.33' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4' cy='4' r='.3' fill='%23c9a24a'/></svg>\") 0 0 / 8px 8px"}, {"name": "盥洗", "color": "#3fae8f", "items": ["洗髮乳", "護髮", "洗面乳", "牙刷", "牙線", "枕頭巾", "洗臉巾", "卸妝", "卸妝棉", "止汗劑", "吹風機"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='6.93' viewBox='0 0 8 6.93'><rect width='8' height='6.93' fill='%23e4f4ef'/><path d='M2 0 H6 L8 3.46 L6 6.93 H2 L0 3.46Z' fill='none' stroke='%233e947b' stroke-width='.24'/><path d='M2.7 1.2 H5.3 L6.6 3.46 L5.3 5.73 H2.7 L1.4 3.46Z' fill='none' stroke='%23d9bc72' stroke-width='.18'/><g fill='%233fae8f' opacity='.7'><ellipse cx='4' cy='2.75' rx='.32' ry='.55'/><ellipse cx='4' cy='4.17' rx='.32' ry='.55'/><ellipse cx='3.3' cy='3.46' rx='.55' ry='.32'/><ellipse cx='4.7' cy='3.46' rx='.55' ry='.32'/></g></svg>\") 0 0 / 8px 6.93px"}, {"name": "衣物", "color": "#e2533a", "items": ["換洗衣服", "夾腳拖", "鞋子", "毛帽", "手套", "墨鏡", "睡衣褲"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='12' viewBox='0 0 8 12'><rect width='8' height='12' fill='%23fbe7e3'/><g fill='none' stroke-width='.24'><path d='M2 0 C0 3 0 9 2 12 M6 0 C8 3 8 9 6 12' stroke='%23c44935'/><path d='M2 0 C4 3 4 9 2 12 M6 0 C4 3 4 9 6 12' stroke='%23c44935'/><path d='M2.6 0 C1 3 1 9 2.6 12 M5.4 0 C7 3 7 9 5.4 12' stroke='%23d9bc72' stroke-width='.16'/></g><circle cx='4.50' cy='6.00' r='.36' fill='%23efa093'/><circle cx='4.15' cy='6.48' r='.36' fill='%23efa093'/><circle cx='3.60' cy='6.29' r='.36' fill='%23efa093'/><circle cx='3.60' cy='5.71' r='.36' fill='%23efa093'/><circle cx='4.15' cy='5.52' r='.36' fill='%23efa093'/><circle cx='4' cy='6' r='.22' fill='%23c9a24a'/></svg>\") 0 0 / 8px 12px"}, {"name": "藥品", "color": "#d6457a", "items": ["抗生素", "腸胃藥", "敏炎寧", "嘴破藥", "常備藥", "痠痛貼布"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='9' viewBox='0 0 6 9'><rect width='6' height='9' fill='%23f9e5ec'/><path d='M0 0 L3 2 V6.5 L0 4.5Z' fill='%23e899b6'/><path d='M6 0 L3 2 V6.5 L6 4.5Z' fill='%23efb8cc'/><path d='M0 4.5 L3 6.5 L6 4.5 M3 6.5 V9' stroke='%23d9bc72' stroke-width='.18' fill='none'/></svg>\") 0 0 / 6px 9px"}, {"name": "化妝與保養", "color": "#ee7aa6", "items": ["化妝品", "棉花棒", "夾子", "刷具", "隱形眼鏡", "隱形眼鏡藥水", "保養品", "臉部按摩器", "敷臉面膜", "小香水", "指緣油", "護手霜"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'><rect width='12' height='6' fill='%23fdecf3'/><circle cx='0' cy='3' r='6' fill='%23fdecf3'/><circle cx='0' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='0' cy='3' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='0' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='0' cy='3' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='0' cy='3' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='6' fill='%23fdecf3'/><circle cx='12' cy='3' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='12' cy='3' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='12' cy='3' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='6' fill='%23fdecf3'/><circle cx='6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='6' cy='6' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='6' cy='6' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='6' fill='%23fdecf3'/><circle cx='-6' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='-6' cy='6' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='-6' cy='6' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='6' fill='%23fdecf3'/><circle cx='18' cy='6' r='5.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='4.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='3.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='2.6' fill='none' stroke='%23d9bc72' stroke-width='0.36'/><circle cx='18' cy='6' r='1.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/><circle cx='18' cy='6' r='0.6' fill='none' stroke='%23ce698e' stroke-width='0.26'/></svg>\") 0 0 / 12px 6px"}, {"name": "髮飾與配件", "color": "#e0954a", "items": ["梳子", "小髮圈", "飾品", "髮帶", "鏡子", "口罩"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='13.86' viewBox='0 0 8 13.86'><rect width='8' height='13.86' fill='%23fbf0e6'/><g stroke='%23c28042' stroke-width='.22' fill='none'><path d='M0 0 L8 13.86 M8 0 L0 13.86 M4 0 V13.86 M0 6.93 H8 M0 0 L4 2.31 L8 0 M0 13.86 L4 11.55 L8 13.86 M0 6.93 L4 4.62 L8 6.93 M0 6.93 L4 9.24 L8 6.93'/></g><g fill='%23c9a24a'><circle cx='4' cy='6.93' r='.38'/><circle cx='0' cy='0' r='.38'/><circle cx='8' cy='0' r='.38'/><circle cx='0' cy='13.86' r='.38'/><circle cx='8' cy='13.86' r='.38'/></g></svg>\") 0 0 / 8px 13.86px"}, {"name": "生活小物", "color": "#a58be0", "items": ["指甲剪", "食物袋", "挖耳棒", "衛生紙 ×2", "痘痘貼", "暖暖包（手握）", "暖暖包（貼式）", "暖暖包（腳）", "泡澡包", "筆", "按摩／拉筋用具"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='6.93' viewBox='0 0 8 6.93'><rect width='8' height='6.93' fill='%23f2effb'/><path d='M2 0 H6 L8 3.46 L6 6.93 H2 L0 3.46Z' fill='none' stroke='%239277bd' stroke-width='.24'/><path d='M2.7 1.2 H5.3 L6.6 3.46 L5.3 5.73 H2.7 L1.4 3.46Z' fill='none' stroke='%23d9bc72' stroke-width='.18'/><g fill='%23a58be0' opacity='.7'><ellipse cx='4' cy='2.75' rx='.32' ry='.55'/><ellipse cx='4' cy='4.17' rx='.32' ry='.55'/><ellipse cx='3.3' cy='3.46' rx='.55' ry='.32'/><ellipse cx='4.7' cy='3.46' rx='.55' ry='.32'/></g></svg>\") 0 0 / 8px 6.93px"}, {"name": "行李用品", "color": "#d9a514", "items": ["行李秤", "行李袋", "行李掛袋", "掛環", "帆布袋"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='12' viewBox='0 0 8 12'><rect width='8' height='12' fill='%23faf2de'/><g fill='none' stroke-width='.24'><path d='M2 0 C0 3 0 9 2 12 M6 0 C8 3 8 9 6 12' stroke='%23bd8d16'/><path d='M2 0 C4 3 4 9 2 12 M6 0 C4 3 4 9 6 12' stroke='%23bd8d16'/><path d='M2.6 0 C1 3 1 9 2.6 12 M5.4 0 C7 3 7 9 5.4 12' stroke='%23d9bc72' stroke-width='.16'/></g><circle cx='4.50' cy='6.00' r='.36' fill='%23eace7e'/><circle cx='4.15' cy='6.48' r='.36' fill='%23eace7e'/><circle cx='3.60' cy='6.29' r='.36' fill='%23eace7e'/><circle cx='3.60' cy='5.71' r='.36' fill='%23eace7e'/><circle cx='4.15' cy='5.52' r='.36' fill='%23eace7e'/><circle cx='4' cy='6' r='.22' fill='%23c9a24a'/></svg>\") 0 0 / 8px 12px"}, {"name": "特別裝備", "color": "#f06a4a", "items": ["畫本", "衛生紙", "水筆", "水彩", "黑筆", "豪德寺招財貓"], "pat": "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><rect width='8' height='8' fill='%23fdeae6'/><g fill='%23f7ad9b' opacity='.55'><path d='M4 0 A4 4 0 0 1 8 4 A4 4 0 0 1 4 0Z M4 0 A4 4 0 0 0 0 4 A4 4 0 0 0 4 0Z M4 8 A4 4 0 0 0 8 4 A4 4 0 0 0 4 8Z M4 8 A4 4 0 0 1 0 4 A4 4 0 0 1 4 8Z'/></g><g fill='none' stroke='%23d05c42' stroke-width='.22'><circle cx='4' cy='0' r='4'/><circle cx='4' cy='8' r='4'/><circle cx='0' cy='4' r='4'/><circle cx='8' cy='4' r='4'/></g><circle cx='4.70' cy='4.00' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='4.67' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='4.41' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='3.43' cy='3.59' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4.22' cy='3.33' r='.45' fill='%23fffaf0' stroke='%23d9bc72' stroke-width='.12'/><circle cx='4' cy='4' r='.3' fill='%23c9a24a'/></svg>\") 0 0 / 8px 8px"}];
 /* ===== ① 整天路線：把當天有地點的站串成 Google Maps 路線 ===== */
 function dayRouteStops(day) {
   const out = [];
@@ -5996,5 +6121,134 @@ function bindQuickNav() {
 }
 </script>
 
+<!-- ===OVERVIEW START=== -->
+<div class="modal" id="ovModal" role="dialog" aria-modal="true" aria-labelledby="ovModalTitle">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__sheet">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-close aria-label="關閉">×</button>
+    <h3 class="modal__title" id="ovModalTitle">行程總覽</h3>
+    <p class="modal__subtitle">OVERVIEW · 七日一覽</p>
+    <p class="ov-hint"><span class="ov-hint--swipe">左右滑動看每一天；</span>點日期進入當天行程</p>
+    <div class="ov-scroll" id="ovScroll"></div>
+  </div>
+</div>
+<style>
+#ovModal .modal__sheet { max-height: 92vh; padding-left: 0; padding-right: 0; }
+#ovModal .modal__title, #ovModal .modal__subtitle { position: relative; z-index: 1; }
+.ov-hint { text-align: center; font-family: var(--font-sans); font-size: 11px; color: #a08560; margin: 2px 0 10px; }
+.ov-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 0 6px; margin: 0 12px; border-radius: 12px; }
+.ovg { display: grid; grid-template-columns: 34px repeat(7, 122px); width: max-content; border: 1px solid #e3cf9e; border-radius: 12px; overflow: clip; background: #fffdf8; font-family: var(--font-sans); color: #3a2a18; }
+.ovg__corner { position: sticky; left: 0; z-index: 3; background: #f4e9d2; border-right: 1px solid #e3cf9e; }
+.ovg__hd { appearance: none; border: 0; text-align: left; cursor: pointer; padding: 6px 7px 7px; color: var(--t); background: linear-gradient(180deg, #fffdf8, var(--l)); border-top: 4px solid var(--c); border-left: 1px solid #f3e8cf; }
+.ovg__hd b { color: var(--c); }
+.ovg__hd b { font-family: var(--font-display, serif); font-size: 16px; margin-right: 4px; }
+.ovg__hd span { font-size: 10.5px; opacity: .95; }
+.ovg__hd i { display: block; font-style: normal; font-size: 10.5px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .95; }
+.ovg__s { position: sticky; left: 0; z-index: 2; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; letter-spacing: .3em; font-size: 11.5px; font-weight: 700; color: #7a5a2a; background: #f4e9d2; border-top: 1px solid #e3cf9e; border-right: 1px solid #e3cf9e; }
+.ovg__s--meal { color: #b8322a; background: #f9e3dc; }
+.ovg__c { display: flex; flex-direction: column; gap: 4px; min-height: 30px; padding: 6px 7px; font-size: 11.5px; line-height: 1.35; border-top: 1px solid #efe2c4; border-left: 1px solid #f3e8cf; background: color-mix(in srgb, var(--c) 4%, #fffdf8); }
+.ovg__c--meal { background: color-mix(in srgb, #d9675a 6%, #fffdf8); }
+.ovg__c--empty::after { content: "空"; color: #cdbfa8; font-size: 11px; }
+.ov-it--minor { color: #7a6a58; }
+.ov-it--meal { color: #b8322a; }
+.ov-it--tbd { color: #a29483; border: 1px dashed #cdbfa8; border-radius: 6px; padding: 1px 4px; align-self: flex-start; }
+.ov-it__sub { font-size: .92em; }
+.ov-it__n { font-size: 9.5px; font-weight: 700; color: #7d5cc0; margin-left: 3px; white-space: nowrap; }
+.ov-sl > summary { list-style: none; cursor: pointer; }
+.ov-sl > summary::-webkit-details-marker { display: none; }
+.ov-sl > summary .ov-it__n::after { content: " ▸"; display: inline-block; transition: transform .2s; }
+.ov-sl[open] > summary .ov-it__n::after { transform: rotate(90deg); }
+.ov-sl__body { margin-top: 5px; display: flex; flex-direction: column; gap: 6px; padding: 6px 6px 7px; border-radius: 8px; background: #fffdf8; border: 1px solid #ecdcb8; }
+.ov-sl__item { display: flex; flex-direction: column; gap: 2px; }
+.ov-sl__item + .ov-sl__item { border-top: 1px dashed #ecdcb8; padding-top: 6px; }
+.ov-sl__item a, .ov-sl__item b { font-size: 11.5px; font-weight: 700; color: #6a4a8a; text-decoration: none; border-bottom: 1px dotted currentColor; align-self: flex-start; }
+.ov-sl__item small { font-size: 10px; line-height: 1.45; color: #6b5a48; }
+/* 電腦等寬螢幕：總覽改成置中的大視窗，七天一次看完、不用左右滑 */
+@media (min-width: 900px) {
+  #ovModal { align-items: center; }
+  #ovModal .modal__sheet { width: min(96vw, 1500px); max-width: none; max-height: 94vh; border-radius: 18px; padding: 18px 0 24px; }
+  #ovModal .modal__handle { display: none; }
+  .ov-hint--swipe { display: none; }
+  .ov-scroll { overflow-x: visible; margin: 0 22px; }
+  .ovg { width: 100%; grid-template-columns: 44px repeat(7, minmax(0, 1fr)); }
+  .ovg__hd { padding: 8px 10px 9px; }
+  .ovg__hd b { font-size: 19px; }
+  .ovg__hd span, .ovg__hd i { font-size: 12px; }
+  .ovg__s { font-size: 13px; }
+  .ovg__c { font-size: 13px; padding: 8px 10px; gap: 5px; }
+  .ov-it__n { font-size: 11px; }
+  .ov-sl__item a, .ov-sl__item b { font-size: 12.5px; }
+  .ov-sl__item small { font-size: 11.5px; }
+}
+</style>
+<script>
+/* 行程總覽：由 itineraryData 自動產生（每次打開重新計算），天數為欄、時段為列 */
+(function () {
+  /* 每天的主色／文字色／淡色（同各天頁面的 --dmain／--dtext／--dlight） */
+  const COL = { arrive: ["#86b2d8", "#3d6a94", "#e8f1f9"], tokyo: ["#dcaa18", "#8a6408", "#fdf3cf"], free: ["#7d5cc0", "#4e3488", "#ede6f8"], fushimi: ["#d8402c", "#a8241a", "#fbe2da"], arashi: ["#3f9a86", "#1f6b5c", "#e2f2ec"], kiyomizu: ["#c8346a", "#86163e", "#fbe3ec"], depart: ["#86b2d8", "#3d6a94", "#e8f1f9"] };
+  const SLOTS = ["早餐", "上午", "中餐", "下午", "晚餐", "晚上"];
+  const esc = t => (typeof escapeHTML === "function" ? escapeHTML(t) : String(t));
+  const mealOf = p => { const m = (p || "").match(/^(早餐|中餐|午餐|晚餐)/); return m ? (m[1] === "午餐" ? "中餐" : m[1]) : null; };
+  const mins = t => { const m = (t || "").match(/^(\d{1,2}):(\d{2})/); return m ? +m[1] * 60 + +m[2] : null; };
+  function build() {
+    return itineraryData.map(d => {
+      const slots = {}; SLOTS.forEach(k => slots[k] = []); let last = "上午";
+      d.schedule.forEach(it => {
+        if (it.fold) return;
+        let name;
+        if (it.type === "transit") name = (/新幹線/.test(it.flightNo || "") ? "新幹線 " : "✈ ") + (it.from || "") + "→" + (it.to || "");
+        else name = (it.place || "").replace(/^(早餐|中餐|午餐|晚餐)\s*[：:]\s*/, "").replace(/（optional）/, "");
+        const meal = it.type !== "transit" && mealOf(it.place);
+        const m = mins(it.time); let slot;
+        if (meal) slot = meal;
+        else if (m != null) slot = m < 690 ? "上午" : m < 1050 ? "下午" : "晚上";
+        else if (it.time === "傍晚") slot = "下午";
+        else if (it.time === "晚上") slot = "晚上";
+        else slot = last;
+        last = meal ? (meal === "早餐" ? "上午" : meal === "中餐" ? "下午" : "晚上") : slot;
+        const tbd = /待定|尚未安排/.test(name + " " + (it.note || ""));
+        const n = it.foodsLabel === "考慮名單" && it.foods ? it.foods.length : 0;
+        name = name.replace(/[（(]\s*待定\s*[)）]/, "").replace(/^待定$/, "").trim() || "待定";
+        slots[slot].push({ name, tbd, n, list: n ? it.foods.filter(f => f && f.name) : null, minor: it.level === "minor" });
+      });
+      return { day: d.day.replace("Day ", "D"), date: d.date.slice(5), dow: d.dowZh, title: d.title, c: COL[d.phase] || ["#c9a24a", "#7a5a2a", "#f8efd8"], slots };
+    });
+  }
+  function render() {
+    const D = build();
+    let h = '<div class="ovg"><div class="ovg__corner"></div>';
+    D.forEach((d, i) => { h += `<button type="button" class="ovg__hd" data-ov-day="${i}" style="--c:${d.c[0]};--t:${d.c[1]};--l:${d.c[2]}"><b>${d.day}</b><span>${d.date} ${d.dow}</span><i>${esc(d.title)}</i></button>`; });
+    SLOTS.forEach(s => {
+      const meal = /餐/.test(s);
+      h += `<div class="ovg__s${meal ? " ovg__s--meal" : ""}">${s.replace("餐", "")}</div>`;
+      D.forEach(d => {
+        const xs = d.slots[s];
+        h += `<div class="ovg__c${meal ? " ovg__c--meal" : ""}${xs.length ? "" : " ovg__c--empty"}" style="--c:${d.c[0]}">` +
+          xs.map(x => {
+            const cls = `ov-it${x.minor ? " ov-it--minor" : ""}${meal ? " ov-it--meal" : ""}${x.tbd ? " ov-it--tbd" : ""}`;
+            /* 「飯店 Check in · 飯店名」這類：名稱換到下一行 */
+            const nm = esc(x.name).replace(/\s*·\s*/, '<br><span class="ov-it__sub">');
+            if (!x.list) return `<span class="${cls}">${nm}${nm.includes("ov-it__sub") ? "</span>" : ""}</span>`;
+            /* 有考慮名單的站：可以展開看清單裡每一家的詳細資訊 */
+            return `<details class="ov-sl"><summary class="${cls}">${esc(x.name)}<span class="ov-it__n">${x.n} 選 1</span></summary><div class="ov-sl__body">` +
+              x.list.map(f => `<div class="ov-sl__item">${f.mapLink ? `<a href="${esc(f.mapLink)}" target="_blank" rel="noopener">${esc(f.name)}</a>` : `<b>${esc(f.name)}</b>`}${f.info ? `<small>${esc(f.info)}</small>` : ""}</div>`).join("") +
+              `</div></details>`;
+          }).join("") + `</div>`;
+      });
+    });
+    document.getElementById("ovScroll").innerHTML = h + "</div>";
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("ovModal"), btn = document.getElementById("btnOverview");
+    if (!modal || !btn) return;
+    const close = () => { modal.classList.remove("is-open"); document.body.style.overflow = ""; };
+    btn.addEventListener("click", () => { render(); modal.classList.add("is-open"); document.body.style.overflow = "hidden"; const sh = modal.querySelector(".modal__sheet"); if (sh) sh.scrollTop = 0; });
+    modal.querySelectorAll("[data-close]").forEach(el => el.addEventListener("click", close));
+    modal.addEventListener("click", e => { const b = e.target.closest("[data-ov-day]"); if (!b) return; close(); if (typeof gotoDay === "function") gotoDay(+b.dataset.ovDay); });
+  });
+})();
+</script>
+<!-- ===OVERVIEW END=== -->
 </body>
 </html>
