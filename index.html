@@ -2585,6 +2585,8 @@ body {
 .todo-list input[type=checkbox]:checked { background: #2f86e0; }
 .todo-list input[type=checkbox]:checked::after { content: ""; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
 .todo-list input[type=checkbox]:checked + span { color: var(--text-faint); text-decoration: line-through; }
+.buy-note { display: block; margin-top: 2px; font-size: 12px; line-height: 1.5; color: var(--text-faint); }
+.buy-note a { color: inherit; text-decoration: underline dotted; }
 
 /* 每一條行程分隔虛線的兩端，各鑲一枚縮小版花磚（同首頁長條四角的花紋） */
 .trip-card:not(:last-child)::after {
@@ -3715,6 +3717,9 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-buy="patch"><span>走路貼布</span></label></li>
           <li><label><input type="checkbox" data-buy="covermark"><span>Covermark 卸妝</span></label></li>
           <li><label><input type="checkbox" data-buy="chanel"><span>Chanel 雙頭唇膏</span></label></li>
+          <li><label><input type="checkbox" data-buy="chasen"><span>紫竹茶筅</span></label></li>
+          <li><label><input type="checkbox" data-buy="matcha"><span>抹茶粉</span></label></li>
+          <li><label><input type="checkbox" data-buy="komatsu"><span>小松昆布（雲月 小松こんぶ）<small class="buy-note">京都高島屋 B1「雲月」專櫃，每天 10:00–20:00；四条河原町，D3 去忠保吃午餐順路 · <a href="https://maps.google.com/?cid=13037245759105388150" target="_blank" rel="noopener">地圖</a></small></span></label></li>
         </ul>
       </section>
     </div>
@@ -4101,7 +4106,7 @@ const itineraryData = [
     schedule: [
       {
         type: "fixed",
-        time: "08:30",
+        time: "08:00",
         place: "早餐：Smart Coffee（スマート珈琲店）",
         chosen: true,
         mapLink: "https://maps.google.com/?cid=4515862979063215810",
@@ -4118,7 +4123,7 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "09:30",
+        time: "",
         place: "甜點：IOLITE COFFEE ROASTERS",
         level: "minor",
         chosen: true,
@@ -4128,19 +4133,39 @@ const itineraryData = [
         description: "",
         note: "已決定；烏丸三条西邊，吃完早餐走過來",
         tip: { icon: "💡", title: "小提醒", steps: ["夫妻經營的自家烘焙咖啡，評論常提拉明頓、橙子塔、蛋糕捲，也常提 flat white"] },
+        shops: [
+          { name: "器や彩々 Utsuwaya Saisai", info: "★4.2 · 週一 11:00–18:00（週二、三休）· 三条大宮、三条會商店街旁的小巷，離 IOLITE 走路約 11 分 · 作家器皿店，評論常提作家作品；評論提過二樓也擺滿器皿 · ⚠ 11:00 才開", mapLink: "https://maps.google.com/?cid=5797125015554318564" },
+          { name: "Utsuwa Monotsuki", info: "★4.6 · 週一 11:00–17:00（週六休）· 壬生，離 IOLITE 走路約 14 分 · 陶器專賣店，評論常提盤子和價格；評論提過在住宅大樓 4 樓、入口不好找，也提過包裝很仔細、方便帶回國 · ⚠ 11:00 才開", mapLink: "https://maps.google.com/?cid=3227511925249127888" }
+        ],
         foods: []
       },
       {
         type: "fixed",
-        time: "10:00",
-        place: "自由活動（尚未安排）",
+        time: "",
+        place: "文具店 tag 寺町三条店",
         level: "minor",
+        transit: [{ mode: "walk", text: "20 分" }],
+        mapLink: "https://maps.google.com/?cid=4715992990972591721",
+        hours: "週一 10:00–19:00",
         description: "",
-        note: "free day，等決定後再補",
+        note: "⚠ 10:00 開門；評論常提鋼筆",
+        tip: { icon: "💡", title: "小提醒", steps: ["評論提過也有 Copic 麥克筆、代針筆"] },
         shops: [
-          { name: "ANGERS 河原町本店", info: "★4.4 · 週一 11:00–20:00 · 河原町三条北邊，離 OMO5 三条走路約 2 分 · 三層樓的生活雜貨選物店，評論常提文具、禮物；評論提過有祇園祭明信片和御朱印帳", mapLink: "https://maps.google.com/?cid=6697051415503656813" },
-          { name: "文具店 tag 寺町三条店", info: "★4.1 · 週一 10:00–19:00 · 寺町三条，離 OMO5 三条走路約 4 分 · 文具店，評論常提鋼筆；評論提過也有 Copic 麥克筆、代針筆", mapLink: "https://maps.google.com/?cid=4715992990972591721" }
+          { name: "川端滝三郎商店 Kawataki Kyoto", info: "★4.4 · 週一 10:00–18:00 · 麩屋町通，離 tag 走路約 8 分 · 廚房道具和生活器物，評論常提廚具、生活用品；店家公告有岐阜関市的菜刀", mapLink: "https://maps.google.com/?cid=16052350660645850058" }
         ],
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "ANGERS 河原町本店",
+        level: "minor",
+        transit: [{ mode: "walk", text: "4 分" }],
+        mapLink: "https://maps.google.com/?cid=6697051415503656813",
+        hours: "週一 11:00–20:00",
+        description: "",
+        note: "⚠ 11:00 開門；11:40 前出發去忠保",
+        tip: { icon: "💡", title: "小提醒", steps: ["三層樓的生活雜貨選物店，評論常提文具、禮物", "評論提過有祇園祭明信片和御朱印帳"] },
         foods: []
       },
       {
@@ -4148,12 +4173,16 @@ const itineraryData = [
         time: "12:00",
         place: "中餐：祇園 鮨 忠保",
         chosen: true,
+        transit: [{ mode: "walk", text: "18 分" }],
         mapLink: "https://maps.google.com/?cid=5667950637881123719",
         hours: "午餐 12:00–13:30",
         description: "",
         note: "已決定，要預約；祇園南側，離 OMO5 三条走路約 17 分；評論提過午餐吃了約 2 小時",
         tip: { icon: "💡", title: "小提醒", steps: ["評論常提主廚和醋飯", "週一時間：Google 只顯示 11/23 國定假日那天，出發前再確認一次"] },
         foodsLabel: "考慮名單",
+        shops: [
+          { name: "Maana Living", info: "★5.0 · 週一 10:00–17:00 · 東山七条一帶，離忠保走路約 23 分 · 東山的小生活道具店，器皿和茶器，評論常提陶器、藝術家；評論提過在飯店入口旁、價格偏高", mapLink: "https://maps.google.com/?cid=6774951704399522615" }
+        ],
         foods: [
           { name: "麵屋 豬一（主店，優先）", info: "★4.4 · 週一 11:00–14:30、17:30–21:00 · 四条河原町往南一點 · 自家製麵，常排隊", mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80&query_place_id=ChIJufyODr4IAWARNVu7xBbRG2w" },
           { name: "麵屋 豬一 離れ（備案）", info: "★4.4 · 週一 11:00–14:30、17:30–21:00 · 四条烏丸往南、高辻通上 · 評論常提和牛、燒賣；評論提過先登記拿號碼牌，會告訴你幾點回來排", mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80+%E9%9B%A2%E3%82%8C&query_place_id=ChIJYRZ82JcIAWARAx-4yz9KLoE" },
@@ -4189,6 +4218,11 @@ const itineraryData = [
         description: "",
         note: "已決定；夷川通、京都御苑南邊",
         foodsLabel: "考慮名單",
+        shops: [
+          { name: "Kyoto Yamahon", info: "★4.5 · 週一 11:00–18:30 · 寺町二条附近的 2 樓，離 Kurasu 走路約 10 分 · 工藝藝廊兼選物店，評論提過漆器和木製品特別多；11/26–12/8 有川合優木工展（盆、箱、茶器）", mapLink: "https://maps.google.com/?cid=13520889059264814839" },
+          { name: "陶椀 やまほん Kogei Towan", info: "★4.9 · 週一 11:00–18:30 · 御池寺町，離 Kurasu 走路約 11 分 · やまほん的陶器店，以器皿為主", mapLink: "https://maps.google.com/?cid=13994108314473276581" },
+          { name: "うつわと古物 幹", info: "★4.8 · 週一 12:00–17:00（週四、日休）· 河原町丸太町北邊，離 Kurasu 走路約 15 分 · 器皿和古物的兩層樓小店；評論提過二樓是年輕作家的器皿", mapLink: "https://maps.google.com/?cid=2232383984536886816" }
+        ],
         foods: [
           { name: "Kurasu Ebisugawa", info: "★4.8 · 週一 10:00–18:00 · 離 OMO5 走路約 18 分、離豆水樓約 19 分 · 白色木質調的咖啡店，評論常提咖啡豆、焙茶飲品、愛樂壓和沖煮器具；評論提過以淺焙、中淺焙為主", mapLink: "https://maps.google.com/?cid=5819004775851597511" },
           { name: "Astarte Coffee", info: "★4.7 · 週一 07:30–17:00 · 烏丸三条，離豆水樓走路約 19 分 · 咖啡和甜點店，評論最常提鬆餅，也常提可頌；評論提過上餐快、店內很好拍", mapLink: "https://maps.google.com/?cid=16559315543065061410" },
@@ -4278,13 +4312,15 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "07:40",
-        place: "退房，行李寄放 OMO5 京都祇園",
+        time: "08:00",
+        place: "咖啡：ROOT2 COFFEE Tofukuji",
         level: "minor",
-        transit: [{ mode: "walk", text: "19 分" }],
-        mapLink: "https://maps.google.com/?q=OMO5+Kyoto+Gion",
+        chosen: true,
+        mapLink: "https://maps.google.com/?cid=1785712412905830273",
+        hours: "週二 08:00–18:00",
         description: "",
-        note: "今天換飯店；寄好行李再從京阪祇園四条站出發（建議）",
+        note: "已決定；本町通上，走到東福寺約 5 分",
+        tip: { icon: "💡", title: "小提醒", steps: ["評論常提音樂、flat white、可頌、香蕉", "評論提過拿鐵奶泡綿密、店內有小桌可以坐", "東福寺看楓期間開門前就會排隊，喝完早點過去"] },
         foods: []
       },
       {
@@ -5705,7 +5741,7 @@ function renderTripCard(item) {
   const hasTime = time.length > 0;
   const timeHTML = hasTime
     ? `<div class="trip-card__time">${escapeHTML(time)}</div>`
-    : `<div class="trip-card__time trip-card__time--empty">—</div>`;
+    : `<div class="trip-card__time trip-card__time--empty"></div>`;
 
   // Optional / flexible item: strip the (optional) marker from the name
   // and surface it as a small badge in the card's top-right corner.
