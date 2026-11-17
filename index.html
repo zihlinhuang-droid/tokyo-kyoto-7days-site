@@ -3979,7 +3979,12 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=Asakusa+Station",
         description: "",
         note: "待定；吃完往上野、本鄉方向。",
-        foods: []
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "中華蕎麦 にし乃", info: "★4.3 · 週日 11:00–15:00、18:00–21:00 · 本鄉三丁目，離東大銀杏並木走路約 14 分 · 米其林推薦的淡麗中華蕎麥，評論常提餛飩、山椒拉麵；評論提過販賣機點餐、只收現金、吧檯約十個位子；店家公告 11/17、11/27 休（11/29 有開）", mapLink: "https://maps.google.com/?cid=3626315286614323333" },
+          { name: "麺屋 鈴春", info: "⚠ 網路資料寫週日公休，D2 是週日，出發前再確認 · 本鄉三丁目站走路約 4 分，離東大銀杏並木走路約 17 分 · 「麺屋一燈」出身店主的昆布水鹽沾麵，可以選不同的油；評論提過排隊很長 · 可在 TableCheck 預約", mapLink: "https://maps.google.com/?cid=4255203220808941419" },
+          { name: "つじ田 日本橋人形町店", info: "★4.8 · 週日 07:00–10:30、11:00–22:00 · 人形町，離小網神社走路約 6 分 · 和御茶水店同一家的沾麵，評論常提擠酸橘（すだち）、七味粉，也常提早上的「朝拉麵」；評論提過辣醬可以換口味、店員很親切", mapLink: "https://maps.google.com/?cid=3867271467921573087" }
+        ]
       },
       {
         type: "fixed",
@@ -4023,9 +4028,13 @@ const itineraryData = [
       {
         type: "fixed",
         time: "18:15",
-        place: "晚餐：待定",
+        place: "晚餐：つじ田 御茶ノ水店",
+        chosen: true,
+        mapLink: "https://maps.google.com/?cid=5233617647927100966",
+        hours: "週日 10:30–21:30",
         description: "",
-        note: "",
+        note: "已決定；★4.5 沾麵名店，就在雪具街這段，離小川町站走路約 1 分；販賣機點餐",
+        tip: { icon: "💡", title: "小提醒", steps: ["評論常提擠酸橘（すだち）和加七味粉一起吃", "評論提過拉麵也很好吃、出餐很快"] },
         foods: []
       },
       {
