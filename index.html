@@ -2587,6 +2587,9 @@ body {
 .todo-list input[type=checkbox]:checked + span { color: var(--text-faint); text-decoration: line-through; }
 .buy-note { display: block; margin-top: 2px; font-size: 12px; line-height: 1.5; color: var(--text-faint); }
 .buy-note a { color: inherit; text-decoration: underline dotted; }
+.buy-group__title { display: block; font-weight: 700; margin-bottom: 4px; }
+.todo-list .buy-sub { list-style: none; margin: 0 0 0 28px; padding: 0; display: grid; gap: 8px; }
+.todo-list .buy-sub li::before { content: none; }
 
 /* 每一條行程分隔虛線的兩端，各鑲一枚縮小版花磚（同首頁長條四角的花紋） */
 .trip-card:not(:last-child)::after {
@@ -3718,7 +3721,13 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-buy="covermark"><span>Covermark 卸妝</span></label></li>
           <li><label><input type="checkbox" data-buy="chanel"><span>Chanel 雙頭唇膏</span></label></li>
           <li><label><input type="checkbox" data-buy="chasen"><span>紫竹茶筅</span></label></li>
-          <li><label><input type="checkbox" data-buy="matcha"><span>抹茶粉</span></label></li>
+          <li class="buy-group"><span class="buy-group__title">抹茶粉</span>
+            <ul class="buy-sub">
+              <li><label><input type="checkbox" data-buy="matcha-marukyu"><span>丸久小山園<small class="buy-note">又玄、和光、金輪、青嵐、千木之白</small></span></label></li>
+              <li><label><input type="checkbox" data-buy="matcha-ippodo"><span>一保堂<small class="buy-note">幾世之昔、明昔</small></span></label></li>
+              <li><label><input type="checkbox" data-buy="matcha-yamamasa"><span>山政小山園<small class="buy-note">小倉山</small></span></label></li>
+            </ul>
+          </li>
           <li><label><input type="checkbox" data-buy="komatsu"><span>小松昆布（雲月 小松こんぶ）<small class="buy-note">京都高島屋 B1「雲月」專櫃，每天 10:00–20:00；四条河原町，D3 去忠保吃午餐順路 · <a href="https://maps.google.com/?cid=13037245759105388150" target="_blank" rel="noopener">地圖</a></small></span></label></li>
         </ul>
       </section>
@@ -3973,12 +3982,9 @@ const itineraryData = [
       {
         type: "fixed",
         time: "12:30",
-        place: "中餐：淺草一帶",
-        transit: [{ mode: "walk", text: "走路約 16 分" }],
-        route: "從今戶神社沿江戶通走到淺草站一帶。",
-        mapLink: "https://maps.google.com/?q=Asakusa+Station",
+        place: "中餐：待定",
         description: "",
-        note: "待定；吃完往上野、本鄉方向。",
+        note: "待定，看考慮名單",
         foodsLabel: "考慮名單",
         foods: [
           { name: "中華蕎麦 にし乃", info: "★4.3 · 週日 11:00–15:00、18:00–21:00 · 本鄉三丁目，離東大銀杏並木走路約 14 分 · 米其林推薦的淡麗中華蕎麥，評論常提餛飩、山椒拉麵；評論提過販賣機點餐、只收現金、吧檯約十個位子；店家公告 11/17、11/27 休（11/29 有開）", mapLink: "https://maps.google.com/?cid=3626315286614323333" },
@@ -4678,7 +4684,7 @@ const itineraryData = [
         chosen: true,
         mapLink: "https://maps.google.com/?cid=8114894010434897476",
         description: "",
-        note: "已決定；木屋町、四条南邊，離 OMO5 祇園走路約 10 分，18:00 開",
+        note: "已訂位 19:00；木屋町、四条南邊，離 OMO5 祇園走路約 10 分",
         foodsLabel: "考慮名單",
         foods: [
           { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週三晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
