@@ -2587,8 +2587,13 @@ body {
 .todo-list input[type=checkbox]:checked + span { color: var(--text-faint); text-decoration: line-through; }
 .buy-note { display: block; margin-top: 2px; font-size: 12px; line-height: 1.5; color: var(--text-faint); }
 .buy-note a { color: inherit; text-decoration: underline dotted; }
-.buy-group__title { display: block; font-weight: 700; margin-bottom: 4px; }
-.todo-list .buy-sub { list-style: none; margin: 0 0 0 28px; padding: 0; display: grid; gap: 8px; }
+.buy-group__row { display: flex; align-items: flex-start; gap: 8px; }
+.buy-group__row label { flex: 1; }
+.buy-group__toggle { flex: none; border: 0; background: none; padding: 2px 4px; font: inherit; font-size: 12px; color: var(--text-faint); cursor: pointer; }
+.buy-group__chev { display: inline-block; color: #d9a514; transition: transform .2s; }
+.buy-group__toggle[aria-expanded="true"] .buy-group__chev { transform: rotate(90deg); }
+.todo-list .buy-sub[hidden] { display: none; }
+.todo-list .buy-sub { list-style: none; margin: 8px 0 0 28px; padding: 0; display: grid; gap: 8px; }
 .todo-list .buy-sub li::before { content: none; }
 
 /* 每一條行程分隔虛線的兩端，各鑲一枚縮小版花磚（同首頁長條四角的花紋） */
@@ -3721,8 +3726,8 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-buy="covermark"><span>Covermark 卸妝</span></label></li>
           <li><label><input type="checkbox" data-buy="chanel"><span>Chanel 雙頭唇膏</span></label></li>
           <li><label><input type="checkbox" data-buy="chasen"><span>紫竹茶筅</span></label></li>
-          <li class="buy-group"><span class="buy-group__title">抹茶粉</span>
-            <ul class="buy-sub">
+          <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-buy="matcha"><span>抹茶粉</span></label><button type="button" class="buy-group__toggle" aria-expanded="false">3 家 <span class="buy-group__chev">▸</span></button></div>
+            <ul class="buy-sub" hidden>
               <li><label><input type="checkbox" data-buy="matcha-marukyu"><span>丸久小山園<small class="buy-note">又玄、和光、金輪、青嵐、千木之白</small></span></label></li>
               <li><label><input type="checkbox" data-buy="matcha-ippodo"><span>一保堂<small class="buy-note">幾世之昔、明昔</small></span></label></li>
               <li><label><input type="checkbox" data-buy="matcha-yamamasa"><span>山政小山園<small class="buy-note">小倉山</small></span></label></li>
@@ -4039,7 +4044,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=5233617647927100966",
         hours: "週日 10:30–21:30",
         description: "",
-        note: "已決定；★4.5 沾麵名店，就在雪具街這段，離小川町站走路約 1 分；販賣機點餐",
+        note: "★4.5 沾麵名店，就在雪具街這段，離小川町站走路約 1 分；販賣機點餐",
         tip: { icon: "💡", title: "小提醒", steps: ["評論常提擠酸橘（すだち）和加七味粉一起吃", "評論提過拉麵也很好吃、出餐很快"] },
         foods: []
       },
@@ -4127,7 +4132,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=4515862979063215810",
         hours: "週一 08:00–19:00",
         description: "",
-        note: "已決定；寺町通，離 OMO5 三条走路約 4 分；評論提過早上要早點去排",
+        note: "寺町通，離 OMO5 三条走路約 4 分；評論提過早上要早點去排",
         foodsLabel: "考慮名單",
         foods: [
           { name: "Smart Coffee（スマート珈琲店）", info: "★4.3 · 週一 08:00–19:00 · 離 OMO5 走路約 4 分 · 寺町通的老喫茶，評論最常提法式吐司、焦糖布丁、蛋三明治；評論提過早上要早點去排", mapLink: "https://maps.google.com/?cid=4515862979063215810" },
@@ -4192,7 +4197,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=5667950637881123719",
         hours: "午餐 12:00–13:30",
         description: "",
-        note: "已決定，要預約；祇園南側，離 OMO5 三条走路約 17 分；評論提過午餐吃了約 2 小時",
+        note: "要預約；祇園南側，離 OMO5 三条走路約 17 分；評論提過午餐吃了約 2 小時",
         tip: { icon: "💡", title: "小提醒", steps: ["評論常提主廚和醋飯", "週一時間：Google 只顯示 11/23 國定假日那天，出發前再確認一次"] },
         foodsLabel: "考慮名單",
         shops: [
@@ -4446,7 +4451,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=4719711247478245969",
         hours: "週二晚餐 17:00–20:30",
         description: "",
-        note: "已決定；三条大橋旁的小天婦羅店，離 OMO5 祇園走路約 15 分，座位不多，可以先預約",
+        note: "三条大橋旁的小天婦羅店，離 OMO5 祇園走路約 15 分，座位不多，可以先預約",
         foodsLabel: "考慮名單",
         foods: [
           { name: "蛸長", info: "★4.0 · ⚠ 週二公休（只開週五–一 17:30–20:20）· 宮川町 · 關東煮老店（評論提過開了 140 年），評論常提章魚、湯葉、大根，也常提到現金；評論提過沒有價目表、結帳比預期貴", mapLink: "https://maps.google.com/?cid=1710188905337198360" },
@@ -4577,7 +4582,7 @@ const itineraryData = [
         chosen: true,
         mapLink: "https://maps.google.com/?cid=13361978835888582613",
         description: "",
-        note: "已決定；從渡月橋搭車約 47 分（計程車約 35 分）到烏丸御池，週三營業到 14:50",
+        note: "從渡月橋搭車約 47 分（計程車約 35 分）到烏丸御池，週三營業到 14:50",
         foodsLabel: "考慮名單",
         foods: [
           { name: "中華そば 麦の夜明け", info: "★4.2 · 週三 11:00–15:00 · 西大路七条附近，從渡月橋搭車約 40 分（計程車約 22 分）· 招牌是扇貝山椒拉麵，評論最常提山椒、扇貝，也常提米其林；評論提過山椒會在面前現撒", mapLink: "https://maps.google.com/?cid=8802936154293960321" },
@@ -4895,7 +4900,7 @@ const itineraryData = [
         chosen: true,
         mapLink: "https://maps.google.com/?cid=17375856124014617641",
         description: "",
-        note: "已決定；蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分，18:00 開，可預約",
+        note: "蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分，18:00 開，可預約",
         foodsLabel: "考慮名單",
         foods: [
           { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週四晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
@@ -5064,11 +5069,7 @@ const cityData = {
       ]
     },
     intro: "這趟東京只停留一晚、一個白天：第一天傍晚抵達，住在新橋；第二天一早從世田谷的豪德寺出發，一路經過日本橋、淺草、本鄉、神田，傍晚從東京站搭新幹線到京都。\n\n11 月底的東京正好是銀杏轉黃的季節，東大本鄉校區的銀杏大道是這天的季節限定風景；而豪德寺、小網神社、今戶神社三間寺社串成一條「招き猫＋強運」的開運路線。",
-    foods: [
-      { local: "駅弁", romaji: "eki·ben", zh: "鐵路便當", desc: "東京站的「駅弁屋 祭」集合全日本各地的鐵路便當，D2 搭新幹線前買一個在車上吃。" },
-      { local: "人形焼", romaji: "nin·gyō·yaki", zh: "人形燒", desc: "淺草名物，雞蛋糕外皮包紅豆餡，做成雷門、五重塔等造型。" },
-      { local: "天丼", romaji: "ten·don", zh: "天婦羅蓋飯", desc: "淺草有不少江戶前天丼老店，醬汁偏濃、偏甜。" }
-    ],
+    foods: [],
     transit: [
       { title: "地鐵與 IC 卡", body: "東京地鐵分東京 Metro 與都營兩家，用 Suica／PASMO（可加入 iPhone 錢包）最方便。D2 會用到銀座線、田園都市線、世田谷線、淺草線、丸之內線，Google Maps 查路線即可。" },
       { title: "東海道新幹線", body: "東京 → 京都，のぞみ約 2 小時 10 分。可以用 smart EX 預訂指定席，或當天在東京站售票機買。" },
@@ -5080,11 +5081,7 @@ const cityData = {
       "御守、御朱印、小店多半只收現金",
       "週日小網神社常排隊，預留時間"
     ],
-    souvenirs: [
-      { local: "招福猫児", romaji: "maneki·neko", zh: "豪德寺招福貓", desc: "豪德寺寺務所請的白色招福貓，從 2 公分的豆貓到 30 公分都有。" },
-      { local: "縁結び招き猫", romaji: "—", zh: "今戶神社結緣御守", desc: "今戶神社的圓形結緣御守，繡著成對的招き猫，顏色很多種。" },
-      { local: "東京ばな奈", romaji: "Tōkyō banana", zh: "東京香蕉蛋糕", desc: "東京站就買得到的經典伴手禮。" }
-    ]
+    souvenirs: []
   },
   kyoto: {
     en: "Kyoto", zh: "京都",
@@ -5340,7 +5337,7 @@ function renderCityPanel(c, tab) {
     } else if (c.foods && c.foods.length) {
       groups = [{ name: null, zh: null, items: c.foods }];
     }
-    if (!groups) return header("Must Eat", "必吃") + `<div class="empty">— 待補 —</div>`;
+    if (!groups) return header("Must Eat", "必吃") + `<div class="empty">本趟無美食介紹</div>`;
     const renderFood = f => `
       <article class="food-card">
         ${f.image
@@ -5371,7 +5368,7 @@ function renderCityPanel(c, tab) {
     } else if (c.souvenirs && c.souvenirs.length) {
       groups = [{ name: null, zh: null, items: c.souvenirs }];
     }
-    if (!groups) return header("Souvenirs", "伴手禮") + `<div class="empty">— 待補 —</div>`;
+    if (!groups) return header("Souvenirs", "伴手禮") + `<div class="empty">本趟無伴手禮</div>`;
     const renderSouv = f => `
       <article class="food-card">
         ${f.image
@@ -6250,6 +6247,12 @@ function bindChecklist() {
   const BUY_KEY = "tyokyo7days-buy";
   let bought = {};
   try { bought = JSON.parse(localStorage.getItem(BUY_KEY) || "{}"); } catch (e) { bought = {}; }
+  modal.querySelectorAll(".buy-group__toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const sub = btn.closest(".buy-group").querySelector(".buy-sub");
+      const open = sub.hidden; sub.hidden = !open; btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
   modal.querySelectorAll("#buyList input[data-buy]").forEach(cb => {
     cb.checked = !!bought[cb.dataset.buy];
     cb.addEventListener("change", () => { bought[cb.dataset.buy] = cb.checked; try { localStorage.setItem(BUY_KEY, JSON.stringify(bought)); } catch (e) {} });
