@@ -892,6 +892,14 @@ body {
   margin-top: 6px;
 }
 
+/* ---------- Day weather chip ---------- */
+.day-wx { margin-top: 10px; font-family: var(--font-sans); }
+.day-wx__chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: var(--dlight, #f4efe6); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--dmain, #c8961c) 35%, transparent); color: var(--dtext, #5a4a3a); font-size: 12.5px; letter-spacing: 0.04em; }
+.day-wx__ic { font-size: 15px; line-height: 1; }
+.day-wx__lbl { font-size: 10.5px; opacity: .75; }
+.day-wx__sep { opacity: .4; }
+.day-wx__warn { margin: 6px auto 0; max-width: 300px; font-size: 11.5px; line-height: 1.5; color: #a8241a; }
+
 /* ---------- Day tabs ---------- */
 .day-tabs {
   display: flex;
@@ -5433,6 +5441,63 @@ function renderCityPanel(c, tab) {
    ============================================================ */
 let currentDayIdx = 0;
 
+/* ---------- 每日天氣預報（Open-Meteo，免金鑰） ---------- */
+const WX_PLACES = {
+  tokyo: { name: "東京", lat: 35.666, lon: 139.758 },
+  kyoto: { name: "京都", lat: 35.0116, lon: 135.7681 }
+};
+const WX_DAY_PLACE = ["tokyo", "tokyo", "kyoto", "kyoto", "kyoto", "kyoto", "kyoto"];
+const WX_RAIN_TIPS = {
+  4: "可能下雨：記得帶傘；保津川遊船遇大雨或水位太高可能停航，出發前看跟團通知",
+  5: "可能下雨：穿和服前可以先問和服店雨天怎麼安排"
+};
+const WX_CODES = [
+  [[0], "☀️", "晴"], [[1], "🌤️", "晴時多雲"], [[2], "⛅", "多雲"], [[3], "☁️", "陰"],
+  [[45, 48], "🌫️", "霧"], [[51, 53, 55, 56, 57], "🌦️", "毛毛雨"],
+  [[61, 66], "🌧️", "小雨"], [[63], "🌧️", "雨"], [[65, 67], "🌧️", "大雨"],
+  [[71, 73, 75, 77], "🌨️", "雪"], [[80, 81, 82], "🌦️", "陣雨"], [[85, 86], "🌨️", "陣雪"],
+  [[95, 96, 99], "⛈️", "雷雨"]
+];
+const WX_TTL = 60 * 60 * 1000;
+const wxPending = {};
+function wxDesc(code) {
+  const hit = WX_CODES.find(r => r[0].includes(code));
+  return hit ? { ic: hit[1], t: hit[2] } : { ic: "🌡️", t: "" };
+}
+function wxLoad(key) {
+  const ck = "tyokyo7days-wx-" + key;
+  try {
+    const c = JSON.parse(localStorage.getItem(ck) || "null");
+    if (c && Date.now() - c.at < WX_TTL) return Promise.resolve(c.data);
+  } catch (e) {}
+  if (wxPending[key]) return wxPending[key];
+  const p = WX_PLACES[key];
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=16`;
+  wxPending[key] = fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(j => {
+    const d = j.daily || {}, out = {};
+    (d.time || []).forEach((t, i) => { out[t] = { code: d.weather_code[i], hi: d.temperature_2m_max[i], lo: d.temperature_2m_min[i], rain: d.precipitation_probability_max[i] }; });
+    try { localStorage.setItem(ck, JSON.stringify({ at: Date.now(), data: out })); } catch (e) {}
+    return out;
+  }).catch(() => { delete wxPending[key]; return null; });
+  return wxPending[key];
+}
+function renderDayWeather(idx) {
+  const el = document.getElementById("dayWx");
+  if (!el) return;
+  const day = itineraryData[idx], key = WX_DAY_PLACE[idx] || "kyoto";
+  const date = (day.date || "").replace(/\//g, "-");
+  wxLoad(key).then(data => {
+    if (currentDayIdx !== idx || !data || !data[date]) return;
+    const w = data[date];
+    if (w.hi == null || w.lo == null) return;
+    const d = wxDesc(w.code);
+    const rain = w.rain == null ? "" : `<span class="day-wx__sep">·</span><span>☂ ${w.rain}%</span>`;
+    const tip = (w.rain != null && w.rain >= 50 && WX_RAIN_TIPS[idx]) ? `<p class="day-wx__warn">⚠ ${WX_RAIN_TIPS[idx]}</p>` : "";
+    el.innerHTML = `<span class="day-wx__chip"><span class="day-wx__lbl">${WX_PLACES[key].name}預報</span><span class="day-wx__ic">${d.ic}</span><span>${d.t}</span><span class="day-wx__sep">·</span><span>${Math.round(w.hi)}° / ${Math.round(w.lo)}°</span>${rain}</span>${tip}`;
+    el.hidden = false;
+  });
+}
+
 function gotoDay(idx) {
   currentDayIdx = idx;
   const day = itineraryData[idx];
@@ -5544,6 +5609,7 @@ function renderDayContent() {
       <span class="day-meta__phase">${PHASE_LABEL[day.phase]}</span>
       <h2 class="day-meta__title">${escapeHTML(day.title)}</h2>
       <p class="day-meta__subtitle">${escapeHTML(day.subtitle || "")}</p>
+      <div class="day-wx" id="dayWx" hidden></div>
     </div>
     ${renderRouteBtn(day)}
 
@@ -5580,6 +5646,7 @@ function renderDayContent() {
     </div>
   `;
   document.getElementById("dayContent").innerHTML = html;
+  renderDayWeather(currentDayIdx);
 
   // tab switching
   const panels = document.querySelectorAll(".day-panel");
