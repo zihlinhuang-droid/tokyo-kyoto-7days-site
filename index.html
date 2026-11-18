@@ -3715,7 +3715,14 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-todo="checkin"><span>星宇航空線上報到（JX804）</span></label></li>
           <li><label><input type="checkbox" data-todo="esim"><span>購買日本 eSIM</span></label></li>
           <li><label><input type="checkbox" data-todo="ic"><span>iPhone 錢包加 Suica／ICOCA 並儲值</span></label></li>
-          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（約 17:00）</span></label></li>
+          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（20:00 之後）</span></label></li>
+          <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-todo="restaurants"><span>訂餐廳</span></label><button type="button" class="buy-group__toggle" aria-expanded="true">3 家 <span class="buy-group__chev">▸</span></button></div>
+            <ul class="buy-sub">
+              <li><label><input type="checkbox" data-todo="book-tadayasu"><span>D3 午餐 祇園 鮨 忠保（要預約）</span></label></li>
+              <li><label><input type="checkbox" data-todo="book-gen"><span>D4 晚餐 てんぷらの店 玄</span></label></li>
+              <li><label><input type="checkbox" data-todo="book-yamachan"><span>D6 晚餐 焼肉 やまちゃん</span></label></li>
+            </ul>
+          </li>
           <li><label><input type="checkbox" data-todo="tour"><span>嵐山一日遊集合資訊截圖（D5 07:45 八條口）</span></label></li>
           <li><label><input type="checkbox" data-todo="haruka"><span>買 HARUKA／ICOCA &amp; HARUKA（D7）</span></label></li>
           <li><label><input type="checkbox" data-todo="cash"><span>換日圓現金（御守、御朱印、小店）</span></label></li>
@@ -3795,7 +3802,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
         <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Itinerary</span><span class="pretrip-section__sub">交通總表</span></h4>
         <ul>
           <li>D1 JX804 15:00–19:25 桃園 T1 → 成田 T2</li>
-          <li>D2 東海道新幹線 東京→京都（約 17:00，待購票）</li>
+          <li>D2 東海道新幹線 東京→京都（20:00 之後，待購票）</li>
           <li>D7 JX823 14:00–16:20 KIX→TPE</li>
         </ul>
       </section>
@@ -3987,17 +3994,20 @@ const itineraryData = [
         note: "招き猫發祥地之一，也是有名的結緣神社；圓形招き猫繪馬、結緣御守很可愛",
         tip: { icon: "💡", title: "小提醒", steps: ["境內偶爾會出現白貓「なみちゃん」，遇到算幸運", "這裡也是今戶燒的發源地，有今戶燒發祥之地碑", "新選組沖田總司傳說在這裡過世，境內有紀念碑"] },
         foods: [
-          { name: "浅草梅園", info: "★4.1 · 週日 10:00–18:00 · 淺草寺附近，離今戶神社走路約 18 分（午餐去淺草時順路）· 老字號甘味處，評論最常提善哉（紅豆湯）、杏蜜，也常提銅鑼燒；評論提過門口有露天座位", mapLink: "https://maps.google.com/?cid=11034619643483869312" },
+          { name: "浅草梅園", info: "★4.1 · 週日 10:00–18:00 · 淺草寺附近，離今戶神社走路約 18 分（去淺草站搭車時順路）· 老字號甘味處，評論最常提善哉（紅豆湯）、杏蜜，也常提銅鑼燒；評論提過門口有露天座位", mapLink: "https://maps.google.com/?cid=11034619643483869312" },
           { name: "Feb's coffee & scone", info: "★4.4 · 週日 07:30–16:00 · 淺草寺北邊，離今戶神社走路約 11 分 · 司康和咖啡店，評論最常提布丁，也常提司康、紅豆餡、蔓越莓；評論提過早餐拼盤份量足、店小座位不多", mapLink: "https://maps.google.com/?cid=9762189476094486226" },
-          { name: "甘味処 西山", info: "★4.4 · 週日 12:00–19:00（週三休）· 雷門附近，離今戶神社走路約 18 分（午餐去淺草時順路）· 和菓子甘味處，評論最常提杏蜜，也常提白玉、刨冰、善哉；評論提過甜度剛好、店內安靜好休息", mapLink: "https://maps.google.com/?cid=4849892766404191148" }
+          { name: "甘味処 西山", info: "★4.4 · 週日 12:00–19:00（週三休）· 雷門附近，離今戶神社走路約 18 分（去淺草站搭車時順路）· 和菓子甘味處，評論最常提杏蜜，也常提白玉、刨冰、善哉；評論提過甜度剛好、店內安靜好休息", mapLink: "https://maps.google.com/?cid=4849892766404191148" }
         ]
       },
       {
         type: "fixed",
-        time: "12:30",
+        time: "13:00",
         place: "中餐：待定",
+        transit: [{ mode: "mrt", text: "電車約 37 分" }],
+        route: "今戶神社走到淺草站 → 銀座線 → 大江戶線，本鄉三丁目下車。12:15 左右出發。",
+        mapLink: "https://maps.google.com/?q=Hongo-sanchome+Station",
         description: "",
-        note: "待定，看考慮名單",
+        note: "本鄉三丁目一帶，待定，看考慮名單",
         foodsLabel: "考慮名單",
         foods: [
           { name: "中華蕎麦 にし乃", info: "★4.3 · 週日 11:00–15:00、18:00–21:00 · 本鄉三丁目，離東大銀杏並木走路約 14 分 · 米其林推薦的淡麗中華蕎麥，評論常提餛飩、山椒拉麵；評論提過販賣機點餐、只收現金、吧檯約十個位子；店家公告 11/17、11/27 休（11/29 有開）", mapLink: "https://maps.google.com/?cid=3626315286614323333" },
@@ -4010,8 +4020,8 @@ const itineraryData = [
         time: "14:00",
         place: "東大 銀杏並木",
         level: "main",
-        transit: [{ mode: "mrt", text: "電車約 20 分" }],
-        route: "淺草 → 銀座線 → 大江戶線（或從藏前搭大江戶線），本鄉三丁目下車。13:35 左右出發。",
+        transit: [{ mode: "walk", text: "走路約 14 分" }],
+        route: "從本鄉三丁目沿本鄉通往北走到正門。13:45 左右出發。",
         mapLink: "https://maps.google.com/?cid=17591354007417491744",
         description: "",
         note: "正門到安田講堂的銀杏大道，11 月底通常正黃",
@@ -4372,6 +4382,16 @@ const itineraryData = [
       },
       {
         type: "fixed",
+        time: "09:30",
+        place: "先生回 OMO5 京都三条退房",
+        level: "minor",
+        mapLink: "https://maps.google.com/?q=OMO5+Kyoto+Sanjo",
+        description: "",
+        note: "先生看完東福寺就回去退房、拿行李（退房 11:00）；我往伏見稻荷",
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "11:30",
         place: "伏見稻荷大社・千本鳥居",
         level: "main",
@@ -4496,7 +4516,7 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "今天換飯店：OMO5 京都三条 → OMO5 京都祇園。早上先把行李寄放到祇園再出發是我的建議，也可以直接帶著行李去東福寺（車站沒有太多大型置物櫃）。",
+      "今天換飯店：OMO5 京都三条 → OMO5 京都祇園。先生看完東福寺約 09:30 回三条退房、拿行李（退房 11:00），我往伏見稻荷。",
       "紅葉季人潮多，東福寺建議開門前抵達；京都市巴士很擠，盡量搭京阪、JR。",
       "下午還空著，可以等決定後再補。"
     ]
@@ -4508,7 +4528,7 @@ const itineraryData = [
     dowZh: "三",
     phase: "arashi",
     title: "嵐山一日遊",
-    subtitle: "嵯峨野小火車 · 保津川遊船 · 渡月橋速寫 · 中午離團",
+    subtitle: "嵯峨野小火車 · 保津川遊船 · 渡月橋速寫 · 提早離團",
     routeCode: "京都 ⇄ 嵐山",
     coverImage: "images/kyoto/day5-sagano.jpg",
     coverAlt: "紅葉中的嵯峨野小火車",
@@ -4575,27 +4595,14 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "12:00",
-        place: "中午離團（不吃自助餐）",
+        time: "",
+        place: "離團（當天決定時間）",
         level: "minor",
         area: "嵐山一日遊（跟團）",
         description: "",
-        note: "去烏丸御池吃高倉二条；下午行程待定",
+        note: "搭完遊船就離團，或吃完跟團中餐再離團；天龍寺之後不參加",
+        tip: { icon: "💡", title: "小提醒", steps: ["搭完遊船就離團：去烏丸御池吃高倉二条", "吃完跟團中餐才離團：不用另外找午餐", "離團前跟領隊說一聲", "下午行程待定"] },
         foods: []
-      },
-      {
-        type: "fixed",
-        time: "12:45",
-        place: "中餐：麺や 高倉二条",
-        chosen: true,
-        mapLink: "https://maps.google.com/?cid=13361978835888582613",
-        description: "",
-        note: "從渡月橋搭車約 47 分（計程車約 35 分）到烏丸御池，週三營業到 14:50",
-        foodsLabel: "考慮名單",
-        foods: [
-          { name: "中華そば 麦の夜明け", info: "★4.2 · 週三 11:00–15:00 · 西大路七条附近，從渡月橋搭車約 40 分（計程車約 22 分）· 招牌是扇貝山椒拉麵，評論最常提山椒、扇貝，也常提米其林；評論提過山椒會在面前現撒", mapLink: "https://maps.google.com/?cid=8802936154293960321" },
-          { name: "麺や 高倉二条", info: "★4.1 · 週三 11:30–14:50 · 烏丸御池附近的高倉通，從渡月橋搭車約 47 分（計程車約 35 分）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" }
-        ]
       },
       {
         type: "fixed",
@@ -4688,6 +4695,29 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=Kyoto+Station+Hachijo+Exit+bus+terminal",
         description: "",
         note: "塞車可能 18:30 才到",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "中餐：麺や 高倉二条",
+        chosen: true,
+        mapLink: "https://maps.google.com/?cid=13361978835888582613",
+        description: "",
+        note: "搭完遊船就離團時吃這家；從渡月橋搭車約 47 分（計程車約 35 分）到烏丸御池，週三營業到 14:50",
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "中華そば 麦の夜明け", info: "★4.2 · 週三 11:00–15:00 · 西大路七条附近，從渡月橋搭車約 40 分（計程車約 22 分）· 招牌是扇貝山椒拉麵，評論最常提山椒、扇貝，也常提米其林；評論提過山椒會在面前現撒", mapLink: "https://maps.google.com/?cid=8802936154293960321" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週三 11:30–14:50 · 烏丸御池附近的高倉通，從渡月橋搭車約 47 分（計程車約 35 分）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "市區晃晃",
+        level: "minor",
+        description: "",
+        note: "下午自由逛，19:00 前到 Baitarusain",
         foods: []
       },
       {
@@ -5111,10 +5141,10 @@ const cityData = {
     },
     intro: "京都從 794 年起當了一千多年的首都，城裡有十七處世界遺產，寺院、神社、町家老街密密地分布在東山、嵐山與市中心之間。\n\n這次剛好碰上紅葉季的尾聲：東福寺被稱為「京都秋天最後的紅葉」，嵐山、清水寺通常也在 11 月下旬到 12 月上旬最紅。行程前兩晚住三条、後三晚住祇園，D6 再穿上和服，走一趟清水寺到八坂之塔的石坂老街。",
     foods: [
-      { local: "湯豆腐", romaji: "yu·dō·fu", zh: "湯豆腐", desc: "京都水質軟，豆腐細嫩；嵐山、南禪寺一帶的湯豆腐最有名，冬天吃剛好。" },
-      { local: "きつねうどん", romaji: "ki·tsu·ne u·don", zh: "狐狸烏龍麵", desc: "加了甜鹹油豆皮的烏龍麵，伏見稻荷參道上很多店都有。" },
-      { local: "抹茶スイーツ", romaji: "mac·cha", zh: "抹茶甜點", desc: "宇治抹茶做的聖代、蕨餅、霜淇淋，祇園、清水寺一帶到處都是。" },
-      { local: "京漬物", romaji: "kyō·tsu·ke·mo·no", zh: "京都醃菜", desc: "千枚漬、柴漬、酸莖是京都三大醃菜，錦市場可以試吃。" }
+      { local: "湯豆腐", image: "images/kyoto/food-yudofu.jpg", romaji: "yu·dō·fu", zh: "湯豆腐", desc: "京都水質軟，豆腐細嫩；嵐山、南禪寺一帶的湯豆腐最有名，冬天吃剛好。" },
+      { local: "きつねうどん", image: "images/kyoto/food-kitsune-udon.jpg", romaji: "ki·tsu·ne u·don", zh: "狐狸烏龍麵", desc: "加了甜鹹油豆皮的烏龍麵，伏見稻荷參道上很多店都有。" },
+      { local: "抹茶スイーツ", image: "images/kyoto/food-matcha-sweets.jpg", romaji: "mac·cha", zh: "抹茶甜點", desc: "宇治抹茶做的聖代、蕨餅、霜淇淋，祇園、清水寺一帶到處都是。" },
+      { local: "京漬物", image: "images/kyoto/food-tsukemono.jpg", romaji: "kyō·tsu·ke·mo·no", zh: "京都醃菜", desc: "千枚漬、柴漬、酸莖是京都三大醃菜，錦市場可以試吃。" }
     ],
     transit: [
       { title: "電車優先", body: "紅葉季市巴士非常擠又塞車，盡量搭地鐵、京阪、JR。東福寺、伏見稻荷都在京阪與 JR 沿線；IC 卡（Suica／ICOCA）全部可用。" },
@@ -5129,10 +5159,10 @@ const cityData = {
       "東福寺、伏見稻荷、清水寺都要爬坡，穿好走的鞋"
     ],
     souvenirs: [
-      { local: "生八ッ橋", romaji: "nama yatsuhashi", zh: "生八橋", desc: "肉桂或抹茶口味的軟皮包紅豆餡，京都最經典的伴手禮，保存期限短。" },
-      { local: "七味唐辛子", romaji: "shichimi", zh: "七味粉", desc: "清水寺參道上的七味家本舖是三百多年的老店，小罐裝適合送人。" },
-      { local: "抹茶菓子", romaji: "mac·cha", zh: "抹茶點心", desc: "宇治抹茶餅乾、巧克力等，京都站伊勢丹與八條口一帶就買得到。" },
-      { local: "和柄小物", romaji: "wa·gara", zh: "和風布小物", desc: "用和服布料做的束口袋、手帕、髮飾，二年坂一帶很多小店。" }
+      { local: "生八ッ橋", image: "images/kyoto/souvenir-yatsuhashi.jpg", romaji: "nama yatsuhashi", zh: "生八橋", desc: "肉桂或抹茶口味的軟皮包紅豆餡，京都最經典的伴手禮，保存期限短。" },
+      { local: "七味唐辛子", image: "images/kyoto/souvenir-shichimi.jpg", romaji: "shichimi", zh: "七味粉", desc: "清水寺參道上的七味家本舖是三百多年的老店，小罐裝適合送人。" },
+      { local: "抹茶菓子", image: "images/kyoto/souvenir-matcha-sweets.jpg", romaji: "mac·cha", zh: "抹茶點心", desc: "宇治抹茶餅乾、巧克力等，京都站伊勢丹與八條口一帶就買得到。" },
+      { local: "抹茶", image: "images/kyoto/souvenir-matcha.jpg", romaji: "mac·cha", zh: "抹茶粉", desc: "京都老茶舖的抹茶粉，帶回家可以自己刷；想買的丸久小山園、一保堂、山政小山園都列在待買清單。" }
     ]
   }
 };
