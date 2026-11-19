@@ -3722,7 +3722,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-todo="checkin"><span>星宇航空線上報到（JX804）</span></label></li>
           <li><label><input type="checkbox" data-todo="esim"><span>購買日本 eSIM</span></label></li>
           <li><label><input type="checkbox" data-todo="ic"><span>iPhone 錢包加 Suica／ICOCA 並儲值</span></label></li>
-          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（20:00 之後）</span></label></li>
+          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（20:45 左右）</span></label></li>
           <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-todo="restaurants"><span>訂餐廳</span></label><button type="button" class="buy-group__toggle" aria-expanded="true">3 家 <span class="buy-group__chev">▸</span></button></div>
             <ul class="buy-sub">
               <li><label><input type="checkbox" data-todo="book-tadayasu"><span>D3 午餐 祇園 鮨 忠保（要預約）</span></label></li>
@@ -3809,7 +3809,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
         <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Itinerary</span><span class="pretrip-section__sub">交通總表</span></h4>
         <ul>
           <li>D1 JX804 15:00–19:25 桃園 T1 → 成田 T2</li>
-          <li>D2 東海道新幹線 東京→京都（20:00 之後，待購票）</li>
+          <li>D2 東海道新幹線 東京→京都（20:45 左右，待購票）</li>
           <li>D7 JX823 14:00–16:20 KIX→TPE</li>
         </ul>
       </section>
@@ -4052,15 +4052,15 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "15:30",
+        time: "15:10",
         place: "神田小川町雪具街",
         level: "main",
-        transit: [{ mode: "mrt", text: "電車約 20 分" }],
-        route: "本鄉三丁目 → 丸之內線到淡路町／小川町。15:10 左右出發。",
+        transit: [{ mode: "mrt", text: "電車約 18 分" }],
+        route: "本鄉三丁目搭丸之內線到淡路町，走到小川町。14:45 左右出發。",
         mapLink: "https://maps.google.com/?q=Kanda+Ogawamachi+sports+shops",
         hours: "多數店 11:00–20:00（各店不同）",
         description: "",
-        note: "靖國通上二十多家滑雪、登山用品店；17:45 前離開",
+        note: "靖國通上二十多家滑雪、登山用品店；晚餐就在旁邊，18:50 前吃完出發去丸之內",
         shops: [
           { name: "文房堂 神田店", info: "★4.4 · 週日 10:00–18:30 · 神保町，離小川町站走路約 8 分 · 老字號畫材店，評論常提繪畫材料、明信片、畫廊；評論提過是日本第一家做油畫顏料的店、有自家筆記本、樓上有裱框，三樓有 Bumpodo Gallery Cafe（到 18:00）", mapLink: "https://maps.google.com/?cid=5110468726085415198" }
         ],
@@ -4072,7 +4072,7 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "18:15",
+        time: "彈性",
         place: "晚餐：つじ田 御茶ノ水店",
         chosen: true,
         mapLink: "https://maps.google.com/?cid=5233617647927100966",
@@ -4084,9 +4084,64 @@ const itineraryData = [
       },
       {
         type: "fixed",
+        time: "19:00",
+        place: "葛來分多交誼廳｜新丸ビル 3F",
+        level: "minor",
+        area: "丸之內耶誕市集",
+        areaSub: "19:00 起・天黑後燈光全亮，哈利波特耶誕裝置邊走邊拍",
+        transit: [{ mode: "mrt", text: "電車約 7 分" }],
+        route: "淡路町搭丸之內線到東京站，走到新丸ビル。18:50 左右出發。",
+        mapLink: "https://maps.google.com/?q=Shin-Marunouchi+Building",
+        hours: "週日到 20:00",
+        description: "",
+        note: "重現聖誕節的交誼廳，還有哈利波特限定周邊快閃店；⚠ 週日 20:00 關",
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "19:15",
+        place: "霍格華茲魔法雪樹｜丸ビル 1F",
+        level: "minor",
+        area: "丸之內耶誕市集",
+        mapLink: "https://maps.google.com/?q=Marunouchi+Building+Marucube",
+        hours: "燈光秀 17:00–21:00",
+        description: "",
+        note: "以四個學院為主題，搭配電影音樂與魔法雪花燈光秀",
+        tip: { icon: "💡", title: "小提醒", steps: ["燈光秀 17:00–21:00，每 15 分鐘一場，約 3 分鐘"] },
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "19:30",
+        place: "蜂蜜公爵耶誕街景｜丸之內仲通",
+        level: "minor",
+        area: "丸之內耶誕市集",
+        mapLink: "https://maps.google.com/?q=Marunouchi+Naka-dori",
+        hours: "11:00–22:00",
+        description: "",
+        note: "以魔法糖果店為靈感的裝置，搭配整條街的香檳金燈飾",
+        tip: { icon: "💡", title: "小提醒", steps: ["仲通上有耶誕市集「Marunouchi Street Park」，有耶誕雜貨、熱食和飲料", "行幸通 11/27 起有 15 家耶誕小屋"] },
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "19:40",
+        place: "金探子耶誕樹｜丸之內 Brick Square",
+        level: "minor",
+        area: "丸之內耶誕市集",
+        mapLink: "https://maps.google.com/?q=Marunouchi+Brick+Square",
+        hours: "週日到 20:00",
+        description: "",
+        note: "金探子與燈光構成的戶外聖誕裝置，很適合天黑後拍照；⚠ 週日 20:00 關",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "20:00",
         place: "回新橋飯店拿行李",
         level: "minor",
+        transit: [{ mode: "mrt", text: "電車約 13 分" }],
+        route: "從 Brick Square 走到有樂町，搭 JR 一站到新橋。",
         mapLink: "https://maps.google.com/?q=Daiwa+Roynet+Hotel+Shimbashi",
         description: "",
         note: "Daiwa Roynet 新橋",
@@ -4094,17 +4149,17 @@ const itineraryData = [
       },
       {
         type: "transit",
-        time: "20:00",
+        time: "20:45",
         from: "東京",
         to: "京都",
         flightNo: "東海道新幹線",
-        timeRange: "20:00 – 22:10",
+        timeRange: "20:45 – 22:55",
         dualTime: true,
-        note: "預計搭 20:00 之後的班次，還沒買票。新橋到東京站 JR 約 10 分，站內走到新幹線剪票口再抓 10 分；のぞみ約 2 小時 10 分。"
+        note: "預計搭 20:45 左右的班次，還沒買票。新橋到東京站 JR 約 10 分，站內走到新幹線剪票口再抓 10 分；のぞみ約 2 小時 10 分。"
       },
       {
         type: "fixed",
-        time: "22:45",
+        time: "23:30",
         place: "飯店 Check in · OMO5 京都三条",
         level: "minor",
         transit: [{ mode: "car", text: "建議搭計程車" }],
