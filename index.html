@@ -2593,6 +2593,13 @@ body {
 .todo-list input[type=checkbox]:checked { background: #2f86e0; }
 .todo-list input[type=checkbox]:checked::after { content: ""; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
 .todo-list input[type=checkbox]:checked + span { color: var(--text-faint); text-decoration: line-through; }
+.hotel-ja { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.hotel-ja li { padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.7); box-shadow: inset 0 0 0 1px #ead6a6; }
+.hotel-ja li::before { content: none !important; }
+.hotel-ja__d { display: block; font-size: 11px; color: var(--text-faint); letter-spacing: .08em; }
+.hotel-ja__n { display: block; font-size: 17px; line-height: 1.4; margin: 2px 0; }
+.hotel-ja__a { display: block; font-size: 15px; line-height: 1.6; }
+.hotel-ja__say { font-size: 15px; margin: 0 0 8px; }
 .buy-note { display: block; margin-top: 2px; font-size: 12px; line-height: 1.5; color: var(--text-faint); }
 .buy-note a { color: inherit; text-decoration: underline dotted; }
 .buy-group__row { display: flex; align-items: flex-start; gap: 8px; }
@@ -3806,6 +3813,15 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li>D7 JX823 14:00–16:20 KIX→TPE</li>
         </ul>
       </section>
+      <section class="pretrip-section">
+        <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Hotels</span><span class="pretrip-section__sub">飯店日文地址（給計程車司機看）</span></h4>
+        <p class="hotel-ja__say">「ここまでお願いします。」（請載我到這裡）</p>
+        <ul class="hotel-ja">
+          <li><span class="hotel-ja__d">D1</span><b class="hotel-ja__n">ダイワロイネットホテル新橋</b><span class="hotel-ja__a">〒105-0004 東京都港区新橋1-17-2</span></li>
+          <li><span class="hotel-ja__d">D2–D3</span><b class="hotel-ja__n">OMO5京都三条 by 星野リゾート</b><span class="hotel-ja__a">〒604-8005 京都府京都市中京区河原町通三条上る恵比須町434番1</span></li>
+          <li><span class="hotel-ja__d">D4–D6</span><b class="hotel-ja__n">OMO5京都祇園 by 星野リゾート</b><span class="hotel-ja__a">〒605-0073 京都府京都市東山区四条通大和大路東入祇園町北側288</span></li>
+        </ul>
+      </section>
     </div>
     </div>
   </div>
@@ -4002,12 +4018,12 @@ const itineraryData = [
       {
         type: "fixed",
         time: "13:00",
-        place: "中餐：待定",
+        place: "中餐：彈性",
         transit: [{ mode: "mrt", text: "電車約 37 分" }],
         route: "今戶神社走到淺草站 → 銀座線 → 大江戶線，本鄉三丁目下車。12:15 左右出發。",
         mapLink: "https://maps.google.com/?q=Hongo-sanchome+Station",
         description: "",
-        note: "本鄉三丁目一帶，待定，看考慮名單",
+        note: "本鄉三丁目一帶，看考慮名單",
         foodsLabel: "考慮名單",
         foods: [
           { name: "中華蕎麦 にし乃", info: "★4.3 · 週日 11:00–15:00、18:00–21:00 · 本鄉三丁目，離東大銀杏並木走路約 14 分 · 米其林推薦的淡麗中華蕎麥，評論常提餛飩、山椒拉麵；評論提過販賣機點餐、只收現金、吧檯約十個位子；店家公告 11/17、11/27 休（11/29 有開）", mapLink: "https://maps.google.com/?cid=3626315286614323333" },
@@ -4095,6 +4111,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=OMO5+Kyoto+Sanjo",
         description: "",
         note: "連住兩晚（D2–D3）。",
+        tip: { icon: "🚕", title: "給司機看", steps: ["OMO5京都三条 by 星野リゾート", "〒604-8005 京都府京都市中京区河原町通三条上る恵比須町434番1", "ここまでお願いします。"] },
         foods: []
       }
     ],
@@ -4169,7 +4186,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=17757326170199873026",
         hours: "週一 07:30–16:00（週二、三、日休）",
         description: "",
-        note: "已決定；烏丸三条西邊，吃完早餐走過來",
+        note: "烏丸三条西邊，吃完早餐走過來",
         tip: { icon: "💡", title: "小提醒", steps: ["夫妻經營的自家烘焙咖啡，評論常提拉明頓、橙子塔、蛋糕捲，也常提 flat white"] },
         shops: [
           { name: "器や彩々 Utsuwaya Saisai", info: "★4.2 · 週一 11:00–18:00（週二、三休）· 三条大宮、三条會商店街旁的小巷，離 IOLITE 走路約 11 分 · 作家器皿店，評論常提作家作品；評論提過二樓也擺滿器皿 · ⚠ 11:00 才開", mapLink: "https://maps.google.com/?cid=5797125015554318564" },
@@ -4222,11 +4239,14 @@ const itineraryData = [
           { name: "Maana Living", info: "★5.0 · 週一 10:00–17:00 · 東山七条一帶，離忠保走路約 23 分 · 東山的小生活道具店，器皿和茶器，評論常提陶器、藝術家；評論提過在飯店入口旁、價格偏高", mapLink: "https://maps.google.com/?cid=6774951704399522615" }
         ],
         foods: [
+          { group: "🍤 天婦羅" },
+          { name: "てんぷらの店 玄", info: "★5.0 · 週一 11:30–14:30、17:00–20:30（週三休、週四只有晚餐）· 三条大橋旁、先斗町北端，離豬一主店走路約 17 分 · 夫妻經營的小天婦羅店，評論常提味噌湯、食材、麵衣薄；評論提過座位不多、炸得仔細要等一下；可預約", mapLink: "https://maps.google.com/?cid=4719711247478245969" },
+          { group: "🍜 麵" },
           { name: "麵屋 豬一（主店，優先）", info: "★4.4 · 週一 11:00–14:30、17:30–21:00 · 四条河原町往南一點 · 自家製麵，常排隊", mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80&query_place_id=ChIJufyODr4IAWARNVu7xBbRG2w" },
           { name: "麵屋 豬一 離れ（備案）", info: "★4.4 · 週一 11:00–14:30、17:30–21:00 · 四条烏丸往南、高辻通上 · 評論常提和牛、燒賣；評論提過先登記拿號碼牌，會告訴你幾點回來排", mapLink: "https://www.google.com/maps/search/?api=1&query=%E9%BA%B5%E5%B1%8B+%E8%B1%AC%E4%B8%80+%E9%9B%A2%E3%82%8C&query_place_id=ChIJYRZ82JcIAWARAx-4yz9KLoE" },
           { name: "うどん しき Udon Shiki", info: "★4.1 · 週一 11:00–14:30、17:00–22:00 · 河原町，離豬一主店走路約 2 分（豬一排太久可以改來這）· 自家製麵的烏龍麵店，店家說二樓有製麵室、可預約；評論常提焗烤烏龍麵、卡邦尼烏龍麵、砂鍋烏龍麵；評論提過炸雞很好吃", mapLink: "https://maps.google.com/?cid=2200368258389745689" },
           { name: "永正亭", info: "★4.2 · 週一 11:00–19:00（週三休）· 寺町京極商店街，離豬一主店走路約 3 分 · 小小的蕎麥麵店，評論常提田舍蕎麥、天婦羅蛋丼；評論提過有英文菜單、天婦羅麵衣薄", mapLink: "https://maps.google.com/?cid=11436790511711738517" },
-          { name: "てんぷらの店 玄", info: "★5.0 · 週一 11:30–14:30、17:00–20:30（週三休、週四只有晚餐）· 三条大橋旁、先斗町北端，離豬一主店走路約 17 分 · 夫妻經營的小天婦羅店，評論常提味噌湯、食材、麵衣薄；評論提過座位不多、炸得仔細要等一下；可預約", mapLink: "https://maps.google.com/?cid=4719711247478245969" },
+          { group: "🥪 三明治・輕食" },
           { name: "Taku Sando 京都", info: "★4.8 · 週一 12:00–16:00（其他天到 17:00）· 三条御幸町，離 OMO5 三条走路約 5 分、離豬一主店約 11 分 · 三明治店，評論常提炸豬排三明治、雞排三明治、柚子薑汁汽水；評論提過不太需要排隊", mapLink: "https://maps.google.com/?cid=12790486595910762711" }
         ]
       },
@@ -4254,7 +4274,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=5819004775851597511",
         hours: "週一 10:00–18:00",
         description: "",
-        note: "已決定；夷川通、京都御苑南邊",
+        note: "夷川通、京都御苑南邊",
         foodsLabel: "考慮名單",
         shops: [
           { name: "Kyoto Yamahon", info: "★4.5 · 週一 11:00–18:30 · 寺町二条附近的 2 樓，離 Kurasu 走路約 10 分 · 工藝藝廊兼選物店，評論提過漆器和木製品特別多；11/26–12/8 有川合優木工展（盆、箱、茶器）", mapLink: "https://maps.google.com/?cid=13520889059264814839" },
@@ -4287,12 +4307,16 @@ const itineraryData = [
         tip: { icon: "💡", title: "小提醒", steps: ["清水寺秋季夜間特別拜觀 11/21–11/30，今晚是最後一天（最後入場 21:00）", "D6 和服日只會在白天去清水寺，想看夜楓今晚是唯一機會", "考慮名單的週一時間：Google 只顯示 11/23 國定假日那天的時間，平日週一出發前再確認一次；DODICI、DA CIRO、mane、花の井 假日週一沒開，所以沒放"] },
         foodsLabel: "考慮名單",
         foods: [
-          { name: "fudo（フウド）", info: "★4.6 · 週一 17:00–23:00（週二休）· 御池通，離 OMO5 三条走路約 8 分 · 義式創作料理，評論常提鵝肝、鯛魚、烏魚子、日本葡萄酒；可線上預約", mapLink: "https://maps.google.com/?cid=2317270944221809243" },
-          { name: "Bistro Nami", info: "★4.6 · 週一晚餐 17:00–23:00（週三休）· 新京極一帶，離 OMO5 三条走路約 10 分 · 法式小酒館，評論常提咖哩、開胃菜；評論提過可以點半份、坐吧台看主廚做菜；可預約", mapLink: "https://maps.google.com/?cid=13187455122346823232" },
-          { name: "バイタルサイン Baitarusain", info: "★4.6 · 週一 18:00–23:30（週日休）· 木屋町、四条南邊，離 OMO5 三条走路約 12 分 · 日歐融合料理，評論常提主廚、自然酒、提拉米蘇；評論提過價格合理", mapLink: "https://maps.google.com/?cid=8114894010434897476" },
+          { group: "🍣 壽司" },
           { name: "鮨 森學", info: "★4.9 · 週一晚餐 18:00–22:30（週三休）· 市役所前站附近，離 OMO5 三条走路約 7 分 · omakase 壽司，評論常提主廚、omakase、清酒；店家說有稻草燒；要預約", mapLink: "https://maps.google.com/?cid=3417490308816175988" },
           { name: "祇園 鮨 忠保", info: "★4.1 · 週一晚餐 18:00–21:00 · 祇園南側，離 OMO5 三条走路約 17 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
+          { group: "🥩 燒肉" },
           { name: "焼肉 やまちゃん Yamachan", info: "★4.2 · 週一 18:00–23:30（週三休）· 蛸藥師、新京極一帶，離 OMO5 三条走路約 8 分 · 燒肉，評論常提生牛肉、咖哩、冷麵、沙朗；評論提過套餐一人約 ¥22,000、有人覺得份量少；可預約", mapLink: "https://maps.google.com/?cid=17375856124014617641" },
+          { group: "🍝 義大利" },
+          { name: "fudo（フウド）", info: "★4.6 · 週一 17:00–23:00（週二休）· 御池通，離 OMO5 三条走路約 8 分 · 義式創作料理，評論常提鵝肝、鯛魚、烏魚子、日本葡萄酒；可線上預約", mapLink: "https://maps.google.com/?cid=2317270944221809243" },
+          { group: "🍷 法式・創作" },
+          { name: "Bistro Nami", info: "★4.6 · 週一晚餐 17:00–23:00（週三休）· 新京極一帶，離 OMO5 三条走路約 10 分 · 法式小酒館，評論常提咖哩、開胃菜；評論提過可以點半份、坐吧台看主廚做菜；可預約", mapLink: "https://maps.google.com/?cid=13187455122346823232" },
+          { name: "バイタルサイン Baitarusain", info: "★4.6 · 週一 18:00–23:30（週日休）· 木屋町、四条南邊，離 OMO5 三条走路約 12 分 · 日歐融合料理，評論常提主廚、自然酒、提拉米蘇；評論提過價格合理", mapLink: "https://maps.google.com/?cid=8114894010434897476" },
           { name: "Jean-Georges 京都新門前", info: "★4.7 · 週一晚餐 17:30–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 三条走路約 12 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" }
         ]
       },
@@ -4345,7 +4369,7 @@ const itineraryData = [
         time: "07:00",
         place: "早餐：三条附近",
         description: "",
-        note: "待定。",
+        note: "彈性",
         foods: []
       },
       {
@@ -4357,7 +4381,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?cid=1785712412905830273",
         hours: "週二 08:00–18:00",
         description: "",
-        note: "已決定；本町通上，走到東福寺約 5 分",
+        note: "本町通上，走到東福寺約 5 分",
         tip: { icon: "💡", title: "小提醒", steps: ["評論常提音樂、flat white、可頌、香蕉", "評論提過拿鐵奶泡綿密、店內有小桌可以坐", "東福寺看楓期間開門前就會排隊，喝完早點過去"] },
         foods: []
       },
@@ -4418,17 +4442,17 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "待定",
+        time: "彈性",
         place: "🎨 速寫：伏見稻荷",
         level: "main",
         description: "",
         mapLink: "https://maps.google.com/?q=Fushimi+Inari+Taisha",
-        note: "時間等老師通知",
+        note: "集合時間老師可能前一天才通知",
         foods: []
       },
       {
         type: "fixed",
-        time: "待定",
+        time: "彈性",
         place: "嵐湯 伏見稻荷別邸（足湯＋足底按摩）（optional）",
         level: "main",
         mapLink: "https://maps.google.com/?cid=8182089764519262179",
@@ -4443,7 +4467,7 @@ const itineraryData = [
         time: "13:00",
         place: "中餐：稻荷參道",
         description: "",
-        note: "待定；參道上有狐狸烏龍麵（豆皮）、稻荷壽司。",
+        note: "彈性；參道上有狐狸烏龍麵（豆皮）、稻荷壽司",
         foods: []
       },
       {
@@ -4452,7 +4476,7 @@ const itineraryData = [
         place: "咖啡時間",
         level: "minor",
         description: "",
-        note: "店待定，看考慮名單",
+        note: "彈性，看考慮名單",
         foodsLabel: "考慮名單",
         foods: [
           { name: "BLEND KYOTO 御所南本店", info: "★4.4 · 週二 10:00–18:00 · 京都御苑南邊，從伏見稻荷搭京阪約 30 分 · 精品咖啡外帶店，可以先聞豆子香氣再選；評論提過每天有 5–6 款豆子、藝妓手沖一杯約 ¥3,300–4,400，也提過不收現金", mapLink: "https://maps.google.com/?cid=13779412418395896942" },
@@ -4469,6 +4493,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=OMO5+Kyoto+Gion",
         description: "",
         note: "連住三晚（D4–D6）。",
+        tip: { icon: "🚕", title: "給司機看", steps: ["OMO5京都祇園 by 星野リゾート", "〒605-0073 京都府京都市東山区四条通大和大路東入祇園町北側288", "ここまでお願いします。"] },
         foods: []
       },
       {
@@ -4482,22 +4507,30 @@ const itineraryData = [
         note: "三条大橋旁的小天婦羅店，離 OMO5 祇園走路約 15 分，座位不多，可以先預約",
         foodsLabel: "考慮名單",
         foods: [
-          { name: "蛸長", info: "★4.0 · ⚠ 週二公休（只開週五–一 17:30–20:20）· 宮川町 · 關東煮老店（評論提過開了 140 年），評論常提章魚、湯葉、大根，也常提到現金；評論提過沒有價目表、結帳比預期貴", mapLink: "https://maps.google.com/?cid=1710188905337198360" },
+          { group: "🍣 壽司" },
+          { name: "鮨 森學", info: "★4.9 · 週二晚餐 18:00–22:30（週三休） · 市役所前站附近，離 OMO5 祇園走路約 21 分 · omakase 壽司，評論常提主廚、omakase、清酒；店家說有稻草燒；要預約", mapLink: "https://maps.google.com/?cid=3417490308816175988" },
+          { name: "祇園 鮨 忠保", info: "★4.1 · 週二晚餐 18:00–21:00 · 祇園南側，離 OMO5 祇園走路約 3 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
+          { name: "鮨 花の井 Sushi Hananoi", info: "★4.8 · 週二晚餐 17:00–22:00（週一可能休）· 祇園南側、西花見小路，離 OMO5 祇園走路約 6 分 · 第三代主廚的 omakase 壽司，評論常提主廚、omakase、氣氛；評論提過會配合飲食限制調整菜單、套餐後會多送壽司；可在一休預約", mapLink: "https://maps.google.com/?cid=12302383564729667902" },
+          { group: "🍤 天婦羅" },
           { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週二晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
-          { name: "しし蔵 Shishikura", info: "★4.7 · 週二 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
-          { name: "麺や 高倉二条", info: "★4.1 · 週二 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" },
           { name: "てんぷらの店 玄", info: "★5.0 · 週二晚餐 17:00–20:30（週三休）· 三条大橋旁、先斗町北端，離 OMO5 祇園走路約 15 分 · 夫妻經營的小天婦羅店，評論常提味噌湯、食材、麵衣薄；評論提過座位不多、炸得仔細要等一下；可預約", mapLink: "https://maps.google.com/?cid=4719711247478245969" },
+          { group: "🍜 麵" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週二 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" },
           { name: "うどん しき Udon Shiki", info: "★4.1 · 週二晚餐 17:00–22:00 · 河原町、四条南邊，離 OMO5 祇園走路約 16 分 · 自家製麵的烏龍麵店，店家說二樓有製麵室、可預約；評論常提焗烤烏龍麵、卡邦尼烏龍麵、砂鍋烏龍麵；評論提過炸雞很好吃", mapLink: "https://maps.google.com/?cid=2200368258389745689" },
+          { group: "🥩 燒肉" },
+          { name: "焼肉 やまちゃん Yamachan", info: "★4.2 · 週二 18:00–23:30（週三休） · 蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分 · 燒肉，評論常提生牛肉、咖哩、冷麵、沙朗；評論提過套餐一人約 ¥22,000、有人覺得份量少；可預約", mapLink: "https://maps.google.com/?cid=17375856124014617641" },
+          { group: "🍶 居酒屋・家常菜" },
+          { name: "しし蔵 Shishikura", info: "★4.7 · 週二 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
+          { group: "🍢 關東煮" },
+          { name: "蛸長", info: "★4.0 · ⚠ 週二公休（只開週五–一 17:30–20:20）· 宮川町 · 關東煮老店（評論提過開了 140 年），評論常提章魚、湯葉、大根，也常提到現金；評論提過沒有價目表、結帳比預期貴", mapLink: "https://maps.google.com/?cid=1710188905337198360" },
+          { group: "🍝 義大利" },
           { name: "イタリアンレストラン DODICI", info: "★4.6 · 週二晚餐 18:00–19:00（Google 顯示的時段很短，應是入座時間；週日、週一休） · 京都市役所附近，離 OMO5 祇園走路約 27 分 · 義大利套餐，評論常提米其林、空間明亮寬敞、侍酒師；要預約", mapLink: "https://maps.google.com/?cid=14625261728093641257" },
           { name: "DA CIRO", info: "★4.9 · 週二晚餐 18:00–22:00 · 祇園北側、四条通旁大樓 5 樓，離 OMO5 祇園走路約 2 分 · 創意義大利料理，評論常提主廚、紅酒、米其林；評論提過主廚會配合過敏需求；可預約", mapLink: "https://maps.google.com/?cid=9191006045112505132" },
           { name: "mane（月・モーネ）", info: "★4.5 · 週二晚餐 18:00–22:00 · 京都市役所北邊，離 OMO5 祇園走路約 28 分 · 時尚的義大利料理，評論提過有吧台座位、前菜和鰤魚白蘿蔔；可預約", mapLink: "https://maps.google.com/?cid=11590057099761801494" },
+          { group: "🍷 法式・創作" },
           { name: "Bistro Nami", info: "★4.6 · 週二晚餐 17:00–23:00（週三休） · 新京極一帶，離 OMO5 祇園走路約 16 分 · 法式小酒館，評論常提咖哩、開胃菜；評論提過可以點半份、坐吧台看主廚做菜；可預約", mapLink: "https://maps.google.com/?cid=13187455122346823232" },
           { name: "バイタルサイン Baitarusain", info: "★4.6 · 週二 18:00–23:30（週日休） · 木屋町、四条南邊，離 OMO5 祇園走路約 10 分 · 日歐融合料理，評論常提主廚、自然酒、提拉米蘇；評論提過價格合理", mapLink: "https://maps.google.com/?cid=8114894010434897476" },
-          { name: "鮨 森學", info: "★4.9 · 週二晚餐 18:00–22:30（週三休） · 市役所前站附近，離 OMO5 祇園走路約 21 分 · omakase 壽司，評論常提主廚、omakase、清酒；店家說有稻草燒；要預約", mapLink: "https://maps.google.com/?cid=3417490308816175988" },
-          { name: "祇園 鮨 忠保", info: "★4.1 · 週二晚餐 18:00–21:00 · 祇園南側，離 OMO5 祇園走路約 3 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
-          { name: "焼肉 やまちゃん Yamachan", info: "★4.2 · 週二 18:00–23:30（週三休） · 蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分 · 燒肉，評論常提生牛肉、咖哩、冷麵、沙朗；評論提過套餐一人約 ¥22,000、有人覺得份量少；可預約", mapLink: "https://maps.google.com/?cid=17375856124014617641" },
-          { name: "Jean-Georges 京都新門前", info: "★4.7 · 週二晚餐 17:30–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 祇園走路約 7 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" },
-          { name: "鮨 花の井 Sushi Hananoi", info: "★4.8 · 週二晚餐 17:00–22:00（週一可能休）· 祇園南側、西花見小路，離 OMO5 祇園走路約 6 分 · 第三代主廚的 omakase 壽司，評論常提主廚、omakase、氣氛；評論提過會配合飲食限制調整菜單、套餐後會多送壽司；可在一休預約", mapLink: "https://maps.google.com/?cid=12302383564729667902" }
+          { name: "Jean-Georges 京都新門前", info: "★4.7 · 週二晚餐 17:30–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 祇園走路約 7 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" }
         ]
       }
     ],
@@ -4584,13 +4617,13 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "待定",
+        time: "彈性",
         place: "🎨 速寫：嵐山渡月橋",
         area: "嵐山一日遊（跟團）",
         level: "main",
         description: "",
         mapLink: "https://maps.google.com/?q=Togetsukyo+Bridge+Arashiyama",
-        note: "時間等老師通知",
+        note: "集合時間老師可能前一天才通知",
         foods: []
       },
       {
@@ -4601,7 +4634,7 @@ const itineraryData = [
         area: "嵐山一日遊（跟團）",
         description: "",
         note: "搭完遊船就離團，或吃完跟團中餐再離團；天龍寺之後不參加",
-        tip: { icon: "💡", title: "小提醒", steps: ["搭完遊船就離團：去烏丸御池吃高倉二条", "吃完跟團中餐才離團：不用另外找午餐", "離團前跟領隊說一聲", "下午行程待定"] },
+        tip: { icon: "💡", title: "小提醒", steps: ["搭完遊船就離團：去烏丸御池吃高倉二条", "吃完跟團中餐才離團：不用另外找午餐", "離團前跟領隊說一聲"] },
         foods: []
       },
       {
@@ -4730,18 +4763,24 @@ const itineraryData = [
         note: "已訂位 19:00；木屋町、四条南邊，離 OMO5 祇園走路約 10 分",
         foodsLabel: "考慮名單",
         foods: [
+          { group: "🍣 壽司" },
+          { name: "祇園 鮨 忠保", info: "★4.1 · 週三晚餐 18:00–21:00 · 祇園南側，離 OMO5 祇園走路約 3 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
+          { name: "鮨 花の井 Sushi Hananoi", info: "★4.8 · 週三晚餐 17:00–22:00（週一可能休）· 祇園南側、西花見小路，離 OMO5 祇園走路約 6 分 · 第三代主廚的 omakase 壽司，評論常提主廚、omakase、氣氛；評論提過會配合飲食限制調整菜單、套餐後會多送壽司；可在一休預約", mapLink: "https://maps.google.com/?cid=12302383564729667902" },
+          { group: "🍤 天婦羅" },
           { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週三晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
-          { name: "しし蔵 Shishikura", info: "★4.7 · 週三 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
+          { group: "🍜 麵" },
           { name: "中華そば 麦の夜明け", info: "★4.2 · 週三 11:00–15:00、18:00–20:00（週一休）· 西大路七条附近，從嵐山搭車約 40 分、從祇園約 35–40 分 · 招牌是扇貝山椒拉麵，評論最常提山椒、扇貝，也常提米其林；評論提過山椒會在面前現撒，入口右邊是售票機；晚上 20:00 就關", mapLink: "https://maps.google.com/?cid=8802936154293960321" },
           { name: "麺や 高倉二条", info: "★4.1 · 週三 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" },
+          { group: "🍶 居酒屋・家常菜" },
+          { name: "しし蔵 Shishikura", info: "★4.7 · 週三 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
+          { group: "🍝 義大利" },
           { name: "イタリアンレストラン DODICI", info: "★4.6 · 週三晚餐 18:00–19:00（Google 顯示的時段很短，應是入座時間；週日、週一休） · 京都市役所附近，離 OMO5 祇園走路約 27 分 · 義大利套餐，評論常提米其林、空間明亮寬敞、侍酒師；要預約", mapLink: "https://maps.google.com/?cid=14625261728093641257" },
           { name: "fudo（フウド）", info: "★4.6 · 週三 17:00–23:00（週二休） · 御池通，離 OMO5 祇園走路約 26 分 · 義式創作料理，評論常提鵝肝、鯛魚、烏魚子、日本葡萄酒；可線上預約", mapLink: "https://maps.google.com/?cid=2317270944221809243" },
           { name: "DA CIRO", info: "★4.9 · 週三晚餐 18:00–22:00 · 祇園北側、四条通旁大樓 5 樓，離 OMO5 祇園走路約 2 分 · 創意義大利料理，評論常提主廚、紅酒、米其林；評論提過主廚會配合過敏需求；可預約", mapLink: "https://maps.google.com/?cid=9191006045112505132" },
           { name: "mane（月・モーネ）", info: "★4.5 · 週三晚餐 18:00–22:00 · 京都市役所北邊，離 OMO5 祇園走路約 28 分 · 時尚的義大利料理，評論提過有吧台座位、前菜和鰤魚白蘿蔔；可預約", mapLink: "https://maps.google.com/?cid=11590057099761801494" },
+          { group: "🍷 法式・創作" },
           { name: "バイタルサイン Baitarusain", info: "★4.6 · 週三 18:00–23:30（週日休） · 木屋町、四条南邊，離 OMO5 祇園走路約 10 分 · 日歐融合料理，評論常提主廚、自然酒、提拉米蘇；評論提過價格合理", mapLink: "https://maps.google.com/?cid=8114894010434897476" },
-          { name: "祇園 鮨 忠保", info: "★4.1 · 週三晚餐 18:00–21:00 · 祇園南側，離 OMO5 祇園走路約 3 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
-          { name: "Jean-Georges 京都新門前", info: "★4.7 · 週三晚餐 17:00–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 祇園走路約 7 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" },
-          { name: "鮨 花の井 Sushi Hananoi", info: "★4.8 · 週三晚餐 17:00–22:00（週一可能休）· 祇園南側、西花見小路，離 OMO5 祇園走路約 6 分 · 第三代主廚的 omakase 壽司，評論常提主廚、omakase、氣氛；評論提過會配合飲食限制調整菜單、套餐後會多送壽司；可在一休預約", mapLink: "https://maps.google.com/?cid=12302383564729667902" }
+          { name: "Jean-Georges 京都新門前", info: "★4.7 · 週三晚餐 17:00–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 祇園走路約 7 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" }
         ]
       }
     ],
@@ -4760,7 +4799,7 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "跟團主要是為了參加老師的速寫；吃完中餐就離團，下午行程待定。原本跟團的下午行程收在「原本跟團的下午行程」裡，點開可以看。"
+      "跟團主要是為了參加老師的速寫；搭完遊船或吃完跟團中餐就離團（當天決定），下午在市區晃晃。原本跟團的下午行程收在「原本跟團的下午行程」裡，點開可以看。"
     ]
   },
   {
@@ -4781,7 +4820,7 @@ const itineraryData = [
         time: "07:30",
         place: "早餐：祇園附近",
         description: "",
-        note: "待定；穿和服前吃，之後吃東西比較不方便。",
+        note: "彈性；穿和服前吃，之後吃東西比較不方便",
         foods: []
       },
       {
@@ -4791,7 +4830,7 @@ const itineraryData = [
         level: "main",
         description: "",
         mapLink: "https://maps.app.goo.gl/3CU2TfYtW8oRYXyQ9",
-        note: "已預約 08:30，最晚 18:00 還。換裝＋髮型約 1 小時",
+        note: "已訂位 08:30，最晚 18:00 還。換裝＋髮型約 1 小時",
         tip: { icon: "💡", title: "小提醒", steps: ["裡面可以穿薄的發熱衣，領口、袖口不要露出來", "加購披肩或羽織比較不冷", "鞋子是草履，走石坂小心"] },
         foods: []
       },
@@ -4868,13 +4907,17 @@ const itineraryData = [
         time: "13:00",
         place: "中餐：二年坂・八坂一帶",
         description: "",
-        note: "待定；穿和服挑有座位、不用排太久的店。",
+        note: "彈性；穿和服挑有座位、不用排太久的店",
         foodsLabel: "考慮名單",
         foods: [
+          { group: "🍤 天婦羅" },
           { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週四午餐 11:00–15:30（最後點餐 14:30）（無休）· 建仁寺南邊的大和大路，離八坂之塔走路約 5 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位。⚠ 評論提過一餐約 2 小時，接 13:45 鍵善良房會太趕", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
-          { name: "京ゆば 三田久 清水店", info: "★4.6 · 週四 11:00–17:30 · 八坂之塔附近（清水 4 丁目）· 京都豆皮老店的清水店，有豆皮午餐套餐，評論常提豆漿、和牛、焙茶；評論提過湯葉三種盛很推、抹茶豆漿好喝；店家每月公告公休日，出發前確認 12 月", mapLink: "https://maps.google.com/?cid=12889986770314787188" },
+          { group: "🍱 和食" },
           { name: "京の味処 うえ村", info: "★4.5 · ⚠ 週四公休（其他天 11:30–15:00）· 清水 3 丁目、清水寺下坡 · 小小的和食店，評論常提天婦羅、蕎麥麵、鰻魚；評論提過 11:30 一開門去不用等，晚一點就要排隊", mapLink: "https://maps.google.com/?cid=14706845644219677496" },
+          { group: "🫕 豆皮・湯豆腐" },
+          { name: "京ゆば 三田久 清水店", info: "★4.6 · 週四 11:00–17:30 · 八坂之塔附近（清水 4 丁目）· 京都豆皮老店的清水店，有豆皮午餐套餐，評論常提豆漿、和牛、焙茶；評論提過湯葉三種盛很推、抹茶豆漿好喝；店家每月公告公休日，出發前確認 12 月", mapLink: "https://maps.google.com/?cid=12889986770314787188" },
           { name: "清水順正 おかべ家", info: "★3.9 · 週四 10:30–16:00（建議 15:00 前到）· 清水 2 丁目，三年坂附近 · 湯豆腐和豆皮，評論常提豆皮、湯豆腐、豆漿；評論提過豆皮鍋可以自己撈豆皮最有趣，窗邊座位看得到噴水池；可以預約，也能現場排", mapLink: "https://maps.google.com/?cid=665330198356481363" },
+          { group: "🥪 三明治・輕食" },
           { name: "Taku Sando Kiyomizu", info: "★4.7 · 週四 12:00–17:00（週日休）· 清水 4 丁目，離八坂之塔走路約 3 分 · Taku Sando 的清水店，評論常提薑汁汽水、柚子、豬排和雞肉三明治；評論提過三明治很大、樓上還有座位", mapLink: "https://maps.google.com/?cid=17786766974215031635" },
           { name: "Fuku Coffee Roastery", info: "★5.0 · 週四 08:30–16:30（LO 16:00；週一、週二休）· 清水五條站附近的あじき路地裡，離八坂之塔走路約 12 分 · 自家烘焙咖啡店，店家說午餐有不用肉的酪梨丼、季節湯品，素食也能點；評論常提豆子選擇多、可以先聞香再挑；評論提過桌上約 20 罐豆子可試聞、有台灣阿里山的豆子、飯糰好吃", mapLink: "https://maps.google.com/?cid=16989950651228929144" }
         ]
@@ -4887,20 +4930,20 @@ const itineraryData = [
         description: "",
         mapLink: "https://maps.google.com/?cid=17213507591365266552",
         hours: "10:00–18:00",
-        note: "老字號和菓子店的高台寺分店，招牌是黑蜜葛切；14:15 前往八坂神社",
+        note: "老字號和菓子店的高台寺分店，招牌是黑蜜葛切；吃完看集合時間前往八坂神社",
         tip: { icon: "💡", title: "小提醒", steps: ["評論最常提葛切和黑糖蜜", "評論提過環境清幽、客人不多，也有菊壽糖和裝在竹筒裡的水羊羹", "在八坂之塔旁邊（走路約 2 分），離八坂神社走路約 6 分"] },
         foods: []
       },
       {
         type: "fixed",
-        time: "14:15",
+        time: "彈性",
         place: "🎨 速寫：八坂神社",
         level: "main",
         transit: [{ mode: "walk", text: "6 分" }],
         description: "",
         mapLink: "https://maps.google.com/?q=Yasaka+Shrine+Kyoto",
         hours: "24 小時開放",
-        note: "畫朱紅的西樓門或舞殿的燈籠",
+        note: "下午時段，集合時間老師可能前一天才通知；畫朱紅的西樓門或舞殿的燈籠",
         tip: { icon: "💡", title: "小提醒", steps: ["西樓門正對四条通，站在對面的人行道畫整座樓門最完整", "本殿前的舞殿掛滿提燈，適合畫細節", "穿和服坐下畫畫，帶一張小坐墊或摺疊椅比較方便"] },
         shops: [
           { name: "SFERA", info: "★4.4 · 週四 12:00–19:00 · 祇園白川附近，離八坂神社西樓門走路約 8 分 · 生活器物選物店，樓上藝廊賣陶器、擺飾和藝術家作品，一樓有咖啡店 Cafe DOnG；評論提過店裡有巴哥犬", mapLink: "https://maps.google.com/?cid=11756846033163831841" }
@@ -4941,23 +4984,30 @@ const itineraryData = [
         note: "蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分，18:00 開，可預約",
         foodsLabel: "考慮名單",
         foods: [
+          { group: "🍣 壽司" },
+          { name: "鮨 森學", info: "★4.9 · 週四晚餐 18:00–22:30（週三休） · 市役所前站附近，離 OMO5 祇園走路約 21 分 · omakase 壽司，評論常提主廚、omakase、清酒；店家說有稻草燒；要預約", mapLink: "https://maps.google.com/?cid=3417490308816175988" },
+          { name: "祇園 鮨 忠保", info: "★4.1 · 週四晚餐 18:00–21:00 · 祇園南側，離 OMO5 祇園走路約 3 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
+          { name: "鮨 花の井 Sushi Hananoi", info: "★4.8 · 週四晚餐 17:00–22:00（週一可能休）· 祇園南側、西花見小路，離 OMO5 祇園走路約 6 分 · 第三代主廚的 omakase 壽司，評論常提主廚、omakase、氣氛；評論提過會配合飲食限制調整菜單、套餐後會多送壽司；可在一休預約", mapLink: "https://maps.google.com/?cid=12302383564729667902" },
+          { group: "🍤 天婦羅" },
           { name: "天ぷら圓堂 八坂本店 北邸", info: "★4.5 · 週四晚餐 17:00–21:30（最後點餐 20:30）（無休）· 建仁寺南邊的大和大路，離 OMO5 祇園走路約 11 分 · 老字號天婦羅，用京野菜和當地漁獲；店家建議紅葉季提早訂位", mapLink: "https://maps.google.com/?cid=3756701658277784162" },
-          { name: "しし蔵 Shishikura", info: "★4.7 · 週四 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
-          { name: "麺や 高倉二条", info: "★4.1 · 週四 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" },
           { name: "てんぷらの店 玄", info: "★5.0 · 週四晚餐 17:00–20:30（週三休）· 三条大橋旁、先斗町北端，離 OMO5 祇園走路約 15 分 · 夫妻經營的小天婦羅店，評論常提味噌湯、食材、麵衣薄；評論提過座位不多、炸得仔細要等一下；可預約", mapLink: "https://maps.google.com/?cid=4719711247478245969" },
+          { group: "🍜 麵" },
+          { name: "麺や 高倉二条", info: "★4.1 · 週四 11:30–14:50、18:00–21:00 · 烏丸御池附近的高倉通，離 OMO5 祇園走路約 33 分（搭地鐵比較快）· 拉麵百名店，評論常提柚子、全麥麵、沾麵；評論提過入口很隱密、沒有顯眼招牌", mapLink: "https://maps.google.com/?cid=13361978835888582613" },
           { name: "うどん しき Udon Shiki", info: "★4.1 · 週四晚餐 17:00–22:00 · 河原町、四条南邊，離 OMO5 祇園走路約 16 分 · 自家製麵的烏龍麵店，店家說二樓有製麵室、可預約；評論常提焗烤烏龍麵、卡邦尼烏龍麵、砂鍋烏龍麵；評論提過炸雞很好吃", mapLink: "https://maps.google.com/?cid=2200368258389745689" },
+          { group: "🥩 燒肉" },
+          { name: "焼肉 やまちゃん Yamachan", info: "★4.2 · 週四 18:00–23:30（週三休） · 蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分 · 燒肉，評論常提生牛肉、咖哩、冷麵、沙朗；評論提過套餐一人約 ¥22,000、有人覺得份量少；可預約", mapLink: "https://maps.google.com/?cid=17375856124014617641" },
+          { group: "🍶 居酒屋・家常菜" },
+          { name: "しし蔵 Shishikura", info: "★4.7 · 週四 18:00–24:00 · 木屋町、四条北邊，離 OMO5 祇園走路約 11 分 · 小小的居酒屋，評論常提刺身、清酒、天婦羅；評論提過老闆英文好、很健談；可以線上預約", mapLink: "https://maps.google.com/?cid=13299365198286770469" },
           { name: "ぎをん まんざら", info: "★4.3 · 週四 17:00–24:00 · 祇園南側、花見小路一帶，離 OMO5 祇園走路約 4 分 · 京都町屋裡的家常菜（おばんざい）居酒屋，評論常提清酒、氣氛、天婦羅；評論提過座位不多、沒訂位被安排坐吧台；可預約", mapLink: "https://maps.google.com/?cid=997896639512274884" },
+          { group: "🍝 義大利" },
           { name: "イタリアンレストラン DODICI", info: "★4.6 · 週四晚餐 18:00–19:00（Google 顯示的時段很短，應是入座時間；週日、週一休） · 京都市役所附近，離 OMO5 祇園走路約 27 分 · 義大利套餐，評論常提米其林、空間明亮寬敞、侍酒師；要預約", mapLink: "https://maps.google.com/?cid=14625261728093641257" },
           { name: "fudo（フウド）", info: "★4.6 · 週四 17:00–23:00（週二休） · 御池通，離 OMO5 祇園走路約 26 分 · 義式創作料理，評論常提鵝肝、鯛魚、烏魚子、日本葡萄酒；可線上預約", mapLink: "https://maps.google.com/?cid=2317270944221809243" },
           { name: "DA CIRO", info: "★4.9 · 週四晚餐 18:00–22:00 · 祇園北側、四条通旁大樓 5 樓，離 OMO5 祇園走路約 2 分 · 創意義大利料理，評論常提主廚、紅酒、米其林；評論提過主廚會配合過敏需求；可預約", mapLink: "https://maps.google.com/?cid=9191006045112505132" },
           { name: "mane（月・モーネ）", info: "★4.5 · 週四晚餐 18:00–22:00 · 京都市役所北邊，離 OMO5 祇園走路約 28 分 · 時尚的義大利料理，評論提過有吧台座位、前菜和鰤魚白蘿蔔；可預約", mapLink: "https://maps.google.com/?cid=11590057099761801494" },
+          { group: "🍷 法式・創作" },
           { name: "Bistro Nami", info: "★4.6 · 週四晚餐 17:00–23:00（週三休） · 新京極一帶，離 OMO5 祇園走路約 16 分 · 法式小酒館，評論常提咖哩、開胃菜；評論提過可以點半份、坐吧台看主廚做菜；可預約", mapLink: "https://maps.google.com/?cid=13187455122346823232" },
           { name: "バイタルサイン Baitarusain", info: "★4.6 · 週四 18:00–23:30（週日休） · 木屋町、四条南邊，離 OMO5 祇園走路約 10 分 · 日歐融合料理，評論常提主廚、自然酒、提拉米蘇；評論提過價格合理", mapLink: "https://maps.google.com/?cid=8114894010434897476" },
-          { name: "鮨 森學", info: "★4.9 · 週四晚餐 18:00–22:30（週三休） · 市役所前站附近，離 OMO5 祇園走路約 21 分 · omakase 壽司，評論常提主廚、omakase、清酒；店家說有稻草燒；要預約", mapLink: "https://maps.google.com/?cid=3417490308816175988" },
-          { name: "祇園 鮨 忠保", info: "★4.1 · 週四晚餐 18:00–21:00 · 祇園南側，離 OMO5 祇園走路約 3 分 · 江戶前壽司 omakase，評論常提主廚、醋飯；評論提過要提前預約、客人多是外國人", mapLink: "https://maps.google.com/?cid=5667950637881123719" },
-          { name: "焼肉 やまちゃん Yamachan", info: "★4.2 · 週四 18:00–23:30（週三休） · 蛸藥師、新京極一帶，離 OMO5 祇園走路約 17 分 · 燒肉，評論常提生牛肉、咖哩、冷麵、沙朗；評論提過套餐一人約 ¥22,000、有人覺得份量少；可預約", mapLink: "https://maps.google.com/?cid=17375856124014617641" },
-          { name: "Jean-Georges 京都新門前", info: "★4.7 · 週四晚餐 17:30–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 祇園走路約 7 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" },
-          { name: "鮨 花の井 Sushi Hananoi", info: "★4.8 · 週四晚餐 17:00–22:00（週一可能休）· 祇園南側、西花見小路，離 OMO5 祇園走路約 6 分 · 第三代主廚的 omakase 壽司，評論常提主廚、omakase、氣氛；評論提過會配合飲食限制調整菜單、套餐後會多送壽司；可在一休預約", mapLink: "https://maps.google.com/?cid=12302383564729667902" }
+          { name: "Jean-Georges 京都新門前", info: "★4.7 · 週四晚餐 17:30–20:30（無休）· 新門前通、The Shinmonzen 飯店內，離 OMO5 祇園走路約 7 分 · 米其林一星的法式 tasting menu，評論常提米其林、法式、飯店；評論提過晚餐一人約 ¥20,000 以上；要預約", mapLink: "https://maps.google.com/?cid=13379738844121128353" }
         ]
       }
     ],
@@ -5028,7 +5078,7 @@ const itineraryData = [
         time: "08:00",
         place: "早餐：找個地方喝咖啡＋吃早餐",
         description: "",
-        note: "祇園附近，待定。",
+        note: "祇園附近，彈性",
         foods: []
       },
       {
@@ -6326,11 +6376,11 @@ function updateCheckSummary() {
   const count = sel => { const b = [...document.querySelectorAll(sel)]; return [b.filter(x => x.checked).length, b.length]; };
   const [td, tt] = count("#todoList input[type=checkbox]");
   const [pd, pt] = count("#packSection input[data-pack]");
+  const [yd, yt] = count("#buyList input[data-buy]");
   const s = document.getElementById("checkSummary");
-  if (s) s.innerHTML = `待辦 <b>${td}</b>/${tt}<i>·</i>行李 <b>${pd}</b>/${pt}`;
+  if (s) s.innerHTML = `待辦 <b>${td}</b>/${tt}<i>·</i>行李 <b>${pd}</b>/${pt}<i>·</i>待買 <b>${yd}</b>/${yt}`;
   const a = document.getElementById("ctTodo"), b = document.getElementById("ctPack");
   if (a) a.textContent = `${td}/${tt}`; if (b) b.textContent = `${pd}/${pt}`;
-  const [yd, yt] = count("#buyList input[data-buy]");
   const c = document.getElementById("ctBuy"); if (c) c.textContent = `${yd}/${yt}`;
 }
 function bindChecklist() {
@@ -6601,9 +6651,10 @@ function bindQuickNav() {
         else if (it.time === "晚上") slot = "晚上";
         else slot = last;
         last = meal ? (meal === "早餐" ? "上午" : meal === "中餐" ? "下午" : "晚上") : slot;
-        const tbd = /待定|尚未安排/.test(name + " " + (it.note || ""));
-        const n = it.foodsLabel === "考慮名單" && it.foods ? it.foods.length : 0;
-        name = name.replace(/[（(]\s*待定\s*[)）]/, "").replace(/^待定$/, "").trim() || "待定";
+        const tbd = /待定|尚未安排|彈性/.test(name + " " + (it.note || ""));
+        const n = it.foodsLabel === "考慮名單" && it.foods ? it.foods.filter(f => f && f.name).length : 0;
+        const rawName = name;
+        name = name.replace(/[（(]\s*待定\s*[)）]/, "").replace(/^(待定|彈性)$/, "").trim() || (/彈性/.test(rawName) ? "彈性" : "待定");
         /* 已選定的中餐／晚餐：店名連到 Google Maps（擇一時每家各自連） */
         let links = null;
         if (it.chosen) {
@@ -6679,6 +6730,12 @@ function bindQuickNav() {
     }
   }, true);
 })();
+</script>
+<script>
+/* 離線使用：開過一次後，沒網路也能看行程（只在 https 網址上啟用） */
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); });
+}
 </script>
 </body>
 </html>
