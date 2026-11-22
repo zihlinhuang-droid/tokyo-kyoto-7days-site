@@ -3726,7 +3726,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-todo="restaurants"><span>訂餐廳</span></label><button type="button" class="buy-group__toggle" aria-expanded="true">3 家 <span class="buy-group__chev">▸</span></button></div>
             <ul class="buy-sub">
               <li><label><input type="checkbox" data-todo="book-tadayasu"><span>D3 午餐 祇園 鮨 忠保（要預約）</span></label></li>
-              <li><label><input type="checkbox" data-todo="book-gen"><span>D4 晚餐 てんぷらの店 玄</span></label></li>
+              <li><label><input type="checkbox" data-todo="book-gen"><span>D4 晚餐 てんぷらの店 玄（已訂位 19:00）</span></label></li>
               <li><label><input type="checkbox" data-todo="book-yamachan"><span>D6 晚餐 焼肉 やまちゃん</span></label></li>
             </ul>
           </li>
@@ -3750,7 +3750,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-buy="chasen"><span>紫竹茶筅</span></label></li>
           <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-buy="matcha"><span>抹茶粉</span></label><button type="button" class="buy-group__toggle" aria-expanded="false">3 家 <span class="buy-group__chev">▸</span></button></div>
             <ul class="buy-sub" hidden>
-              <li><label><input type="checkbox" data-buy="matcha-marukyu"><span>丸久小山園<small class="buy-note">又玄、和光、金輪、青嵐、千木之白</small></span></label></li>
+              <li><label><input type="checkbox" data-buy="matcha-marukyu"><span>丸久小山園<small class="buy-note">又玄、和光、金輪、青嵐、千木之白、雲鶴</small></span></label></li>
               <li><label><input type="checkbox" data-buy="matcha-ippodo"><span>一保堂<small class="buy-note">幾世之昔、明昔</small></span></label></li>
               <li><label><input type="checkbox" data-buy="matcha-yamamasa"><span>山政小山園<small class="buy-note">小倉山</small></span></label></li>
             </ul>
@@ -4060,7 +4060,7 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=Kanda+Ogawamachi+sports+shops",
         hours: "多數店 11:00–20:00（各店不同）",
         description: "",
-        note: "靖國通上二十多家滑雪、登山用品店；晚餐就在旁邊，18:50 前吃完出發去丸之內",
+        note: "靖國通上二十多家滑雪、登山用品店；18:50 前出發去丸之內",
         shops: [
           { name: "文房堂 神田店", info: "★4.4 · 週日 10:00–18:30 · 神保町，離小川町站走路約 8 分 · 老字號畫材店，評論常提繪畫材料、明信片、畫廊；評論提過是日本第一家做油畫顏料的店、有自家筆記本、樓上有裱框，三樓有 Bumpodo Gallery Cafe（到 18:00）", mapLink: "https://maps.google.com/?cid=5110468726085415198" }
         ],
@@ -4072,15 +4072,15 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "彈性",
-        place: "晚餐：つじ田 御茶ノ水店",
-        chosen: true,
-        mapLink: "https://maps.google.com/?cid=5233617647927100966",
-        hours: "週日 10:30–21:30",
+        time: "18:15",
+        place: "晚餐：彈性",
         description: "",
-        note: "★4.5 沾麵名店，就在雪具街這段，離小川町站走路約 1 分；販賣機點餐",
-        tip: { icon: "💡", title: "小提醒", steps: ["評論常提擠酸橘（すだち）和加七味粉一起吃", "評論提過拉麵也很好吃、出餐很快"] },
-        foods: []
+        note: "雪具街旁的つじ田、丸之內耶誕市集，或時間太趕就在新幹線上吃",
+        tip: { icon: "💡", title: "小提醒", steps: ["耶誕市集在丸之內仲通，有熱食和飲料", "要在新幹線上吃，可以在東京站買便當再上車"] },
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "つじ田 御茶ノ水店", info: "★4.5 · 週日 10:30–21:30 · 雪具街這段，離小川町站走路約 1 分 · 沾麵名店，販賣機點餐；評論常提擠酸橘（すだち）和加七味粉一起吃；評論提過拉麵也很好吃、出餐很快", mapLink: "https://maps.google.com/?cid=5233617647927100966" }
+        ]
       },
       {
         type: "fixed",
@@ -4553,13 +4553,13 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "18:30",
+        time: "19:00",
         place: "晚餐：てんぷらの店 玄",
         chosen: true,
         mapLink: "https://maps.google.com/?cid=4719711247478245969",
         hours: "週二晚餐 17:00–20:30",
         description: "",
-        note: "三条大橋旁的小天婦羅店，離 OMO5 祇園走路約 15 分，座位不多，可以先預約",
+        note: "已訂位 19:00；三条大橋旁的小天婦羅店，離 OMO5 祇園走路約 15 分",
         foodsLabel: "考慮名單",
         foods: [
           { group: "🍣 壽司" },
