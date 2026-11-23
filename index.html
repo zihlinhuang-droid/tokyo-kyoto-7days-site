@@ -3279,6 +3279,23 @@ body[data-phase="tokyo"] .day-view .trip-card__time { color: color-mix(in srgb, 
 .day-route__icon { font-size: 14px; }
 .day-route__n { font-family: var(--sans, inherit); font-weight: 400; font-size: 11px; color: color-mix(in srgb, var(--dtext) 65%, #fff); margin-left: 2px; }
 .day-route:active { transform: translateY(1px); }
+/* 手繪地圖（全區＋每日細節） */
+.day-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 2px auto 14px; }
+.day-btns .day-route { margin: 0; }
+button.day-route { border: 0; cursor: pointer; }
+#handMapModal .modal__sheet { padding-top: 26px; }
+#handMapWrap { margin: 0 -6px; min-height: 200px; }
+#handMapWrap svg { display: block; width: 100%; height: auto; }
+#handMapWrap a { text-decoration: none; }
+#handMapWrap .dtag, #handMapWrap .back { cursor: pointer; }
+#handMapWrap .hm-msg { text-align: center; padding: 40px 12px; color: var(--text-soft, #6b4a3a); font-size: 14px; }
+#handMapWrap[data-hl="1"] .blob:not([data-day="1"]), #handMapWrap[data-hl="1"] .dtag:not([data-day="1"]) { opacity: .3; }
+#handMapWrap[data-hl="2"] .blob:not([data-day="2"]), #handMapWrap[data-hl="2"] .dtag:not([data-day="2"]) { opacity: .3; }
+#handMapWrap[data-hl="3"] .blob:not([data-day="3"]), #handMapWrap[data-hl="3"] .dtag:not([data-day="3"]) { opacity: .3; }
+#handMapWrap[data-hl="4"] .blob:not([data-day="4"]), #handMapWrap[data-hl="4"] .dtag:not([data-day="4"]) { opacity: .3; }
+#handMapWrap[data-hl="5"] .blob:not([data-day="5"]), #handMapWrap[data-hl="5"] .dtag:not([data-day="5"]) { opacity: .3; }
+#handMapWrap[data-hl="6"] .blob:not([data-day="6"]), #handMapWrap[data-hl="6"] .dtag:not([data-day="6"]) { opacity: .3; }
+#handMapWrap[data-hl="7"] .blob:not([data-day="7"]), #handMapWrap[data-hl="7"] .dtag:not([data-day="7"]) { opacity: .3; }
 /* 時間軸上跟著捲動的葉子 */
 .tl-rider { position: absolute; left: 49px; top: 0; width: 24px; height: 24px; z-index: 6; pointer-events: none; opacity: 0;
   border-radius: 50%; background: #fffdf8; box-shadow: 0 0 0 1.5px var(--dmain), 0 2px 8px color-mix(in srgb, var(--dmain) 30%, transparent);
@@ -3874,6 +3891,15 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
   </div>
 </div>
 
+<div class="modal" id="handMapModal" role="dialog" aria-modal="true" aria-label="手繪地圖">
+  <div class="modal__backdrop" data-handmap-close></div>
+  <div class="modal__sheet">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-handmap-close aria-label="關閉">×</button>
+    <div id="handMapWrap"></div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    PHASE CONFIG（每天一個代表色：D1 山吹金、D2 藍、D3 藤紫、D4 朱紅、D5 松葉綠、D6 牡丹、D7 青磁）
@@ -4385,7 +4411,7 @@ const itineraryData = [
         note: "在老師住的 Airbnb「MATATABI Stay」看照片畫（不在現場）；下京區天使突抜 2 丁目（五条西洞院一帶），從一保堂搭計程車約 10 分（走路約 43 分）",
         shops: [
           { name: "大喜書店", info: "★4.6 · 週一 12:00–18:30（週三休）· 河原町五条旁，離 Airbnb 走路約 17 分 · 以設計、建築為主的選書店，評論常提建築書和雜誌；評論提過也有藝術書和繪本", mapLink: "https://maps.google.com/?cid=11006192180453377497" },
-          { name: "Gojo Mall｜五條 Mall", info: "★4.6 · Google 沒有營業時間 · 河原町五条、鴨川旁，離 Airbnb 走路約 22 分 · 老建築裡的幾間小店，各店營業日不同，去之前看 IG @5jm_official", mapLink: "https://maps.google.com/?cid=12127163134334060306" }
+          { name: "Gojo Mall｜五條 Mall", info: "★4.6 · Google 沒有營業時間 · 五条通南邊、河原町通西側，離 Airbnb 走路約 22 分 · 老建築裡的幾間小店，各店營業日不同，去之前看 IG @5jm_official", mapLink: "https://maps.google.com/?cid=12127163134334060306" }
         ],
         foods: [
           { name: "Okaffe ROASTING PARK", info: "★4.6 · 週一 09:00–17:00 · 離 Airbnb 走路約 4 分 · 自家烘焙的手沖咖啡和烘焙點心，評論常提座位多、有陽台、木質空間，也常提塔類甜點 · ⚠ 17:00 關門", mapLink: "https://maps.google.com/?cid=5605115245606284144" },
@@ -5901,7 +5927,7 @@ function renderDayContent() {
       <p class="day-meta__subtitle">${escapeHTML(day.subtitle || "")}</p>
       <div class="day-wx" id="dayWx" hidden></div>
     </div>
-    ${renderRouteBtn(day)}
+    ${renderDayBtns(day)}
 
     <nav class="day-tabs" role="tablist">
       <button class="day-tab is-active" data-tab="schedule" type="button">行程</button>
@@ -6430,6 +6456,47 @@ function bindMapModal() {
   });
 }
 
+/* ---------- 手繪地圖：全區 → 點 D 標籤看每日細節（maps/*.svg） ---------- */
+function bindHandMap() {
+  const modal = document.getElementById("handMapModal");
+  const wrap = document.getElementById("handMapWrap");
+  if (!modal || !wrap) return;
+  const cache = {};
+  async function show(key) {
+    wrap.dataset.view = key;
+    try {
+      if (!cache[key]) cache[key] = await fetch(`maps/${key}.svg`).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); });
+      wrap.innerHTML = cache[key];
+    } catch (err) {
+      wrap.innerHTML = '<p class="hm-msg">地圖載入失敗：請確認有網路，或用網站網址（GitHub Pages）打開。</p>';
+    }
+    const sheet = modal.querySelector(".modal__sheet");
+    if (sheet) sheet.scrollTop = 0;
+  }
+  function open(day) {
+    wrap.dataset.hl = day || "";
+    show("overview");
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+  document.addEventListener("click", e => {
+    const btn = e.target.closest("[data-handmap]");
+    if (btn) { open(btn.dataset.handmap); return; }
+    if (e.target.closest("[data-handmap-close]")) { close(); return; }
+    if (!modal.classList.contains("is-open")) return;
+    const tag = e.target.closest("#handMapWrap .dtag");
+    if (tag) { show("day" + tag.dataset.day); return; }
+    if (e.target.closest("#handMapWrap .back")) show("overview");
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+  });
+}
+
 /* ---------- Travel French phrasebook (TTS) ---------- */
 function bindPhrasebook() {
   if (!("speechSynthesis" in window)) return;
@@ -6519,6 +6586,10 @@ function renderRouteBtn(day) {
   if (stops.length < 2) return "";
   const url = "https://www.google.com/maps/dir/" + stops.map(s => encodeURIComponent(s)).join("/");
   return `<a class="day-route" href="${url}" target="_blank" rel="noopener"><span class="day-route__icon" aria-hidden="true">🗺️</span>今日路線</a>`;
+}
+function renderDayBtns(day) {
+  const n = parseInt(String(day.day).replace(/\D/g, ""), 10) || (itineraryData.indexOf(day) + 1);
+  return `<div class="day-btns">${renderRouteBtn(day)}<button type="button" class="day-route day-handmap" data-handmap="${n}"><span class="day-route__icon" aria-hidden="true">🏯</span>手繪地圖</button></div>`;
 }
 
 /* ===== ② 時間軸上的葉子：跟著捲動沿著時間線往下飄（滑到哪就到哪） ===== */
@@ -6662,7 +6733,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCityList();
   bindFoodModal();
   bindTipModal();
-  bindMapModal();
+  bindMapModal(); bindHandMap();
   bindQuickNav();
   bindPhrasebook();
   renderPackList();
