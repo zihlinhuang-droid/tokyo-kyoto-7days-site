@@ -2,7 +2,7 @@
    - 行程頁（index.html）：先抓網路，沒網路才用快取 → 網站更新後打開就是新版
    - 圖片、字型、圖示：先用快取，背景再更新
    - 天氣等外部網址不快取 */
-const CACHE = "tk7days-v3";
+const CACHE = "tk7days-v6";
 const PRECACHE = [
   "./", "./index.html", "./manifest.json",
   "./fonts/cinzel-latin-600-normal.woff2", "./fonts/cormorant-garamond-latin-700-italic.woff2",
@@ -13,7 +13,7 @@ const PRECACHE = [
   "./images/kyoto/food-kitsune-udon.jpg", "./images/kyoto/food-matcha-sweets.jpg", "./images/kyoto/food-tsukemono.jpg", "./images/kyoto/food-yudofu.jpg",
   "./images/kyoto/intro-bamboo.jpg", "./images/kyoto/intro-hanamikoji.jpg", "./images/kyoto/intro-hozugawa.jpg", "./images/kyoto/intro-inari.jpg", "./images/kyoto/intro-kimono.jpg", "./images/kyoto/intro-kinkakuji.jpg", "./images/kyoto/intro-kiyomizu.jpg", "./images/kyoto/intro-ninenzaka.jpg", "./images/kyoto/intro-shichimi.jpg", "./images/kyoto/intro-tofu.jpg", "./images/kyoto/intro-tofukuji.jpg", "./images/kyoto/intro-wagashi.jpg", "./images/kyoto/intro-yasaka.jpg",
   "./images/kyoto/souvenir-matcha-sweets.jpg", "./images/kyoto/souvenir-matcha.jpg", "./images/kyoto/souvenir-shichimi.jpg", "./images/kyoto/souvenir-yatsuhashi.jpg",
-  "./maps/overview.svg", "./maps/day1.svg", "./maps/day2.svg", "./maps/day3.svg", "./maps/day4.svg", "./maps/day5.svg", "./maps/day6.svg", "./maps/day7.svg",
+  "./maps/overview.svg", "./maps/day1.svg", "./maps/day2.svg", "./maps/day3.svg", "./maps/day4.svg", "./maps/day5.svg", "./maps/day6.svg",
   "./images/tokyo/intro-gotokuji.jpg", "./images/tokyo/intro-koami.jpg", "./images/tokyo/intro-ningyocho.jpg", "./images/tokyo/intro-todai.jpg"
 ];
 
