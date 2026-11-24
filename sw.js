@@ -2,7 +2,7 @@
    - 行程頁（index.html）：先抓網路，沒網路才用快取 → 網站更新後打開就是新版
    - 圖片、字型、圖示：先用快取，背景再更新
    - 天氣等外部網址不快取 */
-const CACHE = "tk7days-v2";
+const CACHE = "tk7days-v3";
 const PRECACHE = [
   "./", "./index.html", "./manifest.json",
   "./fonts/cinzel-latin-600-normal.woff2", "./fonts/cormorant-garamond-latin-700-italic.woff2",
