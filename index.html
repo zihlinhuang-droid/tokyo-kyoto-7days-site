@@ -3783,7 +3783,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-todo="checkin"><span>星宇航空線上報到（JX804）</span></label></li>
           <li><label><input type="checkbox" data-todo="esim"><span>購買日本 eSIM</span></label></li>
           <li><label><input type="checkbox" data-todo="ic"><span>iPhone 錢包加 Suica／ICOCA 並儲值</span></label></li>
-          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（20:45 左右）</span></label></li>
+          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 品川 → 京都新幹線（晚上，車次未定）</span></label></li>
           <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-todo="restaurants"><span>訂餐廳</span></label><button type="button" class="buy-group__toggle" aria-expanded="true">4 家 <span class="buy-group__chev">▸</span></button></div>
             <ul class="buy-sub">
               <li><label><input type="checkbox" data-todo="book-hiro"><span>D3 晚餐 燒肉弘商店 四條高倉（已訂位 19:30）</span></label></li>
@@ -3871,7 +3871,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
         <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Itinerary</span><span class="pretrip-section__sub">交通總表</span></h4>
         <ul>
           <li>D1 JX804 15:00–19:25 桃園 T1 → 成田 T2</li>
-          <li>D2 東海道新幹線 東京→京都（20:45 左右，待購票）</li>
+          <li>D2 東海道新幹線 品川→京都（晚上，車次未定、待購票）</li>
           <li>D7 JX823 14:00–16:20 KIX→TPE</li>
         </ul>
       </section>
@@ -4017,7 +4017,7 @@ const itineraryData = [
     dowZh: "日",
     phase: "tokyo",
     title: "東京 → 京都",
-    subtitle: "招き猫・強運神社巡禮 · 東大銀杏 · 新幹線到京都",
+    subtitle: "招き猫・強運神社巡禮 · 飛木稻荷、東大銀杏 · 新幹線到京都",
     routeCode: "TYO → KYO",
     coverImage: "images/kyoto/day2-ginkgo.jpg",
     coverAlt: "東京大學金黃的銀杏大道",
@@ -4025,40 +4025,38 @@ const itineraryData = [
     schedule: [
       {
         type: "fixed",
-        time: "07:15",
+        time: "06:45",
         place: "早餐：新橋飯店附近",
         description: "",
-        note: "07:50 前出發，今天一路往東、晚上接新幹線。",
+        note: "07:25 左右叫計程車去豪德寺（約 30 分）；今天各站之間都建議搭計程車。",
         foods: []
       },
       {
         type: "fixed",
-        time: "08:45",
+        time: "08:00",
         place: "豪德寺",
         level: "main",
-        transit: [{ mode: "mrt", text: "電車約 50 分" }],
-        route: "新橋 → 銀座線 → 半藏門線 → 東急世田谷線，宮の坂站下車走一下。07:55 左右出發。",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Gotokuji+Temple+Setagaya",
         hours: "境內 06:00–17:00",
         description: "",
-        note: "招き猫發祥地之一，上千隻白色招福貓排成一片。買招福貓在寺務所，資料寫的受理時間不一，9:00 後比較保險",
+        note: "奉納舊招福貓、買新貓。⚠ 寺務所開門時間資料不一（08:00 或 09:00），太早到可能要等",
         photoSpots: [{ name: "招福殿旁的招き猫奉納所", info: "大大小小的白色招福貓一排排堆滿架子；蹲低一點，用前排幾隻貓當前景、後面一整片當背景", mapLink: "https://maps.google.com/?q=Gotokuji+Temple+Setagaya" }],
         shops: [
-          { name: "ネコの時間", info: "⚠ 週日 10:00 才開（豪德寺預計 09:30 離開）· ★4.9 · 週日 10:00–17:00 · 豪德寺北邊，走路約 12 分 · 貓咪主題的雜貨與紀念品店；評論常提貓咪商品很多、很可愛；評論提過店員親切", mapLink: "https://maps.google.com/?cid=11032384092274884623" }
+          { name: "ネコの時間", info: "⚠ 週日 10:00 才開（豪德寺預計 09:00 離開）· ★4.9 · 週日 10:00–17:00 · 豪德寺北邊，走路約 12 分 · 貓咪主題的雜貨與紀念品店；評論常提貓咪商品很多、很可愛；評論提過店員親切", mapLink: "https://maps.google.com/?cid=11032384092274884623" }
         ],
         foods: [
           { name: "IRON COFFEE", info: "★4.7 · 週日 09:00–18:00 · 豪德寺北邊，走路約 11 分 · 以外帶為主的咖啡站，內用是站立吧台、一人一杯；評論常提咖啡師專業、手沖單品與豆子；評論提過店員英文很流利", mapLink: "https://maps.google.com/?cid=309958344979515942" },
-          { name: "GOTOKUJI CAFE piece of peace", info: "⚠ 週日 11:00 才開（豪德寺預計 09:30 離開）· ★5.0 · 週日 11:00–18:00 · 豪德寺北邊，走路約 7 分 · 小咖啡店，評論常提店狗很可愛、老闆親切、適合逛完豪德寺來坐；評論提過甜甜圈是濕軟口感", mapLink: "https://maps.google.com/?cid=9301217057327093338" },
-          { name: "三輪亭 Cucina Tirolese", info: "⚠ 週日 11:30 才開（豪德寺預計 09:30 離開）· ★4.4 · 週日 11:30–15:00、18:00–22:00 · 豪德寺北邊，走路約 13 分 · 南蒂羅爾（北義＋奧地利）料理，評論常提要先訂位；評論提過門口左側有自販機可買料理外帶", mapLink: "https://maps.google.com/?cid=4850302665206558306" }
+          { name: "GOTOKUJI CAFE piece of peace", info: "⚠ 週日 11:00 才開（豪德寺預計 09:00 離開）· ★5.0 · 週日 11:00–18:00 · 豪德寺北邊，走路約 7 分 · 小咖啡店，評論常提店狗很可愛、老闆親切、適合逛完豪德寺來坐；評論提過甜甜圈是濕軟口感", mapLink: "https://maps.google.com/?cid=9301217057327093338" },
+          { name: "三輪亭 Cucina Tirolese", info: "⚠ 週日 11:30 才開（豪德寺預計 09:00 離開）· ★4.4 · 週日 11:30–15:00、18:00–22:00 · 豪德寺北邊，走路約 13 分 · 南蒂羅爾（北義＋奧地利）料理，評論常提要先訂位；評論提過門口左側有自販機可買料理外帶", mapLink: "https://maps.google.com/?cid=4850302665206558306" }
         ]
       },
       {
         type: "fixed",
-        time: "10:30",
+        time: "09:30",
         place: "小網神社",
         level: "main",
-        transit: [{ mode: "mrt", text: "電車約 1 小時" }],
-        route: "豪德寺站 → 小田急線 → 日比谷線（或半藏門線），人形町一帶下車走過去。09:30 左右出發。",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Koami+Jinja+Shrine+Nihonbashi",
         hours: "御守授與 09:00–17:00",
         description: "",
@@ -4071,14 +4069,25 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "11:45",
+        time: "10:30",
+        place: "飛木稻荷神社",
+        level: "main",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
+        mapLink: "https://maps.google.com/?cid=12015596351793108901",
+        hours: "週日 09:00–16:00",
+        description: "",
+        note: "欣賞大銀杏；評論常提經歷戰火還活下來的御神木銀杏，評論提過抬頭就看得到晴空塔",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "11:15",
         place: "今戶神社",
         level: "main",
-        transit: [{ mode: "mrt", text: "電車＋公車約 30 分" }],
-        route: "人形町 → 淺草線 → 轉公車到今戶附近。11:15 左右出發。",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Imado+Jinja+Shrine+Asakusa",
         description: "",
-        note: "招き猫發祥地之一，也是有名的結緣神社；圓形招き猫繪馬、結緣御守很可愛",
+        note: "還願。招き猫發祥地之一，也是有名的結緣神社；圓形招き猫繪馬、結緣御守很可愛",
         tip: { icon: "💡", title: "小提醒", steps: ["境內偶爾會出現白貓「なみちゃん」，遇到算幸運", "這裡也是今戶燒的發源地，有今戶燒發祥之地碑", "新選組沖田總司傳說在這裡過世，境內有紀念碑"] },
         foods: [
           { name: "浅草梅園", info: "★4.1 · 週日 10:00–18:00 · 淺草寺附近，離今戶神社走路約 18 分（去淺草站搭車時順路）· 老字號甘味處，評論最常提善哉（紅豆湯）、杏蜜，也常提銅鑼燒；評論提過門口有露天座位", mapLink: "https://maps.google.com/?cid=11034619643483869312" },
@@ -4088,13 +4097,12 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "13:00",
+        time: "12:15",
         place: "中餐：彈性",
-        transit: [{ mode: "mrt", text: "電車約 37 分" }],
-        route: "今戶神社走到淺草站 → 銀座線 → 大江戶線，本鄉三丁目下車。12:15 左右出發。",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Hongo-sanchome+Station",
         description: "",
-        note: "本鄉三丁目一帶，看考慮名單",
+        note: "12:15–13:00 午餐＋交通緩衝：計程車到本鄉三丁目約 20 分，吃飯時間不多，看考慮名單挑快的",
         foodsLabel: "考慮名單",
         foods: [
           { name: "中華蕎麦 にし乃", info: "★4.3 · 週日 11:00–15:00、18:00–21:00 · 本鄉三丁目，離東大銀杏並木走路約 14 分 · 米其林推薦的淡麗中華蕎麥，評論常提餛飩、山椒拉麵；評論提過販賣機點餐、只收現金、吧檯約十個位子；店家公告 11/17、11/27 休（11/29 有開）", mapLink: "https://maps.google.com/?cid=3626315286614323333" },
@@ -4104,14 +4112,14 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "14:00",
+        time: "13:00",
         place: "東大 銀杏並木",
         level: "main",
         transit: [{ mode: "walk", text: "走路約 14 分" }],
-        route: "從本鄉三丁目沿本鄉通往北走到正門。13:45 左右出發。",
+        route: "從本鄉三丁目沿本鄉通往北走到正門。",
         mapLink: "https://maps.google.com/?cid=17591354007417491744",
         description: "",
-        note: "正門到安田講堂的銀杏大道，11 月底通常正黃",
+        note: "13:00–14:30 銀杏散策、拍照；正門到安田講堂的銀杏大道，11 月底通常正黃",
         photoSpots: [{ name: "正門往安田講堂的銀杏大道", info: "站在正門內側往前拍，兩排金黃銀杏夾道、盡頭是紅磚安田講堂", mapLink: "https://maps.google.com/?q=University+of+Tokyo+Main+Gate+Hongo" }],
         tip: { icon: "💡", title: "小提醒", steps: ["赤門近年因耐震問題封閉，從正門進出", "週日校園安靜，學生食堂不一定有開", "銀杏果落地會有味道，鞋子小心"] },
         foods: [
@@ -4123,15 +4131,14 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "15:10",
+        time: "15:00",
         place: "神田小川町雪具街",
         level: "main",
-        transit: [{ mode: "mrt", text: "電車約 18 分" }],
-        route: "本鄉三丁目搭丸之內線到淡路町，走到小川町。14:45 左右出發。",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Kanda+Ogawamachi+sports+shops",
         hours: "多數店 11:00–20:00（各店不同）",
         description: "",
-        note: "靖國通上二十多家滑雪、登山用品店；18:50 前出發去丸之內",
+        note: "15:00–17:00 購物；靖國通上二十多家滑雪、登山用品店，17:20 前出發去丸之內",
         shops: [
           { name: "文房堂 神田店", info: "★4.4 · 週日 10:00–18:30 · 神保町，離小川町站走路約 8 分 · 老字號畫材店，評論常提繪畫材料、明信片、畫廊；評論提過是日本第一家做油畫顏料的店、有自家筆記本、樓上有裱框，三樓有 Bumpodo Gallery Cafe（到 18:00）", mapLink: "https://maps.google.com/?cid=5110468726085415198" }
         ],
@@ -4143,34 +4150,21 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "18:15",
-        place: "晚餐：彈性",
-        description: "",
-        note: "雪具街旁的つじ田、丸之內耶誕市集，或時間太趕就在新幹線上吃",
-        tip: { icon: "💡", title: "小提醒", steps: ["耶誕市集在丸之內仲通，有熱食和飲料", "要在新幹線上吃，可以在東京站買便當再上車"] },
-        foodsLabel: "考慮名單",
-        foods: [
-          { name: "つじ田 御茶ノ水店", info: "★4.5 · 週日 10:30–21:30 · 雪具街這段，離小川町站走路約 1 分 · 沾麵名店，販賣機點餐；評論常提擠酸橘（すだち）和加七味粉一起吃；評論提過拉麵也很好吃、出餐很快", mapLink: "https://maps.google.com/?cid=5233617647927100966" }
-        ]
-      },
-      {
-        type: "fixed",
-        time: "19:00",
+        time: "17:30",
         place: "葛來分多交誼廳｜新丸ビル 3F",
         level: "minor",
         area: "丸之內耶誕市集",
-        areaSub: "19:00 起・天黑後燈光全亮，哈利波特耶誕裝置邊走邊拍",
-        transit: [{ mode: "mrt", text: "電車約 7 分" }],
-        route: "淡路町搭丸之內線到東京站，走到新丸ビル。18:50 左右出發。",
+        areaSub: "17:30–18:45・天黑後燈光全亮，哈利波特耶誕裝置邊走邊拍",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Shin-Marunouchi+Building",
         hours: "週日到 20:00",
         description: "",
-        note: "重現聖誕節的交誼廳，還有哈利波特限定周邊快閃店；⚠ 週日 20:00 關",
+        note: "重現聖誕節的交誼廳，還有哈利波特限定周邊快閃店",
         foods: []
       },
       {
         type: "fixed",
-        time: "19:15",
+        time: "17:50",
         place: "霍格華茲魔法雪樹｜丸ビル 1F",
         level: "minor",
         area: "丸之內耶誕市集",
@@ -4183,7 +4177,7 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "19:30",
+        time: "18:10",
         place: "蜂蜜公爵耶誕街景｜丸之內仲通",
         level: "minor",
         area: "丸之內耶誕市集",
@@ -4196,41 +4190,51 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "19:40",
+        time: "18:30",
         place: "金探子耶誕樹｜丸之內 Brick Square",
         level: "minor",
         area: "丸之內耶誕市集",
         mapLink: "https://maps.google.com/?q=Marunouchi+Brick+Square",
         hours: "週日到 20:00",
         description: "",
-        note: "金探子與燈光構成的戶外聖誕裝置，很適合天黑後拍照；⚠ 週日 20:00 關",
+        note: "金探子與燈光構成的戶外聖誕裝置，很適合天黑後拍照",
         foods: []
       },
       {
         type: "fixed",
-        time: "20:00",
+        time: "",
+        place: "晚餐：彈性",
+        description: "",
+        note: "丸之內耶誕市集買熱食，或到品川站買便當在新幹線上吃",
+        tip: { icon: "💡", title: "小提醒", steps: ["耶誕市集在丸之內仲通，有熱食和飲料", "要在新幹線上吃，可以在品川站買便當再上車"] },
+        foodsLabel: "考慮名單",
+        foods: [
+          { name: "つじ田 御茶ノ水店", info: "★4.5 · 週日 10:30–21:30 · 雪具街這段，離小川町站走路約 1 分 · 沾麵名店，販賣機點餐；評論常提擠酸橘（すだち）和加七味粉一起吃；評論提過拉麵也很好吃、出餐很快", mapLink: "https://maps.google.com/?cid=5233617647927100966" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "19:00",
         place: "回新橋飯店拿行李",
         level: "minor",
-        transit: [{ mode: "mrt", text: "電車約 13 分" }],
-        route: "從 Brick Square 走到有樂町，搭 JR 一站到新橋。",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Daiwa+Roynet+Hotel+Shimbashi",
         description: "",
-        note: "Daiwa Roynet 新橋",
+        note: "Daiwa Roynet 新橋；拿完行李去品川搭新幹線",
         foods: []
       },
       {
         type: "transit",
-        time: "20:45",
-        from: "東京",
+        time: "晚上",
+        from: "品川",
         to: "京都",
         flightNo: "東海道新幹線",
-        timeRange: "20:45 – 22:55",
-        dualTime: true,
-        note: "預計搭 20:45 左右的班次，還沒買票。新橋到東京站 JR 約 10 分，站內走到新幹線剪票口再抓 10 分；のぞみ約 2 小時 10 分。"
+        timeRange: "車次未定",
+        note: "從品川上車，車次還沒定、還沒買票；品川到京都のぞみ約 2 小時 10 分。"
       },
       {
         type: "fixed",
-        time: "23:30",
+        time: "抵達後",
         place: "飯店 Check in · OMO5 京都三条",
         level: "minor",
         transit: [{ mode: "car", text: "建議搭計程車" }],
@@ -4261,6 +4265,12 @@ const itineraryData = [
         text: "## 從濕地到江戶最熱鬧的町\n江戶以前這一帶是一大片濕地，為了水運方便才填土造町。江戶幕府開府後，人形町一帶成為商業的町，連幕府公認的吉原遊郭一開始也設在這裡：1617 年核准、1618 年開業，1657 年明曆大火前後才整個遷到淺草北邊的千束。\n## 歌舞伎與人形淨瑠璃的芝居町\n江戶初期，人形淨瑠璃等芝居小屋原本在京橋一帶，因為離江戶城太近，被命令遷到現在的人形町附近。1651 年歌舞伎的猿若座（後來的中村座）遷到下堺町；1634 年村山座（後來的市村座）在葺屋町開業，兩座都在現在的人形町三丁目一帶。中村座、市村座加上木挽町（今天的銀座）的森田座，就是紅極一時的「江戶三座」。周圍小芝居和茶屋林立，從大名到庶民都來這裡看戲。\n## 「人形町」名字的由來\n芝居小屋多，做人偶、修人偶、賣人偶和操偶的人形師也大量住在這裡，於是被俗稱「人形町」。關東大地震後的區劃整理，1933 年才正式成為町名。\n## 水天宮帶來的人潮\n1872 年，以安產聞名的水天宮遷到人形町南側的蛎殼町，參拜客讓人形町通變成繁華的商店街；之後市電、1962 年地下鐵通車，人潮更多。小網神社也在走路範圍內。\n## 甘酒橫丁\n從人形町站前的甘酒橫丁交叉口往明治座，約 400 公尺的林蔭道。名字來自明治初年橫丁入口一家生意很好的甘酒店「尾張屋」。尾張屋後來關了，名字一度快被遺忘，1980 年代才由町民重新叫回來。現在還能在明治 40 年創業的豆腐店「双葉」店頭，喝到用特製麴做的甘酒。\n## 老舖散步\n沿路有很多百年老店：1760 年創業的軍雞料理「玉ひで」、葛籠店「岩井つづら」、三味線撥子的「ばち英」、京菓子司「彦九郎」的わらび餅、向田邦子常去的大正 8 年創業喫茶「快生軒」。人形燒的發祥地也是人形町，現在只剩三家，其中「板倉屋」最早做出七福神人形燒。\n## 小說裡的人形町\n東野圭吾的《新參者》（加賀恭一郎系列）就以人形町為舞台，書裡寫甘酒橫丁唯一的優點是「還留著江戶情緒」，劇中出現的店也散在甘酒橫丁一帶。\n## 這次怎麼逛\nD2 早上 10:30 在小網神社，附近吃食清單裡的初音、魚久都在這一區；時間夠的話，可以從人形町站往甘酒橫丁走一小段再搭車去淺草。"
       },
       {
+        title: "飛木稻荷神社｜從天飛來的銀杏與戰火後重生的御神木",
+        image: "",
+        mapLink: "https://maps.google.com/?cid=12015596351793108901",
+        text: "## 飛來的銀杏枝\n社名的「飛木」來自境內的御神木大銀杏。神社流傳的說法是：很久以前一場暴風雨，把一根銀杏樹枝吹到這裡、插進土裡，後來竟然生根長成大樹。當地人覺得這是吉兆，就在這裡祭祀稻荷神，「飛來的木」也成了神社的名字。祭神是掌管穀物與食物的宇迦之御魂神。創建年代因為多次水災、火災燒掉古文書而說不準，明治 2 年（1869）的神社明細帳記為應仁 2 年（1468）；社傳也說是鎌倉幕府滅亡後，逃到這一帶的北條一族奉祀稻荷大明神開始的。\n## 「身代わり」的燒焦銀杏\n1945 年 3 月 10 日東京大空襲，押上一帶陷入火海。大銀杏的樹幹被燒得焦黑，大約 15 公尺以上的樹冠整個燒掉，但它擋住了往這邊延燒的火，守住神社和附近的民家，所以被叫做「身代わり飛木の焼けイチョウ」——替大家擋災的燒焦銀杏。戰後幾年，焦黑的樹幹又冒出新芽（地下的根還活著），對正在重建家園的居民是很大的鼓舞。現在走近看，樹幹上還看得到黑色的焦痕。\n## 現場看什麼\n大銀杏推估樹齡 500～600 年以上，胸高樹圍約 4.8 公尺、樹高約 15 公尺，被認為是墨田區最老的一棵樹；1976 年列為墨田區保護樹木，也是區指定的文化財。11 月底通常正黃。站在手水舍前往上看，枝葉間有一段長得像一隻往西望的狐狸，被稱作「お狐さま」，可以找找看；御朱印帳和繪馬也用銀杏圖案。神社藏在押上的住宅區裡，離東京晴空塔很近，評論提過在境內抬頭就看得到塔。"
+      },
+      {
         title: "東京大學｜銀杏大道與安田講堂",
         image: "images/tokyo/intro-todai.jpg",
         mapLink: "https://maps.google.com/?q=University+of+Tokyo+Hongo+Campus",
@@ -4268,8 +4278,8 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "D2 的東京五站維持原本的順序：豪德寺 → 小網神社 → 今戶神社 → 東大 → 小川町。",
-      "新幹線還沒買票：可以用 smart EX 先訂，或當天在東京站買；週日晚上往西的班次人多，建議先訂指定席。"
+      "D2 東京站點順序：豪德寺 → 小網神社 → 飛木稻荷 → 今戶神社 → 東大 → 神田雪具街 → 丸之內，各站之間建議搭計程車；時段是暫定目標，當天車程以 Google Maps 為準。",
+      "新幹線從品川上車、還沒買票：可以用 smart EX 先訂；週日晚上往西的班次人多，建議先訂指定席。"
     ]
   },
   {
@@ -5897,10 +5907,10 @@ const DAY_CITY_LABELS = [
 /* Specific per-day chip label (shown on city-chapter day chips) */
 const DAY_CHIP_LABELS = [
   "抵達東京",        // D1
-  "招き猫巡禮",      // D2
-  "Free day",        // D3
+  "招き猫 · 丸之內", // D2
+  "寺町散策 · 速寫", // D3
   "東福寺 · 稻荷",   // D4
-  "嵐山",            // D5
+  "嵐山 · 御苑單車", // D5
   "和服 · 清水寺",   // D6
   "返程"             // D7
 ];
