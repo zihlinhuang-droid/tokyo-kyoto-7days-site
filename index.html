@@ -3783,10 +3783,9 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
           <li><label><input type="checkbox" data-todo="checkin"><span>星宇航空線上報到（JX804）</span></label></li>
           <li><label><input type="checkbox" data-todo="esim"><span>購買日本 eSIM</span></label></li>
           <li><label><input type="checkbox" data-todo="ic"><span>iPhone 錢包加 Suica／ICOCA 並儲值</span></label></li>
-          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 品川 → 京都新幹線（晚上，車次未定）</span></label></li>
-          <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-todo="restaurants"><span>訂餐廳</span></label><button type="button" class="buy-group__toggle" aria-expanded="true">4 家 <span class="buy-group__chev">▸</span></button></div>
+          <li><label><input type="checkbox" data-todo="shinkansen"><span>買 D2 東京 → 京都新幹線（20:00）</span></label></li>
+          <li class="buy-group"><div class="buy-group__row"><label><input type="checkbox" data-todo="restaurants"><span>訂餐廳</span></label><button type="button" class="buy-group__toggle" aria-expanded="true">3 家 <span class="buy-group__chev">▸</span></button></div>
             <ul class="buy-sub">
-              <li><label><input type="checkbox" data-todo="book-hiro"><span>D3 晚餐 燒肉弘商店 四條高倉（已訂位 19:30）</span></label></li>
               <li><label><input type="checkbox" data-todo="book-fudo"><span>D3 宵夜 fudo（已訂位 21:00）</span></label></li>
               <li><label><input type="checkbox" data-todo="book-gen"><span>D4 晚餐 てんぷらの店 玄（已訂位 19:00）</span></label></li>
               <li><label><input type="checkbox" data-todo="book-karoku"><span>D6 晚餐 炭火焼肉 祇園 鹿六（已訂位 20:00）</span></label></li>
@@ -3871,7 +3870,7 @@ body[data-phase="depart"] .day-view { --isoft: url("data:image/svg+xml;utf8,<svg
         <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Itinerary</span><span class="pretrip-section__sub">交通總表</span></h4>
         <ul>
           <li>D1 JX804 15:00–19:25 桃園 T1 → 成田 T2</li>
-          <li>D2 東海道新幹線 品川→京都（晚上，車次未定、待購票）</li>
+          <li>D2 東海道新幹線 東京→京都（20:00 發車）</li>
           <li>D7 JX823 14:00–16:20 KIX→TPE</li>
         </ul>
       </section>
@@ -4205,8 +4204,8 @@ const itineraryData = [
         time: "",
         place: "晚餐：彈性",
         description: "",
-        note: "丸之內耶誕市集買熱食，或到品川站買便當在新幹線上吃",
-        tip: { icon: "💡", title: "小提醒", steps: ["耶誕市集在丸之內仲通，有熱食和飲料", "要在新幹線上吃，可以在品川站買便當再上車"] },
+        note: "丸之內耶誕市集買熱食，或到東京站買便當在新幹線上吃",
+        tip: { icon: "💡", title: "小提醒", steps: ["耶誕市集在丸之內仲通，有熱食和飲料", "要在新幹線上吃，可以在東京站買便當再上車"] },
         foodsLabel: "考慮名單",
         foods: [
           { name: "つじ田 御茶ノ水店", info: "★4.5 · 週日 10:30–21:30 · 雪具街這段，離小川町站走路約 1 分 · 沾麵名店，販賣機點餐；評論常提擠酸橘（すだち）和加七味粉一起吃；評論提過拉麵也很好吃、出餐很快", mapLink: "https://maps.google.com/?cid=5233617647927100966" }
@@ -4220,17 +4219,17 @@ const itineraryData = [
         transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.google.com/?q=Daiwa+Roynet+Hotel+Shimbashi",
         description: "",
-        note: "Daiwa Roynet 新橋；拿完行李去品川搭新幹線",
+        note: "Daiwa Roynet 新橋；拿完行李 19:30 前搭計程車回東京站",
         foods: []
       },
       {
         type: "transit",
-        time: "晚上",
-        from: "品川",
+        time: "20:00",
+        from: "東京",
         to: "京都",
         flightNo: "東海道新幹線",
-        timeRange: "車次未定",
-        note: "從品川上車，車次還沒定、還沒買票；品川到京都のぞみ約 2 小時 10 分。"
+        timeRange: "20:00 發車",
+        note: "東京到京都のぞみ約 2 小時 15 分。"
       },
       {
         type: "fixed",
@@ -4279,7 +4278,7 @@ const itineraryData = [
     ],
     extraNotes: [
       "D2 東京站點順序：豪德寺 → 小網神社 → 飛木稻荷 → 今戶神社 → 東大 → 神田雪具街 → 丸之內，各站之間建議搭計程車；時段是暫定目標，當天車程以 Google Maps 為準。",
-      "新幹線從品川上車、還沒買票：可以用 smart EX 先訂；週日晚上往西的班次人多，建議先訂指定席。"
+      "新幹線 20:00 從東京站上車：週日晚上往西的班次人多，提早到月台。"
     ]
   },
   {
@@ -4289,7 +4288,7 @@ const itineraryData = [
     dowZh: "一",
     phase: "free",
     title: "京都 Free Day",
-    subtitle: "自由安排 · 晚上跟大家吃飯",
+    subtitle: "寺町散策 · 速寫 · 清水寺夜楓",
     routeCode: "KYOTO",
     coverImage: "images/kyoto/day3-yasaka.jpg",
     coverAlt: "八坂之塔與二年坂的石板路",
@@ -4445,9 +4444,12 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "16:00",
+        time: "16:20",
         place: "🎨 速寫：金閣寺・清水寺",
         level: "main",
+        area: "老師的 Airbnb",
+        areaSub: "16:20 起・速寫，晚餐邊畫邊吃，19:00 出發去清水寺",
+        areaTimes: true,
         transit: [{ mode: "car", text: "建議搭計程車" }],
         mapLink: "https://maps.app.goo.gl/8HuTa122kwhnD1EP9",
         routeQ: "34.996833,135.7542734",
@@ -4465,15 +4467,13 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "19:30",
-        place: "晚餐：燒肉弘商店 四條高倉",
-        level: "main",
-        transit: [{ mode: "walk", text: "20 分" }],
-        mapLink: "https://maps.google.com/?cid=9113547614424280519",
-        hours: "17:00–23:00",
+        time: "",
+        place: "晚餐：在 Airbnb 邊畫邊吃",
+        area: "老師的 Airbnb",
+        mapLink: "https://maps.app.goo.gl/8HuTa122kwhnD1EP9",
         description: "",
-        note: "已訂位 19:30；四条高倉，從速寫 Airbnb 走路約 20 分；21:00 fudo 已訂位、走路約 16 分，20:40 前要出發",
-        tip: { icon: "💡", title: "小提醒", steps: ["燒肉弘：★4.5，評論常提生牛肉、船形拼盤；評論提過肉有先調味、偏鹹；官網可線上預約", "清水寺秋季夜間特別拜觀 11/21–11/30，今晚是最後一天（最後入場 21:00）", "D6 和服日只會在白天去清水寺，想看夜楓今晚是唯一機會", "考慮名單的週一時間：Google 只顯示 11/23 國定假日那天的時間，平日週一出發前再確認一次；DODICI、DA CIRO、mane、花の井 假日週一沒開，所以沒放"] },
+        note: "速寫完接著在老師的 Airbnb「MATATABI Stay」邊畫邊吃",
+        tip: { icon: "💡", title: "小提醒", steps: ["考慮名單的週一時間：Google 只顯示 11/23 國定假日那天的時間，平日週一出發前再確認一次；DODICI、DA CIRO、mane、花の井 假日週一沒開，所以沒放"] },
         foodsLabel: "考慮名單",
         foods: [
           { group: "🍣 壽司" },
@@ -4491,11 +4491,25 @@ const itineraryData = [
       },
       {
         type: "fixed",
+        time: "19:00",
+        place: "清水寺 夜間特別拜觀・夜楓",
+        level: "main",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
+        mapLink: "https://maps.google.com/?q=Kiyomizu-dera",
+        hours: "最後入場 21:00（夜間拜觀到 11/30）",
+        description: "",
+        note: "今晚是秋季夜間拜觀最後一天，人會很多；21:00 fudo 已訂位，20:30 前離開清水寺",
+        tip: { icon: "💡", title: "小提醒", steps: ["D6 和服日只會在白天去清水寺，想看夜楓今晚是唯一機會", "坡道人多、車子不好靠近，計程車可能要在東大路下車，再走上坡", "⚠ 今年的夜間開放時間官網還沒查到，去年是 17:30 開始、21:00 停止入場，出發前再看一次"] },
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "21:00",
         place: "宵夜：fudo（フウド）",
         routeQ: "fudo 中京区 御池通",
         level: "main",
         mapLink: "https://maps.google.com/?cid=2317270944221809243",
+        transit: [{ mode: "car", text: "建議搭計程車" }],
         hours: "週一 17:00–23:00（週二休）",
         description: "",
         note: "已訂位 21:00；御池通，離 OMO5 三条走路約 8 分",
@@ -4518,7 +4532,7 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "今天全天自由，晚上集合吃飯；地點決定後再補上。"
+      "晚上在老師的 Airbnb 邊畫邊吃，19:00 出發去清水寺看夜楓（今年秋季夜間拜觀最後一晚），21:00 fudo 宵夜。"
     ]
   },
   {
@@ -5908,7 +5922,7 @@ const DAY_CITY_LABELS = [
 const DAY_CHIP_LABELS = [
   "抵達東京",        // D1
   "招き猫 · 丸之內", // D2
-  "寺町散策 · 速寫", // D3
+  "散策 · 速寫 · 夜楓", // D3
   "東福寺 · 稻荷",   // D4
   "嵐山 · 御苑單車", // D5
   "和服 · 清水寺",   // D6
